@@ -45,12 +45,14 @@ export default function Header() {
             >
               종합사주분석
             </Link>
-            <Link
-              href="/mypage"
-              className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white md:text-base"
-            >
-              My Page
-            </Link>
+            {!isLoading && user && (
+              <Link
+                href="/mypage"
+                className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white md:text-base"
+              >
+                My Page
+              </Link>
+            )}
             {!isLoading && (
               user ? (
                 <motion.button
