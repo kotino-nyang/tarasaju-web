@@ -6,9 +6,12 @@ import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+import { useCart } from "@/contexts/CartContext";
+
 export default function MyPage() {
   const { user, isLoading, signOut } = useAuth();
   const router = useRouter();
+  const { items, removeItem } = useCart();
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -90,6 +93,60 @@ export default function MyPage() {
                 </h1>
                 <p className="text-sm text-gray-500">{user.email}</p>
               </div>
+            </div>
+          </div>
+
+          {/* Shopping Cart Section */}
+          <div className="mb-12">
+            <h2 className="mb-4 text-xl font-medium text-gray-900">장바구니</h2>
+            <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+              {items.length === 0 ? (
+                <div className="p-12 text-center text-gray-500">
+                  <p className="mb-2 text-lg font-medium text-gray-700">
+                    장바구니가 비어있습니다
+                  </p>
+                  <Link
+                    href="/analysis"
+                    className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                  >
+                    쇼핑하러 가기
+                  </Link>
+                </div>
+              ) : (
+                <div className="divide-y divide-gray-100">
+                  {items.map((item) => (
+                    <div key={item.id} className="flex items-center gap-4 p-6 hover:bg-gray-50 transition-colors">
+                      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-gray-100 bg-gray-50">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="tex-base font-medium text-gray-900 mb-1">{item.title}</h3>
+                        <p className="text-sm text-gray-500 mb-1">{item.option}</p>
+                        <p className="text-sm font-bold text-blue-600">{item.price.toLocaleString()}원</p>
+                      </div>
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-red-500 transition-colors"
+                        aria-label="Remove item"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                  <div className="bg-gray-50 p-6 flex justify-between items-center">
+                    <span className="font-medium text-gray-900">총 결제금액</span>
+                    <span className="text-xl font-bold text-blue-600">
+                      {items.reduce((sum, item) => sum + item.price, 0).toLocaleString()}원
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
