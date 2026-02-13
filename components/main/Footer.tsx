@@ -13,7 +13,7 @@ export default function Footer() {
       <footer className="relative bg-gray-900 py-8 text-white">
         {/* Gradient divider */}
         <div
-          className="absolute left-0 top-0 h-px w-full"
+          className="absolute left-0 top-0 h-px w-full hidden md:block"
           style={{
             background: "linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.3) 50%, transparent 100%)",
           }}

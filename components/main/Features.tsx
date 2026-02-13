@@ -49,7 +49,7 @@ export default function Features() {
     >
       {/* Gradient divider */}
       <div
-        className="absolute left-0 top-0 h-px w-full"
+        className="absolute left-0 top-0 h-px w-full hidden md:block"
         style={{
           background: "linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.3) 50%, transparent 100%)",
         }}
@@ -72,11 +72,11 @@ export default function Features() {
           transition={{ duration: 0.8 }}
           className="mb-16 text-center"
         >
-          <h2 className="mb-4 text-3xl font-light text-white md:text-4xl lg:text-5xl">
-            정밀 사주 분석으로 <span className="font-bold text-[#60a5fa]">인생의 지도</span>를 받으세요
+          <h2 className="mb-4 text-3xl font-light text-white md:text-4xl lg:text-5xl px-4">
+            정밀 사주 분석으로 <br className="md:hidden" /> <span className="font-bold text-[#60a5fa]">인생의 지도</span>를 받으세요
           </h2>
-          <p className="mx-auto max-w-2xl text-white/60">
-            6가지 핵심 영역에 대한 체계적인 분석을 통해 당신의 삶을 명확하게 정리합니다
+          <p className="mx-auto max-w-2xl text-white/60 px-6">
+            6가지 핵심 영역에 대한 체계적인 분석을 통해 <br className="md:hidden" /> 당신의 삶을 명확하게 정리합니다
           </p>
         </motion.div>
 

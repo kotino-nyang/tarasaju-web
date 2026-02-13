@@ -11,7 +11,7 @@ export default function Pricing() {
     >
       {/* Gradient divider */}
       <div
-        className="absolute left-0 top-0 h-px w-full"
+        className="absolute left-0 top-0 h-px w-full hidden md:block"
         style={{
           background: "linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.3) 50%, transparent 100%)",
         }}
@@ -34,11 +34,11 @@ export default function Pricing() {
           transition={{ duration: 0.8 }}
           className="mb-16 text-center"
         >
-          <h2 className="mb-4 text-3xl font-light text-white md:text-4xl lg:text-5xl">
-            합리적인 <span className="font-bold text-[#60a5fa]">가격</span>으로 시작하세요
+          <h2 className="mb-4 text-3xl font-light text-white md:text-4xl lg:text-5xl px-4">
+            합리적인 가격으로 <br className="md:hidden" /> <span className="font-bold text-[#60a5fa]">시작하세요</span>
           </h2>
-          <p className="mx-auto max-w-2xl text-white/60">
-            한 번의 결제로 평생 간직할 수 있는 나만의 사주 분석 리포트
+          <p className="mx-auto max-w-2xl text-white/60 px-6">
+            한 번의 결제로 평생 간직할 수 있는 <br className="md:hidden" /> <span className="md:inline text-[#60a5fa]">나만의 사주 분석 리포트</span>
           </p>
         </motion.div>
 
@@ -51,11 +51,11 @@ export default function Pricing() {
         >
           <div className="relative overflow-hidden rounded-3xl border-2 border-[#3b82f6]/30 bg-white/5 backdrop-blur-xl p-8 shadow-[0_16px_48px_rgba(59,130,246,0.3)] md:p-10">
             {/* Badges */}
-            <div className="absolute right-6 top-6 flex flex-col items-center gap-2">
-              <span className="rounded-full bg-[#3b82f6]/20 backdrop-blur-md border border-[#60a5fa]/30 px-3 py-1 text-xs font-medium text-[#60a5fa] text-center">
+            <div className="absolute right-4 top-4 md:right-6 md:top-6 flex flex-col items-center gap-1.5 md:gap-2">
+              <span className="rounded-full bg-[#3b82f6]/20 backdrop-blur-md border border-[#60a5fa]/30 px-2 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-medium text-[#60a5fa] text-center">
                 BEST
               </span>
-              <span className="rounded-full bg-orange-500/20 backdrop-blur-md border border-orange-400/30 px-3 py-1 text-xs font-bold text-orange-400 text-center">
+              <span className="rounded-full bg-orange-500/20 backdrop-blur-md border border-orange-400/30 px-2 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-bold text-orange-400 text-center">
                 30명 한정
               </span>
             </div>
