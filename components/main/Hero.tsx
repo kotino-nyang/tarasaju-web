@@ -95,21 +95,21 @@ export default function Hero() {
           <span className="mb-6 inline-block rounded-full border border-[#3b82f6]/30 bg-white/10 backdrop-blur-md px-4 py-1.5 text-xs text-[#60a5fa] font-medium shadow-sm">
             정밀 사주 분석
           </span>
-          <h1 className="mx-auto mb-6 max-w-4xl text-4xl font-light md:text-5xl lg:text-7xl leading-tight md:leading-tight lg:leading-tight">
+          <h1 className="mx-auto mb-6 max-w-4xl text-3xl font-light md:text-5xl lg:text-7xl leading-tight md:leading-tight lg:leading-tight px-2">
             단 한사람을 위한
             <br />
             <span className="text-[#60a5fa] font-bold">정밀 사주 분석 리포트</span>
           </h1>
-          <p className="mx-auto mb-10 max-w-2xl text-lg text-white/60 md:text-xl">
+          <p className="mx-auto mb-10 max-w-2xl text-base text-white/60 md:text-xl px-4">
             수백년간 축적된 전통 사주명리의 원리를
             <br className="hidden md:block" />
             현대적으로 정리한 개인 분석 리포트
           </p>
 
-          <div className="mb-16 sm:mb-20 flex justify-center">
+          <div className="mb-16 sm:mb-20 flex justify-center px-6">
             <Link
               href="#pricing"
-              className="relative w-full overflow-hidden rounded-full border border-white/10 bg-white/10 backdrop-blur-lg px-8 py-4 text-white font-medium shadow-[0_8px_32px_rgba(59,130,246,0.2)] transition-all duration-300 hover:bg-white/20 hover:shadow-[0_8px_32px_rgba(59,130,246,0.4)] hover:border-[#3b82f6]/30 sm:w-auto"
+              className="relative w-full overflow-hidden rounded-full border border-white/10 bg-white/10 backdrop-blur-lg px-8 py-4 text-white font-medium shadow-[0_8px_32px_rgba(59,130,246,0.2)] transition-all duration-300 hover:bg-white/20 hover:shadow-[0_8px_32px_rgba(59,130,246,0.4)] hover:border-[#3b82f6]/30 sm:w-auto text-center"
             >
               사주 분석 신청하기
             </Link>
@@ -126,7 +126,7 @@ export default function Hero() {
           {/* Central Taeguk Symbol */}
           <div className="relative mx-auto w-full max-w-3xl">
             <motion.div
-              className="relative mx-auto w-48 h-48 md:w-64 md:h-64"
+              className="relative mx-auto w-32 h-32 md:w-64 md:h-64"
               animate={{ rotate: 360 }}
               transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
             >

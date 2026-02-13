@@ -378,7 +378,7 @@ function CheckoutContent() {
                       className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-[#3b82f6] focus:outline-none focus:ring-1 focus:ring-[#3b82f6]"
                     />
                   </div>
-                  <div className="flex gap-4">
+                  <div className="flex flex-col md:flex-row gap-4">
                     <div className="flex-1">
                       <label className="block text-sm font-medium text-white/70 mb-2">
                         양력/음력 <span className="text-red-400">*</span>
@@ -393,15 +393,15 @@ function CheckoutContent() {
                       </select>
                     </div>
                     {person.calendarType === "lunar" && (
-                      <div className="flex items-end">
-                        <label className="flex items-center gap-2 px-4 py-3">
+                      <div className="flex items-end pb-1 md:pb-0">
+                        <label className="flex items-center gap-2 px-2 md:px-4 py-3 cursor-pointer">
                           <input
                             type="checkbox"
                             checked={person.isLeapMonth}
                             onChange={(e) => updatePersonForm(index, "isLeapMonth", e.target.checked)}
                             className="w-4 h-4 rounded border-white/10 bg-white/5 text-[#3b82f6] focus:ring-[#3b82f6]"
                           />
-                          <span className="text-sm text-white/70">윤달</span>
+                          <span className="text-sm text-white/70 whitespace-nowrap">윤달</span>
                         </label>
                       </div>
                     )}

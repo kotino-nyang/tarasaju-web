@@ -21,10 +21,16 @@ export default function Footer() {
 
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center text-center space-y-3">
-            {/* Company Info - 가로 한 줄 */}
-            <p className="text-xs text-gray-400">
-              상호: 원포세븐 | 대표: 고수빈 | 사업자번호: 601-05-84230 | 통신판매업 신고번호: 2025-경기양주-0763 | 주소: 경기도 양주시 옥정동로7다길 12-21, 301호-A431호 | 고객센터: 010-4648-0046
-            </p>
+            {/* Company Info - 가로 한 줄 -> 모바일 세로 */}
+            <div className="text-xs text-gray-400 max-w-2xl mx-auto">
+              <p className="md:inline">상호: 원포세븐 | </p>
+              <p className="md:inline">대표: 고수빈 | </p>
+              <p className="md:inline">사업자번호: 601-05-84230 | </p>
+              <p className="md:inline">통신판매업 신고번호: 2025-경기양주-0763 | </p>
+              <br className="hidden md:block" />
+              <p className="md:inline">주소: 경기도 양주시 옥정동로7다길 12-21, 301호-A431호 | </p>
+              <p className="md:inline">고객센터: 010-4648-0046</p>
+            </div>
 
             {/* Links */}
             <div className="flex gap-3 text-xs">

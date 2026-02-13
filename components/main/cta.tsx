@@ -122,7 +122,7 @@ export default function CTA() {
                             {/* Birth Date (Split) */}
                             <div className="md:col-span-2">
                                 <label className="mb-2 block text-sm text-white/70">생년월일</label>
-                                <div className="flex gap-4">
+                                <div className="flex flex-col md:flex-row gap-2 md:gap-4">
                                     <select
                                         name="birthYear"
                                         value={formData.birthYear}
@@ -162,7 +162,7 @@ export default function CTA() {
                             {/* Calendar Type */}
                             <div>
                                 <label className="mb-2 block text-sm text-white/70">양력 / 음력 / 윤달</label>
-                                <div className="flex gap-4 h-[50px] items-center">
+                                <div className="flex flex-wrap gap-x-4 gap-y-2 min-h-[50px] items-center">
                                     <label className="flex items-center gap-2 cursor-pointer">
                                         <input
                                             type="radio"

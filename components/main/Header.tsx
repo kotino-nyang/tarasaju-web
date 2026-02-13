@@ -1,18 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Header() {
   const { user, isLoading, signOut } = useAuth();
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
       await signOut();
       router.push('/');
+      setIsMenuOpen(false);
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -37,8 +40,37 @@ export default function Header() {
             />
           </Link>
 
-          {/* Navigation */}
-          <nav className="flex items-center gap-4 md:gap-6 lg:gap-8">
+          {/* Mobile Menu Toggle */}
+          <button
+            className="flex h-10 w-10 items-center justify-center text-white md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              {isMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              )}
+            </svg>
+          </button>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden items-center gap-4 md:flex md:gap-6 lg:gap-8">
             <Link
               href="/analysis"
               className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white md:text-base"
@@ -78,6 +110,55 @@ export default function Header() {
           </nav>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden bg-[#050d1a] border-b border-white/10 md:hidden"
+          >
+            <nav className="flex flex-col gap-4 p-6">
+              <Link
+                href="/analysis"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-lg font-medium text-white/70 transition-colors hover:text-white"
+              >
+                종합사주분석
+              </Link>
+              {!isLoading && user && (
+                <Link
+                  href="/mypage"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-lg font-medium text-white/70 transition-colors hover:text-white"
+                >
+                  My Page
+                </Link>
+              )}
+              <div className="mt-4 pt-4 border-t border-white/10">
+                {!isLoading && (
+                  user ? (
+                    <button
+                      onClick={handleLogout}
+                      className="w-full rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-base font-medium text-white"
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <Link href="/auth" onClick={() => setIsMenuOpen(false)}>
+                      <button className="w-full rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-base font-medium text-white">
+                        Login
+                      </button>
+                    </Link>
+                  )
+                )}
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
