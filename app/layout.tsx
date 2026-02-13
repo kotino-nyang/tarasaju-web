@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -10,6 +10,13 @@ const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
   title: "온라인 사주 분석 | 타라사주",
@@ -24,12 +31,6 @@ export const metadata: Metadata = {
     apple: [
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
   },
 };
 
