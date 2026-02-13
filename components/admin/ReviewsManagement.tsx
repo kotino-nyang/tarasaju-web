@@ -113,9 +113,8 @@ export default function ReviewsManagement() {
         {[1, 2, 3, 4, 5].map((star) => (
           <svg
             key={star}
-            className={`w-5 h-5 ${
-              star <= rating ? "text-yellow-400" : "text-gray-300"
-            }`}
+            className={`w-5 h-5 ${star <= rating ? "text-yellow-400" : "text-gray-300"
+              }`}
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -196,9 +195,9 @@ export default function ReviewsManagement() {
                 <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
                   {review.content}
                 </p>
-                {review.image_url && (
+                {(review as any).image_url && (
                   <img
-                    src={review.image_url}
+                    src={(review as any).image_url}
                     alt="Review"
                     className="mt-3 w-full max-w-md h-auto rounded-lg border border-gray-200"
                   />
