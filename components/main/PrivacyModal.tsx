@@ -483,7 +483,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
                     <p><strong className="text-white/80">성명:</strong> 고수빈</p>
                     <p><strong className="text-white/80">직책:</strong> 대표</p>
                     <p><strong>연락처:</strong> 010-4648-0046</p>
-                    <p><strong>이메일:</strong> binzzz010101@gmail.com</p>
+                    <p><strong>이메일:</strong> tarasajukr@gmail.com</p>
                     <p><strong>주소:</strong> 경기도 양주시 옥정동로7다길 12-21, 301호-A431호</p>
                   </div>
                 </div>

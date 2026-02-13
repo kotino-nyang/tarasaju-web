@@ -220,12 +220,9 @@ export default function MyPage() {
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
               <img
-                src="https://i.imgur.com/sdU9nRt.png"
+                src="https://i.imgur.com/x2I0GIX.png"
                 alt="타라사주 로고"
-                className="h-12 w-auto md:h-14"
-                onError={(e) => {
-                  e.currentTarget.src = "https://i.imgur.com/sdU9nRt.jpg";
-                }}
+                className="h-14 w-auto md:h-16"
               />
             </Link>
             <div className="flex gap-3">
@@ -265,7 +262,7 @@ export default function MyPage() {
                 />
               )}
               <div>
-                <h1 className="mb-1 text-3xl font-light text-white">
+                <h1 className="mb-1 text-xl md:text-3xl font-light text-white">
                   안녕하세요, <span className="font-bold text-[#60a5fa]">{user.user_metadata?.full_name || user.user_metadata?.name || "회원"}</span>님
                 </h1>
                 <p className="text-sm text-white/40">{user.email}</p>
@@ -301,8 +298,9 @@ export default function MyPage() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-medium text-white mb-1">{item.title}</h3>
-                        <p className="text-sm text-white/40 mb-1">{item.option}</p>
+                        <Link href="/analysis">
+                          <h3 className="text-base font-medium text-white mb-1 hover:text-[#60a5fa] transition-colors">{item.title}</h3>
+                        </Link>
                         <p className="text-sm font-bold text-[#60a5fa]">{item.price.toLocaleString()}원</p>
                       </div>
                       <button
@@ -395,13 +393,22 @@ export default function MyPage() {
                             주문번호: <span className="text-[#60a5fa] font-bold">{order.order_number}</span>
                           </p>
                         </div>
-                        {getStatusBadge(order.order_status)}
+                        <div className="flex flex-col items-end gap-3">
+                          {getStatusBadge(order.order_status)}
+                          <img
+                            src="/detail image/thumnail.png"
+                            alt={order.product_name}
+                            className="h-16 w-16 rounded-xl border border-white/10 object-cover"
+                          />
+                        </div>
                       </div>
                       <div className="flex items-center gap-4">
                         <div className="flex-1">
-                          <h3 className="text-base font-medium text-white mb-2">
-                            {order.product_name}
-                          </h3>
+                          <Link href="/analysis">
+                            <h3 className="text-base font-medium text-white mb-2 hover:text-[#60a5fa] transition-colors">
+                              {order.product_name}
+                            </h3>
+                          </Link>
                           <p className="text-sm text-white/40 mb-3">
                             {order.option} - {order.customer_name}
                           </p>
@@ -521,7 +528,7 @@ export default function MyPage() {
                     작성한 구매평이 없습니다
                   </p>
                   <p className="text-sm text-white/30">
-                    완료된 주문에서 구매평을 작성해보세요
+                    완료된 주문에서<br className="md:hidden" /> 구매평을 작성해보세요
                   </p>
                 </div>
               ) : (
@@ -601,7 +608,7 @@ export default function MyPage() {
                     작성한 문의가 없습니다
                   </p>
                   <p className="text-sm text-white/30">
-                    상품 페이지에서 궁금한 점을 문의해보세요
+                    상품 페이지에서<br className="md:hidden" /> 궁금한 점을 문의해보세요
                   </p>
                 </div>
               ) : (

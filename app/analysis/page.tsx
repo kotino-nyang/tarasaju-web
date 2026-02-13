@@ -198,8 +198,8 @@ export default function AnalysisPage() {
                                     30명 한정 특가
                                 </span>
                             </div>
-                            <h1 className="text-3xl md:text-4xl font-light mb-2 text-white">
-                                [불만족시 100%환불] <span className="font-bold text-[#60a5fa]">종합사주분석</span>
+                            <h1 className="text-xl md:text-4xl font-light mb-2 text-white">
+                                [불만족시 100%환불] <span className="font-bold text-white">종합사주분석</span>
                             </h1>
                             <div className="flex items-end gap-3 mb-8">
                                 <span className="text-lg text-white/40 line-through">64,500원</span>
