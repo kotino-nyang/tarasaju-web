@@ -57,10 +57,10 @@ export default function CTA() {
         <section id="application-form" className="relative w-full overflow-hidden bg-[#050d1a] py-20 font-light text-white antialiased md:py-28">
             {/* Background gradients */}
             <div
-                className="absolute inset-0 h-1/2 w-full opacity-30"
+                className="absolute right-0 top-0 h-1/2 w-1/2 opacity-30"
                 style={{
                     background:
-                        "radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.2) 0%, transparent 60%)",
+                        "radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.2) 0%, rgba(5, 13, 26, 0) 60%)",
                 }}
             />
 

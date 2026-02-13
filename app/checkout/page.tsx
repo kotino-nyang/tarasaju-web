@@ -49,8 +49,7 @@ function CheckoutContent() {
     // 로그인 체크
     if (!isLoading && !user) {
       alert("로그인이 필요합니다.");
-      const currentPath = encodeURIComponent(window.location.pathname + window.location.search);
-      router.push(`/auth?next=${currentPath}`);
+      router.push("/auth");
       return;
     }
 

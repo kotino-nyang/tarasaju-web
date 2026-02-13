@@ -186,7 +186,7 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-white/20 hover:text-white transition-all hover:rotate-90"
+          className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors z-10"
         >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -194,55 +194,55 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
         </button>
 
         {/* Header */}
-        <div className="border-b border-white/5 p-8">
-          <h2 className="text-2xl font-black text-white mb-2 tracking-tight">구매평 작성</h2>
-          <p className="text-sm font-bold text-blue-400/80">{productName}</p>
+        <div className="p-8 pb-4">
+          <h2 className="text-3xl font-black text-white mb-2">구매평 작성</h2>
+          <p className="text-blue-400 font-bold">{productName}</p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-8 space-y-8">
+        <form onSubmit={handleSubmit} className="p-8 pt-4 space-y-8">
           {/* Rating */}
-          <div className="text-center">
-            <label className="block text-sm font-bold text-white/40 uppercase tracking-widest mb-4">
-              평점 선택
+          <div className="bg-white/5 rounded-3xl p-6 border border-white/10">
+            <label className="block text-sm font-black text-white/60 mb-6 uppercase tracking-widest text-center">
+              당신의 만족도는 어떠신가요?
             </label>
             {renderStars()}
-            <p className="text-xl font-black text-[#60a5fa] mt-4">{rating} / 5</p>
+            <p className="text-center text-blue-400 font-black text-xl mt-4">{rating}점</p>
           </div>
 
           {/* Content */}
-          <div className="space-y-3">
-            <label className="block text-sm font-bold text-white/60">
-              솔직한 구매평 <span className="text-blue-400">*</span>
+          <div className="space-y-4">
+            <label className="block text-sm font-black text-white/60 mb-2 ml-1 uppercase tracking-widest">
+              상세한 후기를 들려주세요 <span className="text-blue-500">*</span>
             </label>
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              placeholder="배송, 품질, 만족도 등 상품에 대한 솔직한 평가를 남겨주세요."
+              placeholder="상품에 대한 솔직한 평가를 남겨주세요. (최대 1000자)"
               className="w-full h-44 px-5 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all resize-none leading-relaxed"
               maxLength={1000}
             />
-            <div className="flex justify-between items-center px-1">
-              <span className="text-[10px] text-white/20">최대 1000자까지 작성 가능합니다.</span>
-              <span className={`text-xs font-bold ${content.length > 900 ? 'text-red-400' : 'text-white/30'}`}>
-                {content.length.toLocaleString()} / 1,000
+            <div className="flex justify-end pr-2">
+              <span className={`text-xs font-bold ${content.length > 900 ? "text-blue-400" : "text-white/20"}`}>
+                {content.length.toLocaleString()} / 1,000자
               </span>
             </div>
           </div>
 
           {/* Image Upload */}
-          <div className="space-y-3">
-            <label className="block text-sm font-bold text-white/60">
-              사진 첨부 (선택)
+          <div className="space-y-4">
+            <label className="block text-sm font-black text-white/60 mb-2 ml-1 uppercase tracking-widest">
+              사진 첨부 <span className="text-white/20 font-normal ml-1">(선택)</span>
             </label>
             {!imagePreview ? (
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:border-blue-500/30 hover:bg-white/[0.02] transition-all group">
-                <div className="flex flex-col items-center justify-center pt-2">
-                  <svg className="w-8 h-8 text-white/10 group-hover:text-blue-400/50 transition-colors mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-white/10 rounded-3xl cursor-pointer hover:border-blue-500/50 hover:bg-white/5 transition-all group">
+                <div className="bg-white/5 p-4 rounded-2xl mb-3 border border-white/10 group-hover:scale-110 transition-transform">
+                  <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <p className="text-xs font-bold text-white/30 group-hover:text-white/50 transition-colors">클릭하여 이미지 업로드</p>
                 </div>
+                <p className="text-sm font-bold text-white/60">이미지를 끌어다 놓거나 클릭하세요</p>
+                <p className="text-xs text-white/20 mt-1">최대 5MB, JPG/PNG</p>
                 <input
                   type="file"
                   accept="image/*"
@@ -251,17 +251,17 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
                 />
               </label>
             ) : (
-              <div className="relative group overflow-hidden rounded-2xl border border-white/10">
+              <div className="relative group overflow-hidden rounded-3xl border border-white/10 aspect-video">
                 <img
                   src={imagePreview}
                   alt="Preview"
-                  className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <button
                     type="button"
                     onClick={removeImage}
-                    className="bg-red-500 text-white rounded-xl px-4 py-2 text-xs font-bold hover:bg-red-600 transition-colors shadow-xl"
+                    className="bg-red-500 text-white rounded-2xl px-6 py-3 font-bold hover:bg-red-600 transition-all transform translate-y-4 group-hover:translate-y-0 duration-300"
                   >
                     이미지 삭제
                   </button>
@@ -273,8 +273,8 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
           {/* Info */}
           <div className="rounded-2xl bg-blue-500/5 border border-blue-500/10 p-5">
             <p className="text-xs text-blue-400/80 leading-relaxed font-medium">
-              • 작성하신 구매평은 사주분석 서비스 품질 향상을 위해 사용됩니다.<br />
-              • 부적절한 내용이나 개인정보 포함 시 예고 없이 삭제될 수 있습니다.
+              • 소중한 의견은 서비스 개선에 큰 도움이 됩니다.<br />
+              • 상품과 무관한 내용이나 부적절한 내용은 운영 정책에 따라 삭제될 수 있습니다.
             </p>
           </div>
 
@@ -283,7 +283,7 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-bold text-white/60 transition-all hover:bg-white/10 hover:text-white"
+              className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-bold text-white transition-all hover:bg-white/10"
             >
               취소
             </button>

@@ -19,10 +19,10 @@ export default function Pricing() {
 
       {/* Background gradients */}
       <div
-        className="absolute inset-0 h-1/2 w-full opacity-50"
+        className="absolute left-0 top-0 h-1/2 w-1/2 opacity-50"
         style={{
           background:
-            "radial-gradient(circle at 15% 30%, rgba(59, 130, 246, 0.2) 0%, rgba(15, 23, 42, 0) 60%)",
+            "radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.2) 0%, rgba(5, 13, 26, 0) 60%)",
         }}
       />
 
