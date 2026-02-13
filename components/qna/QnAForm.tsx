@@ -87,140 +87,129 @@ export default function QnAForm({ productName, orderId, onSuccess, onClose }: Qn
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#050d1a]/80 backdrop-blur-md p-4">
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-white/10 bg-[#0f172a]/90 backdrop-blur-2xl rounded-3xl p-8 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#0f172a] border border-white/10 p-8 md:p-10 shadow-[0_8px_32px_rgba(59,130,246,0.3)]">
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors"
+          className="absolute top-6 right-6 text-white/20 hover:text-white transition-colors"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
-        <h3 className="text-3xl font-black text-white mb-6">문의하기</h3>
+        <h3 className="text-3xl font-bold text-white mb-6">문의하기</h3>
         {productName && (
-          <p className="text-blue-400 font-bold mb-8">상품: {productName}</p>
+          <p className="text-sm text-[#60a5fa] mb-8">상품: {productName}</p>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="block text-sm font-bold text-white/60 mb-2 ml-1 uppercase tracking-widest">
-                이름 <span className="text-blue-500">*</span>
+            <div>
+              <label className="block text-sm font-medium text-white/70 mb-2">
+                이름 <span className="text-red-400">*</span>
               </label>
               <input
                 type="text"
                 value={formData.authorName}
                 onChange={(e) => setFormData({ ...formData, authorName: e.target.value })}
                 placeholder="홍길동"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-white/20 focus:border-blue-500/50 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 text-white placeholder:text-white/20 focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all"
                 maxLength={100}
               />
             </div>
 
-            <div className="space-y-2">
-              <label className="block text-sm font-bold text-white/60 mb-2 ml-1 uppercase tracking-widest">
-                이메일 <span className="text-blue-500">*</span>
+            <div>
+              <label className="block text-sm font-medium text-white/70 mb-2">
+                이메일 <span className="text-red-400">*</span>
               </label>
               <input
                 type="email"
                 value={formData.authorEmail}
                 onChange={(e) => setFormData({ ...formData, authorEmail: e.target.value })}
                 placeholder="example@email.com"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-white/20 focus:border-blue-500/50 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 text-white placeholder:text-white/20 focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all"
                 maxLength={200}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="block text-sm font-bold text-white/60 mb-2 ml-1 uppercase tracking-widest">
-                비밀번호 <span className="text-blue-500">*</span>
+            <div>
+              <label className="block text-sm font-medium text-white/70 mb-2">
+                비밀번호 <span className="text-red-400">*</span>
               </label>
               <input
                 type="password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                placeholder="4자 이상"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-white/20 focus:border-blue-500/50 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
+                placeholder="수정/삭제용 (4자 이상)"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 text-white placeholder:text-white/20 focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all"
                 minLength={4}
               />
             </div>
 
-            <div className="space-y-2">
-              <label className="block text-sm font-bold text-white/60 mb-2 ml-1 uppercase tracking-widest">
-                비밀번호 확인 <span className="text-blue-500">*</span>
+            <div>
+              <label className="block text-sm font-medium text-white/70 mb-2">
+                비밀번호 확인 <span className="text-red-400">*</span>
               </label>
               <input
                 type="password"
                 value={formData.passwordConfirm}
                 onChange={(e) => setFormData({ ...formData, passwordConfirm: e.target.value })}
-                placeholder="비밀번호 다시 입력"
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-white/20 focus:border-blue-500/50 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
+                placeholder="비밀번호 재입력"
+                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 text-white placeholder:text-white/20 focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all"
                 minLength={4}
               />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="block text-sm font-bold text-white/60 mb-2 ml-1 uppercase tracking-widest">
-              문의 내용 <span className="text-blue-500">*</span>
+          <div>
+            <label className="block text-sm font-medium text-white/70 mb-2">
+              문의 내용 <span className="text-red-400">*</span>
             </label>
             <textarea
               value={formData.question}
               onChange={(e) => setFormData({ ...formData, question: e.target.value })}
               placeholder="궁금하신 내용을 작성해주세요."
-              className="w-full rounded-2xl border border-white/10 bg-white/5 p-5 text-white placeholder:text-white/20 focus:border-blue-500/50 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all resize-none leading-relaxed"
-              rows={5}
+              className="w-full rounded-xl border border-white/10 bg-white/5 p-4 text-white placeholder:text-white/20 focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all resize-none"
+              rows={6}
               maxLength={2000}
             />
-            <div className="flex justify-end pr-2">
-              <span className={`text-xs font-bold ${formData.question.length > 1800 ? "text-blue-400" : "text-white/20"}`}>
-                {formData.question.length.toLocaleString()} / 2,000자
-              </span>
+            <div className="flex justify-between mt-2">
+              <p className="text-[10px] text-white/40">답변 확인을 위한 이메일이 정확한지 확인해주세요.</p>
+              <p className="text-[10px] text-white/20 font-mono">{formData.question.length} / 2000</p>
             </div>
           </div>
 
-          <div className="bg-white/5 rounded-2xl p-4 border border-white/10">
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10">
             <label className="flex items-center gap-3 cursor-pointer group">
-              <div className="relative flex items-center">
-                <input
-                  type="checkbox"
-                  checked={formData.isPublic}
-                  onChange={(e) => setFormData({ ...formData, isPublic: e.target.checked })}
-                  className="peer w-5 h-5 opacity-0 absolute cursor-pointer"
-                />
-                <div className="w-5 h-5 border-2 border-white/20 rounded-md peer-checked:bg-blue-600 peer-checked:border-blue-600 transition-all flex items-center justify-center">
-                  <svg className="w-3 h-3 text-white scale-0 peer-checked:scale-100 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              </div>
-              <span className="text-sm font-bold text-white/60 group-hover:text-white transition-colors">
-                공개 문의로 등록하기
+              <input
+                type="checkbox"
+                checked={formData.isPublic}
+                onChange={(e) => setFormData({ ...formData, isPublic: e.target.checked })}
+                className="w-5 h-5 rounded-lg border-white/10 bg-white/5 text-[#3b82f6] focus:ring-[#3b82f6]/50 transition-all"
+              />
+              <span className="text-sm text-white/60 group-hover:text-white transition-colors">
+                공개 (다른 사용자도 질문과 답변을 볼 수 있습니다)
               </span>
             </label>
-            <p className="text-[10px] text-white/20 mt-2 ml-8">
-              *공개 선택 시 다른 사용자도 질문과 답변을 볼 수 있습니다.
-            </p>
           </div>
 
           <div className="flex gap-4 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-bold text-white transition-all hover:bg-white/10"
+              className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-medium text-white/60 transition-all hover:bg-white/10 hover:text-white"
             >
               취소
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 font-bold text-white transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 rounded-2xl bg-blue-600 px-4 py-4 text-sm font-medium text-white transition-all hover:bg-blue-700 hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "등록 중..." : "문의 등록하기"}
+              {isSubmitting ? "등록중..." : "문의 등록"}
             </button>
           </div>
         </form>

@@ -9,16 +9,16 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/80 backdrop-blur-md"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-4xl bg-white rounded-2xl border border-gray-200 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-4xl bg-[#0f172a] rounded-3xl border border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.2)] max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="sticky top-4 right-4 float-right text-gray-400 hover:text-gray-600 transition-colors z-10"
+          className="sticky top-6 right-6 float-right text-white/20 hover:text-white transition-colors z-10 p-2"
         >
           <svg
             className="w-6 h-6"
@@ -36,10 +36,10 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
         </button>
 
         {/* Content */}
-        <div className="p-6 md:p-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">개인정보처리방침</h1>
+        <div className="p-8 md:p-12">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-10">개인정보처리방침</h1>
 
-          <div className="space-y-8 text-gray-700 leading-relaxed">
+          <div className="space-y-12 text-white/70 leading-relaxed font-light">
             <section>
               <p className="mb-4">
                 원포세븐(타라사주)(이하 "회사")은 이용자의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률, 개인정보보호법 등 개인정보와 관련된 법령 상의 개인정보보호 규정과 방송통신위원회 및 행정안전부가 제정한 개인정보 보호지침을 준수하고 있습니다.
@@ -53,7 +53,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제1조 (수집하는 개인정보의 항목 및 수집 방법)</h2>
+              <h2 className="text-xl font-bold text-white mb-6">제1조 (수집하는 개인정보의 항목 및 수집 방법)</h2>
 
               <div className="space-y-4">
                 <div>
@@ -62,7 +62,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
 
                   <div className="ml-4 space-y-3">
                     <div>
-                      <p className="font-medium text-gray-900">가. 회원가입 및 서비스 이용 시 수집하는 항목</p>
+                      <p className="font-medium text-white">가. 회원가입 및 서비스 이용 시 수집하는 항목</p>
                       <div className="ml-4 space-y-2 mt-2">
                         <p><strong>[필수]</strong> 이메일 주소, 성명, 소셜 서비스 식별번호(Google UID 또는 Kakao UID), 프로필 이미지</p>
                         <p><strong>[선택]</strong> 프로필 정보 (닉네임, 프로필 사진 등)</p>
@@ -70,29 +70,29 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
                     </div>
 
                     <div>
-                      <p className="font-medium text-gray-900">나. 사주 분석 서비스 이용 시 수집하는 항목</p>
+                      <p className="font-medium text-white">나. 사주 분석 서비스 이용 시 수집하는 항목</p>
                       <div className="ml-4 space-y-2 mt-2">
                         <p><strong>[필수]</strong> 성명, 성별, 생년월일시(양력/음력), 휴대전화번호</p>
-                        <p className="text-sm text-gray-600">※ 사주 분석을 위한 기본 정보이며, 리포트 전송(알림톡/문자)을 위해 휴대전화번호가 필요합니다.</p>
+                        <p className="text-sm text-white/40">※ 사주 분석을 위한 기본 정보이며, 리포트 전송(알림톡/문자)을 위해 휴대전화번호가 필요합니다.</p>
                       </div>
                     </div>
 
                     <div>
-                      <p className="font-medium text-gray-900">다. 결제 시 수집하는 항목</p>
+                      <p className="font-medium text-white">다. 결제 시 수집하는 항목</p>
                       <div className="ml-4 space-y-2 mt-2">
                         <p><strong>[필수]</strong> 주문자 정보(성명, 이메일, 휴대전화번호), 결제 정보</p>
                       </div>
                     </div>
 
                     <div>
-                      <p className="font-medium text-gray-900">라. 서비스 이용 과정에서 자동으로 생성되어 수집되는 항목</p>
+                      <p className="font-medium text-white">라. 서비스 이용 과정에서 자동으로 생성되어 수집되는 항목</p>
                       <div className="ml-4 mt-2">
                         <p>IP주소, 쿠키, 서비스 이용 기록, 방문 기록, 접속 로그, 불량 이용 기록, 기기 정보(OS, 브라우저 종류 등)</p>
                       </div>
                     </div>
 
                     <div>
-                      <p className="font-medium text-gray-900">마. Q&A 및 리뷰 작성 시 수집하는 항목</p>
+                      <p className="font-medium text-white">마. Q&A 및 리뷰 작성 시 수집하는 항목</p>
                       <div className="ml-4 space-y-2 mt-2">
                         <p><strong>[비회원 Q&A 작성]</strong> 작성자명, 이메일 주소, 비밀번호(해시 암호화), 문의 내용</p>
                         <p><strong>[리뷰 작성]</strong> 주문 정보, 리뷰 내용, 평점, 리뷰 이미지(선택)</p>
@@ -114,8 +114,8 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제2조 (개인정보의 수집 및 이용 목적)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제2조 (개인정보의 수집 및 이용 목적)</h2>
+              <div className="space-y-4">
                 <p>회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 「개인정보 보호법」 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.</p>
 
                 <div className="ml-4 space-y-3">
@@ -143,8 +143,8 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제3조 (개인정보의 보유 및 이용기간)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제3조 (개인정보의 보유 및 이용기간)</h2>
+              <div className="space-y-4">
                 <p>회사는 법령에 따른 개인정보 보유·이용기간 또는 정보주체로부터 개인정보를 수집 시에 동의받은 개인정보 보유·이용기간 내에서 개인정보를 처리·보유합니다.</p>
 
                 <div className="ml-4 space-y-4">
@@ -173,13 +173,13 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
                   </div>
                 </div>
 
-                <p className="text-sm text-gray-600 mt-4">※ 회원 탈퇴 시 개인정보는 지체 없이 파기되나, 상기 법령에 따라 일정 기간 보관이 필요한 정보는 별도의 데이터베이스(DB)로 옮겨져 내부 방침 및 기타 관련 법령에 따라 안전하게 보관된 후 파기됩니다.</p>
+                <p className="text-sm text-white/40 mt-6">※ 회원 탈퇴 시 개인정보는 지체 없이 파기되나, 상기 법령에 따라 일정 기간 보관이 필요한 정보는 별도의 데이터베이스(DB)로 옮겨져 내부 방침 및 기타 관련 법령에 따라 안전하게 보관된 후 파기됩니다.</p>
               </div>
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제4조 (개인정보의 파기절차 및 방법)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제4조 (개인정보의 파기절차 및 방법)</h2>
+              <div className="space-y-4">
                 <p>회사는 원칙적으로 개인정보 수집 및 이용목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 파기절차 및 방법은 다음과 같습니다.</p>
 
                 <div className="ml-4 space-y-3">
@@ -197,10 +197,10 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제5조 (이용자 및 법정대리인의 권리와 그 행사방법)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제5조 (이용자 및 법정대리인의 권리와 그 행사방법)</h2>
+              <div className="space-y-6">
                 <div>
-                  <p className="font-medium">1. 이용자의 권리</p>
+                  <p className="font-medium text-white">1. 이용자의 권리</p>
                   <div className="ml-4 space-y-2 text-sm text-gray-600">
                     <p>① 이용자는 회사에 대해 언제든지 다음 각 호의 개인정보 보호 관련 권리를 행사할 수 있습니다.</p>
                     <div className="ml-4 space-y-1">
@@ -224,8 +224,8 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제6조 (개인정보의 안전성 확보 조치)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제6조 (개인정보의 안전성 확보 조치)</h2>
+              <div className="space-y-4">
                 <p>회사는 개인정보보호법 제29조에 따라 개인정보의 안전성 확보를 위해 다음과 같은 기술적·관리적·물리적 조치를 하고 있습니다.</p>
 
                 <div className="ml-4 space-y-3">
@@ -259,10 +259,10 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제7조 (개인정보 자동 수집 장치의 설치·운영 및 거부에 관한 사항)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제7조 (개인정보 자동 수집 장치의 설치·운영 및 거부에 관한 사항)</h2>
+              <div className="space-y-4">
                 <div>
-                  <p className="font-medium mb-2">1. 쿠키(Cookie)의 사용</p>
+                  <p className="font-medium text-white mb-2">1. 쿠키(Cookie)의 사용</p>
                   <p className="text-sm text-gray-600 mb-2">회사는 이용자에게 개별적인 맞춤서비스를 제공하기 위해 이용정보를 저장하고 수시로 불러오는 '쿠키(cookie)'를 사용합니다.</p>
                 </div>
 
@@ -298,8 +298,8 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제8조 (행태정보의 수집·이용·제공 및 거부 등에 관한 사항)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제8조 (행태정보의 수집·이용·제공 및 거부 등에 관한 사항)</h2>
+              <div className="space-y-4">
                 <p>회사는 서비스 이용과정에서 정보주체에게 최적화된 맞춤형 서비스 및 혜택, 온라인 맞춤형 광고 등을 제공하기 위하여 행태정보를 수집·이용하고 있습니다.</p>
 
                 <div className="ml-4 space-y-3">
@@ -322,8 +322,8 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제9조 (웹 사이트 분석 도구 (Google Analytics) 사용)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제9조 (웹 사이트 분석 도구 (Google Analytics) 사용)</h2>
+              <div className="space-y-4">
                 <p>본 웹사이트는 웹 분석 서비스인 구글 애널리틱스(Google Analytics)를 사용하고 있습니다. 구글 애널리틱스는 웹사이트의 이용 분석을 위해 '쿠키'를 사용합니다. 쿠키를 통해 생성되는 귀하의 웹사이트 이용에 관한 정보는 미국에 소재한 구글 서버로 전송되어 저장됩니다.</p>
 
                 <div className="ml-4 space-y-3">
@@ -364,17 +364,17 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
               <div className="space-y-3">
                 <p>회사는 서비스 향상을 위해서 아래와 같이 개인정보를 위탁하고 있으며, 관계 법령에 따라 위탁계약 시 개인정보가 안전하게 관리될 수 있도록 필요한 사항을 규정하고 있습니다.</p>
 
-                <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200 border border-gray-200 text-sm">
-                    <thead className="bg-gray-50">
+                <div className="overflow-x-auto rounded-2xl border border-white/10">
+                  <table className="min-w-full divide-y divide-white/10 text-sm">
+                    <thead className="bg-white/5">
                       <tr>
-                        <th className="px-4 py-3 text-left font-medium text-gray-900">위탁받는 자<br />(수탁자)</th>
-                        <th className="px-4 py-3 text-left font-medium text-gray-900">위탁 업무 내용</th>
-                        <th className="px-4 py-3 text-left font-medium text-gray-900">보유 및 이용기간</th>
+                        <th className="px-5 py-4 text-left font-bold text-white uppercase tracking-wider">위탁받는 자<br />(수탁자)</th>
+                        <th className="px-5 py-4 text-left font-bold text-white uppercase tracking-wider">위탁 업무 내용</th>
+                        <th className="px-5 py-4 text-left font-bold text-white uppercase tracking-wider">보유 및 이용기간</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200 bg-white">
-                      <tr>
+                    <tbody className="divide-y divide-white/10 bg-white/2">
+                      <tr className="hover:bg-white/5 transition-colors">
                         <td className="px-4 py-3">알리고 (ALIGO)</td>
                         <td className="px-4 py-3">알림톡, 문자메시지(SMS/LMS) 전송 및 리포트 링크 배송</td>
                         <td className="px-4 py-3">회원탈퇴 또는 위탁계약 종료 시까지</td>
@@ -409,8 +409,8 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제11조 (개인정보의 제3자 제공)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제11조 (개인정보의 제3자 제공)</h2>
+              <div className="space-y-4">
                 <p>회사는 원칙적으로 이용자의 개인정보를 제1조(수집하는 개인정보의 항목)에서 명시한 범위 내에서 처리하며, 이용자의 사전 동의 없이는 본래의 범위를 초과하여 처리하거나 제3자에게 제공하지 않습니다.</p>
                 <p>다만, 다음의 경우에는 예외로 합니다.</p>
                 <div className="ml-4 text-sm text-gray-600 space-y-1">
@@ -422,13 +422,13 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제12조 (개인정보의 국외 이전)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제12조 (개인정보의 국외 이전)</h2>
+              <div className="space-y-4">
                 <p>회사는 서비스 제공을 위해 이용자의 개인정보를 국외로 이전하여 처리하고 있습니다. 개인정보가 국외로 이전되는 경우는 다음과 같습니다.</p>
 
-                <div className="space-y-4">
-                  <div className="bg-gray-50 rounded-lg border border-gray-200 p-4">
-                    <p className="font-medium mb-3">▶ Supabase, Inc.</p>
+                <div className="space-y-6">
+                  <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
+                    <p className="font-bold text-white mb-4">▶ Supabase, Inc.</p>
                     <div className="ml-4 text-sm space-y-1.5">
                       <p>• <strong>이전받는 자:</strong> Supabase, Inc.</p>
                       <p>• <strong>이전되는 국가:</strong> 싱가포르 (Singapore)</p>
@@ -440,8 +440,8 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
                     </div>
                   </div>
 
-                  <div className="bg-gray-50 rounded-lg border border-gray-200 p-4">
-                    <p className="font-medium mb-3">▶ Google LLC</p>
+                  <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
+                    <p className="font-bold text-white mb-4">▶ Google LLC</p>
                     <div className="ml-4 text-sm space-y-1.5">
                       <p>• <strong>이전받는 자:</strong> Google LLC</p>
                       <p>• <strong>이전되는 국가:</strong> 미국 (United States)</p>
@@ -449,12 +449,12 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
                       <p>• <strong>이전되는 개인정보 항목:</strong> 쿠키, 서비스 이용 기록, 접속 로그, 기기 정보 (Google Analytics), 이메일 주소, 성명, 프로필 이미지 (Google 로그인)</p>
                       <p>• <strong>이전받는 자의 개인정보 이용 목적:</strong> 웹사이트 이용 통계 분석 및 소셜 로그인 서비스 제공</p>
                       <p>• <strong>이전받는 자의 개인정보 보유 및 이용 기간:</strong> Google 개인정보처리방침에 따름 (최대 26개월)</p>
-                      <p>• <strong>참고:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">https://policies.google.com/privacy</a></p>
+                      <p>• <strong>참고:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">https://policies.google.com/privacy</a></p>
                     </div>
                   </div>
 
-                  <div className="bg-gray-50 rounded-lg border border-gray-200 p-4">
-                    <p className="font-medium mb-3">▶ Vercel Inc.</p>
+                  <div className="bg-white/5 rounded-2xl border border-white/10 p-6">
+                    <p className="font-bold text-white mb-4">▶ Vercel Inc.</p>
                     <div className="ml-4 text-sm space-y-1.5">
                       <p>• <strong>이전받는 자:</strong> Vercel Inc.</p>
                       <p>• <strong>이전되는 국가:</strong> 미국 (United States)</p>
@@ -462,7 +462,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
                       <p>• <strong>이전되는 개인정보 항목:</strong> IP 주소, 접속 로그, 쿠키</p>
                       <p>• <strong>이전받는 자의 개인정보 이용 목적:</strong> 웹 호스팅 및 CDN 서비스 제공</p>
                       <p>• <strong>이전받는 자의 개인정보 보유 및 이용 기간:</strong> 위탁 계약 종료 시까지</p>
-                      <p>• <strong>참고:</strong> <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">https://vercel.com/legal/privacy-policy</a></p>
+                      <p>• <strong>참고:</strong> <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">https://vercel.com/legal/privacy-policy</a></p>
                     </div>
                   </div>
                 </div>
@@ -473,15 +473,15 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제13조 (개인정보 보호책임자 및 담당자)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제13조 (개인정보 보호책임자 및 담당자)</h2>
+              <div className="space-y-4">
                 <p>회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
 
-                <div className="bg-blue-50 rounded-lg border border-blue-200 p-4">
-                  <p className="font-semibold text-blue-900 mb-3">▶ 개인정보 보호책임자</p>
-                  <div className="ml-4 text-sm space-y-1.5 text-gray-700">
-                    <p><strong>성명:</strong> 고수빈</p>
-                    <p><strong>직책:</strong> 대표</p>
+                <div className="bg-blue-500/5 rounded-2xl border border-blue-500/20 p-6">
+                  <p className="font-bold text-[#60a5fa] mb-4">▶ 개인정보 보호책임자</p>
+                  <div className="ml-4 text-sm space-y-2 text-white/60">
+                    <p><strong className="text-white/80">성명:</strong> 고수빈</p>
+                    <p><strong className="text-white/80">직책:</strong> 대표</p>
                     <p><strong>연락처:</strong> 010-4648-0046</p>
                     <p><strong>이메일:</strong> binzzz010101@gmail.com</p>
                     <p><strong>주소:</strong> 경기도 양주시 옥정동로7다길 12-21, 301호-A431호</p>
@@ -493,8 +493,8 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제14조 (개인정보 열람 청구)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제14조 (개인정보 열람 청구)</h2>
+              <div className="space-y-4">
                 <p>정보주체는 개인정보 보호법 제35조에 따른 개인정보의 열람 청구를 아래의 부서에 할 수 있습니다. 회사는 정보주체의 개인정보 열람청구가 신속하게 처리되도록 노력하겠습니다.</p>
 
                 <div className="ml-4 space-y-2">
@@ -509,8 +509,8 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
             </section>
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제15조 (권익침해 구제방법)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제15조 (권익침해 구제방법)</h2>
+              <div className="space-y-6">
                 <p>정보주체는 개인정보침해로 인한 구제를 받기 위하여 개인정보분쟁조정위원회, 한국인터넷진흥원 개인정보침해신고센터 등에 분쟁해결이나 상담 등을 신청할 수 있습니다. 이 밖에 기타 개인정보침해의 신고, 상담에 대하여는 아래의 기관에 문의하시기 바랍니다.</p>
 
                 <div className="ml-4 space-y-3">
@@ -518,7 +518,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
                     <p className="font-medium">1. 개인정보분쟁조정위원회</p>
                     <div className="ml-4 text-sm text-gray-600 space-y-1">
                       <p>• 소관업무: 개인정보 분쟁조정신청, 집단분쟁조정 (민사적 해결)</p>
-                      <p>• 홈페이지: <a href="https://www.koprico.go.kr" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">www.koprico.go.kr</a></p>
+                      <p>• 홈페이지: <a href="https://www.koprico.go.kr" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">www.koprico.go.kr</a></p>
                       <p>• 전화: (국번없이) 1833-6972</p>
                       <p>• 주소: (03171) 서울특별시 종로구 세종대로 209 정부서울청사 4층</p>
                     </div>
@@ -528,7 +528,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
                     <p className="font-medium">2. 개인정보침해신고센터 (한국인터넷진흥원 운영)</p>
                     <div className="ml-4 text-sm text-gray-600 space-y-1">
                       <p>• 소관업무: 개인정보 침해사실 신고, 상담 신청</p>
-                      <p>• 홈페이지: <a href="https://privacy.kisa.or.kr" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">privacy.kisa.or.kr</a></p>
+                      <p>• 홈페이지: <a href="https://privacy.kisa.or.kr" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">privacy.kisa.or.kr</a></p>
                       <p>• 전화: (국번없이) 118</p>
                       <p>• 주소: (58324) 전남 나주시 진흥길 9(빛가람동 301-2) 3층 개인정보침해신고센터</p>
                     </div>
@@ -537,7 +537,7 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
                   <div>
                     <p className="font-medium">3. 대검찰청 사이버범죄수사단</p>
                     <div className="ml-4 text-sm text-gray-600 space-y-1">
-                      <p>• 홈페이지: <a href="https://www.spo.go.kr" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">www.spo.go.kr</a></p>
+                      <p>• 홈페이지: <a href="https://www.spo.go.kr" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">www.spo.go.kr</a></p>
                       <p>• 전화: (국번없이) 1301</p>
                     </div>
                   </div>
@@ -545,35 +545,35 @@ export default function PrivacyModal({ onClose }: PrivacyModalProps) {
                   <div>
                     <p className="font-medium">4. 경찰청 사이버안전국</p>
                     <div className="ml-4 text-sm text-gray-600 space-y-1">
-                      <p>• 홈페이지: <a href="https://ecrm.cyber.go.kr" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ecrm.cyber.go.kr</a></p>
+                      <p>• 홈페이지: <a href="https://ecrm.cyber.go.kr" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">ecrm.cyber.go.kr</a></p>
                       <p>• 전화: (국번없이) 182</p>
                     </div>
                   </div>
                 </div>
 
                 <p className="text-sm text-gray-600 mt-4">※ 개인정보보호법 제35조(개인정보의 열람), 제36조(개인정보의 정정·삭제), 제37조(개인정보의 처리정지 등)의 규정에 의한 요구에 대하여 공공기관의 장이 행한 처분 또는 부작위로 인하여 권리 또는 이익의 침해를 받은 자는 행정심판법이 정하는 바에 따라 행정심판을 청구할 수 있습니다.</p>
-                <p className="text-sm text-gray-600">※ 행정심판에 대해 자세한 사항은 중앙행정심판위원회(<a href="https://www.simpan.go.kr" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">www.simpan.go.kr</a>) 홈페이지를 참고하시기 바랍니다.</p>
+                <p className="text-sm text-white/40">※ 행정심판에 대해 자세한 사항은 중앙행정심판위원회(<a href="https://www.simpan.go.kr" target="_blank" rel="noopener noreferrer" className="text-[#60a5fa] hover:underline">www.simpan.go.kr</a>) 홈페이지를 참고하시기 바랍니다.</p>
               </div>
             </section>
 
 
 
             <section>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">제16조 (개인정보 처리방침의 변경)</h2>
-              <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white mb-6">제16조 (개인정보 처리방침의 변경)</h2>
+              <div className="space-y-4">
                 <p>이 개인정보 처리방침은 2026년 2월 13일부터 적용됩니다.</p>
                 <p>본 개인정보 처리방침의 내용 추가, 삭제 및 수정이 있을 경우에는 개정 최소 7일 전에 웹사이트의 '공지사항'을 통해 사전 공지를 할 것입니다. 다만, 수집하는 개인정보의 항목, 이용목적의 변경 등과 같이 이용자 권리의 중대한 변경이 발생할 때에는 최소 30일 전에 공지하며, 필요 시 이용자 동의를 다시 받을 수도 있습니다.</p>
 
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <p className="font-medium text-gray-900">• 공고일자: 2026년 2월 13일</p>
-                  <p className="font-medium text-gray-900">• 시행일자: 2026년 2월 13일</p>
+                <div className="mt-8 pt-8 border-t border-white/10">
+                  <p className="font-medium text-white/60">• 공고일자: 2026년 2월 13일</p>
+                  <p className="font-medium text-white/60">• 시행일자: 2026년 2월 13일</p>
                 </div>
               </div>
             </section>
 
-            <section className="bg-gray-50 rounded-lg p-6 border border-gray-200">
-              <h2 className="text-lg font-bold text-gray-900 mb-3">개인정보 처리방침 이전 버전 보기</h2>
-              <p className="text-sm text-gray-600">• 2026년 2월 13일 ~ 현재 (현재 버전)</p>
+            <section className="bg-white/5 rounded-2xl p-8 border border-white/10">
+              <h2 className="text-lg font-bold text-white mb-4">개인정보 처리방침 이전 버전 보기</h2>
+              <p className="text-sm text-white/40">• 2026년 2월 13일 ~ 현재 (현재 버전)</p>
             </section>
           </div>
         </div>
