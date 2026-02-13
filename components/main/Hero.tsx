@@ -2,8 +2,39 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+
+// Fixed star positions to avoid hydration mismatch
+const STAR_POSITIONS = [
+  { left: 8.41, top: 1.73, duration: 4.2, delay: 0.5 },
+  { left: 65.55, top: 16.62, duration: 3.8, delay: 1.2 },
+  { left: 24.34, top: 84.98, duration: 4.5, delay: 0.8 },
+  { left: 18.02, top: 29.46, duration: 3.5, delay: 1.5 },
+  { left: 90.14, top: 8.95, duration: 4.0, delay: 0.3 },
+  { left: 58.92, top: 81.63, duration: 3.3, delay: 1.8 },
+  { left: 38.51, top: 96.32, duration: 4.8, delay: 0.2 },
+  { left: 66.25, top: 63.16, duration: 3.7, delay: 1.0 },
+  { left: 55.18, top: 90.45, duration: 4.3, delay: 1.4 },
+  { left: 9.97, top: 74.55, duration: 3.9, delay: 0.6 },
+  { left: 26.09, top: 40.92, duration: 4.1, delay: 1.6 },
+  { left: 10.64, top: 80.16, duration: 3.6, delay: 0.9 },
+  { left: 53.13, top: 3.56, duration: 4.4, delay: 1.3 },
+  { left: 88.95, top: 52.48, duration: 3.4, delay: 0.7 },
+  { left: 86.62, top: 99.32, duration: 4.6, delay: 1.1 },
+  { left: 28.29, top: 99.73, duration: 3.8, delay: 1.7 },
+  { left: 3.69, top: 24.28, duration: 4.2, delay: 0.4 },
+  { left: 21.50, top: 59.49, duration: 3.5, delay: 1.9 },
+  { left: 5.76, top: 41.98, duration: 4.7, delay: 0.1 },
+  { left: 35.75, top: 50.56, duration: 3.9, delay: 1.2 },
+];
 
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <section
       className="relative w-full overflow-hidden bg-[#050d1a] pb-20 pt-48 font-light text-white antialiased md:pb-28 md:pt-40"
@@ -27,31 +58,33 @@ export default function Hero() {
       />
 
       {/* Floating stars decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          >
-            <svg width="4" height="4" viewBox="0 0 4 4">
-              <circle cx="2" cy="2" r="1" fill="#3b82f6" />
-            </svg>
-          </motion.div>
-        ))}
-      </div>
+      {mounted && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {STAR_POSITIONS.map((star, i) => (
+            <motion.div
+              key={i}
+              className="absolute"
+              style={{
+                left: `${star.left}%`,
+                top: `${star.top}%`,
+              }}
+              animate={{
+                opacity: [0.2, 0.8, 0.2],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: star.duration,
+                repeat: Infinity,
+                delay: star.delay,
+              }}
+            >
+              <svg width="4" height="4" viewBox="0 0 4 4">
+                <circle cx="2" cy="2" r="1" fill="#3b82f6" />
+              </svg>
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       <div className="relative z-10 mx-auto w-full px-4 text-center md:px-6 lg:px-8">
         <motion.div

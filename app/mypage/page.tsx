@@ -8,18 +8,26 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
 import { useCart } from "@/contexts/CartContext";
+import { maskName, maskEmail } from "@/lib/utils/nameMask";
+import ReviewForm from "@/components/reviews/ReviewForm";
 
 export default function MyPage() {
   const { user, isLoading, signOut } = useAuth();
   const router = useRouter();
   const { items, removeItem } = useCart();
   const [orders, setOrders] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [qnaList, setQnaList] = useState<any[]>([]);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [selectedOrderForReview, setSelectedOrderForReview] = useState<any>(null);
 
   useEffect(() => {
     if (!isLoading && !user) {
       router.push("/auth");
     } else if (user) {
       loadOrders();
+      loadReviews();
+      loadQnA();
     }
   }, [user, isLoading, router]);
 
@@ -33,6 +41,39 @@ export default function MyPage() {
 
     if (!error && data) {
       setOrders(data);
+    }
+  };
+
+  const loadReviews = async () => {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("reviews")
+      .select(`
+        *,
+        orders (
+          order_number,
+          product_name
+        )
+      `)
+      .eq("user_id", user?.id)
+      .order("created_at", { ascending: false });
+
+    if (!error && data) {
+      setReviews(data);
+    }
+  };
+
+  const loadQnA = async () => {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("qna")
+      .select("*")
+      .eq("user_id", user?.id)
+      .eq("is_deleted", false)
+      .order("created_at", { ascending: false });
+
+    if (!error && data) {
+      setQnaList(data);
     }
   };
 
@@ -60,6 +101,39 @@ export default function MyPage() {
       router.push("/");
     } catch (error) {
       console.error("Error signing out:", error);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!confirm("정말로 회원 탈퇴하시겠습니까?\n\n탈퇴 시 모든 주문 내역과 작성한 리뷰, Q&A가 삭제되며 복구할 수 없습니다.")) {
+      return;
+    }
+
+    if (!confirm("한 번 더 확인합니다. 정말 탈퇴하시겠습니까?")) {
+      return;
+    }
+
+    try {
+      const supabase = createClient();
+
+      // 사용자의 계정 삭제 (Supabase Auth)
+      const { error } = await supabase.auth.admin.deleteUser(user!.id);
+
+      if (error) {
+        // admin API가 없으면 클라이언트에서 직접 삭제 시도
+        const { error: updateError } = await supabase.auth.updateUser({
+          data: { deleted: true }
+        });
+
+        if (updateError) throw updateError;
+      }
+
+      alert("회원 탈퇴가 완료되었습니다.");
+      await signOut();
+      router.push("/");
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      alert("회원 탈퇴 처리 중 오류가 발생했습니다. 관리자에게 문의해주세요.");
     }
   };
 
@@ -145,12 +219,20 @@ export default function MyPage() {
                 }}
               />
             </Link>
-            <button
-              onClick={handleSignOut}
-              className="rounded-full border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 transition-all hover:border-gray-400 hover:bg-gray-50 hover:shadow-sm"
-            >
-              로그아웃
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handleDeleteAccount}
+                className="rounded-full border border-red-300 bg-white px-5 py-2 text-sm font-medium text-red-600 transition-all hover:border-red-400 hover:bg-red-50 hover:shadow-sm"
+              >
+                회원탈퇴
+              </button>
+              <button
+                onClick={handleSignOut}
+                className="rounded-full border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 transition-all hover:border-gray-400 hover:bg-gray-50 hover:shadow-sm"
+              >
+                로그아웃
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -349,28 +431,219 @@ export default function MyPage() {
                           </button>
                         </>
                       )}
-                      {order.order_status === "completed" && order.result_file_url && (
-                        <div className="mt-4">
-                          {isFileExpired(order.file_uploaded_at) ? (
-                            <div className="flex items-center justify-center gap-2 w-full rounded-lg bg-gray-100 px-4 py-3 text-sm font-medium text-gray-500 border border-gray-200">
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                              다운로드 기간 만료 (30일 경과)
-                            </div>
-                          ) : (
-                            <a
-                              href={order.result_file_url}
-                              download
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center gap-2 w-full rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                      {order.order_status === "completed" && (
+                        <div className="mt-4 space-y-2">
+                          {order.result_file_url && (
+                            <>
+                              {isFileExpired(order.file_uploaded_at) ? (
+                                <div className="flex items-center justify-center gap-2 w-full rounded-lg bg-gray-100 px-4 py-3 text-sm font-medium text-gray-500 border border-gray-200">
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  </svg>
+                                  다운로드 기간 만료 (30일 경과)
+                                </div>
+                              ) : (
+                                <a
+                                  href={order.result_file_url}
+                                  download
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center justify-center gap-2 w-full rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                  </svg>
+                                  분석 결과 다운로드 (30일 이내)
+                                </a>
+                              )}
+                            </>
+                          )}
+                          {!reviews.some((review: any) => review.orders?.order_number === order.order_number) ? (
+                            <button
+                              onClick={() => {
+                                setSelectedOrderForReview(order);
+                                setShowReviewModal(true);
+                              }}
+                              className="flex items-center justify-center gap-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
                             >
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                               </svg>
-                              분석 결과 다운로드 (30일 이내)
-                            </a>
+                              구매평 작성하기
+                            </button>
+                          ) : (
+                            <div className="flex items-center justify-center gap-2 w-full rounded-lg bg-gray-100 px-4 py-3 text-sm font-medium text-gray-500 border border-gray-200">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              구매평 작성 완료
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Review History */}
+          <div className="mt-12">
+            <h2 className="mb-4 text-xl font-medium text-gray-900">내 구매평</h2>
+            <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+              {reviews.length === 0 ? (
+                <div className="p-12 text-center text-gray-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-auto mb-4 h-16 w-16 text-gray-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={1}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                    />
+                  </svg>
+                  <p className="mb-2 text-lg font-medium text-gray-700">
+                    작성한 구매평이 없습니다
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    완료된 주문에서 구매평을 작성해보세요
+                  </p>
+                </div>
+              ) : (
+                <div className="divide-y divide-gray-100">
+                  {reviews.map((review: any) => (
+                    <div key={review.id} className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <div>
+                          <p className="text-sm font-medium text-gray-900 mb-1">
+                            {review.orders?.product_name || "상품명 없음"}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            주문번호: {review.orders?.order_number}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <svg
+                              key={star}
+                              className={`w-4 h-4 ${
+                                star <= review.rating ? "text-yellow-400" : "text-gray-300"
+                              }`}
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-700 mb-2 whitespace-pre-wrap">{review.content}</p>
+                      <div className="flex items-center gap-3 text-xs text-gray-500">
+                        <span>{new Date(review.created_at).toLocaleDateString("ko-KR")}</span>
+                        {review.is_approved ? (
+                          <span className="rounded-full bg-green-100 px-2 py-0.5 text-green-700 font-medium">
+                            승인됨
+                          </span>
+                        ) : (
+                          <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-yellow-700 font-medium">
+                            승인 대기중
+                          </span>
+                        )}
+                      </div>
+                      {review.admin_reply && (
+                        <div className="mt-3 rounded-lg bg-blue-50 border border-blue-100 p-3">
+                          <p className="text-xs font-medium text-blue-900 mb-1">관리자 답변</p>
+                          <p className="text-sm text-blue-800 whitespace-pre-wrap">{review.admin_reply}</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Q&A History */}
+          <div className="mt-12">
+            <h2 className="mb-4 text-xl font-medium text-gray-900">내 문의내역</h2>
+            <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+              {qnaList.length === 0 ? (
+                <div className="p-12 text-center text-gray-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="mx-auto mb-4 h-16 w-16 text-gray-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={1}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <p className="mb-2 text-lg font-medium text-gray-700">
+                    작성한 문의가 없습니다
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    상품 페이지에서 궁금한 점을 문의해보세요
+                  </p>
+                </div>
+              ) : (
+                <div className="divide-y divide-gray-100">
+                  {qnaList.map((qna: any) => (
+                    <div key={qna.id} className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          {qna.product_name && (
+                            <p className="text-sm font-medium text-gray-900 mb-1">
+                              {qna.product_name}
+                            </p>
+                          )}
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-gray-500">
+                              {new Date(qna.created_at).toLocaleDateString("ko-KR")}
+                            </span>
+                            {qna.is_answered ? (
+                              <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700 font-medium">
+                                답변완료
+                              </span>
+                            ) : (
+                              <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-xs text-yellow-700 font-medium">
+                                답변대기
+                              </span>
+                            )}
+                            {qna.is_public ? (
+                              <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-700 font-medium">
+                                공개
+                              </span>
+                            ) : (
+                              <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs text-red-700 font-medium">
+                                비공개
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mb-3">
+                        <p className="text-xs font-medium text-gray-500 mb-1">질문</p>
+                        <p className="text-sm text-gray-700 whitespace-pre-wrap">{qna.question}</p>
+                      </div>
+                      {qna.answer && (
+                        <div className="rounded-lg bg-green-50 border border-green-100 p-3">
+                          <p className="text-xs font-medium text-green-900 mb-1">답변</p>
+                          <p className="text-sm text-green-800 whitespace-pre-wrap">{qna.answer}</p>
+                          {qna.answered_at && (
+                            <p className="text-xs text-green-600 mt-2">
+                              {new Date(qna.answered_at).toLocaleDateString("ko-KR")}
+                            </p>
                           )}
                         </div>
                       )}
@@ -382,6 +655,19 @@ export default function MyPage() {
           </div>
         </motion.div>
       </main>
+
+      {/* Review Modal */}
+      {showReviewModal && selectedOrderForReview && (
+        <ReviewForm
+          onClose={() => {
+            setShowReviewModal(false);
+            setSelectedOrderForReview(null);
+            loadReviews();
+          }}
+          productName={selectedOrderForReview.product_name}
+          orderId={selectedOrderForReview.id}
+        />
+      )}
     </div>
   );
 }

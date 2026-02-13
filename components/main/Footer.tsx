@@ -1,51 +1,61 @@
 "use client";
 
+import { useState } from "react";
+import TermsModal from "./TermsModal";
+import PrivacyModal from "./PrivacyModal";
+
 export default function Footer() {
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+
   return (
-    <footer className="relative bg-gray-900 py-8 text-white">
-      {/* Gradient divider */}
-      <div
-        className="absolute left-0 top-0 h-px w-full"
-        style={{
-          background: "linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.3) 50%, transparent 100%)",
-        }}
-      />
+    <>
+      <footer className="relative bg-gray-900 py-8 text-white">
+        {/* Gradient divider */}
+        <div
+          className="absolute left-0 top-0 h-px w-full"
+          style={{
+            background: "linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.3) 50%, transparent 100%)",
+          }}
+        />
 
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <div className="flex flex-col items-center justify-center text-center">
-          {/* Logo */}
-          <img
-            src="https://i.imgur.com/sdU9nRt.png"
-            alt="타라사주 로고"
-            className="mb-6 h-12 w-auto"
-            onError={(e) => {
-              e.currentTarget.src = "https://i.imgur.com/sdU9nRt.jpg";
-            }}
-          />
-
-          {/* Company Info */}
-          <div className="mb-6 space-y-2 text-sm text-gray-400">
-            <p>노마릿 (452-01-02701) | 대표 : 고수빈</p>
-            <p>© 2026 TARA SAJU. All rights reserved.</p>
-          </div>
-
-          {/* Contact Info */}
-          <div className="space-y-2 text-sm text-gray-400">
-            <p>
-              <span className="text-gray-500">CS:</span>{" "}
-              <a href="tel:010-4648-0046" className="hover:text-white transition-colors">
-                010-4648-0046
-              </a>
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <div className="flex flex-col items-center justify-center text-center space-y-3">
+            {/* Company Info - 가로 한 줄 */}
+            <p className="text-xs text-gray-400">
+              상호: 원포세븐 | 대표: 고수빈 | 사업자번호: 601-05-84230 | 통신판매업 신고번호: 2025-경기양주-0763 | 주소: 경기도 양주시 옥정동로7다길 12-21, 301호-A431호 | 고객센터: 010-4648-0046
             </p>
-            <p>
-              <span className="text-gray-500">Contact:</span>{" "}
-              <a href="mailto:binzzz010101@gmail.com" className="hover:text-white transition-colors">
-                binzzz010101@gmail.com
-              </a>
+
+            {/* Links */}
+            <div className="flex gap-3 text-xs">
+              <button
+                onClick={() => setShowTermsModal(true)}
+                className="text-gray-400 hover:text-white transition-colors underline cursor-pointer"
+              >
+                이용약관
+              </button>
+              <span className="text-gray-600">|</span>
+              <button
+                onClick={() => setShowPrivacyModal(true)}
+                className="text-gray-400 hover:text-white transition-colors underline cursor-pointer"
+              >
+                개인정보처리방침
+              </button>
+              <span className="text-gray-600">|</span>
+              <span className="text-gray-400">이메일무단수집거부</span>
+            </div>
+
+            {/* Copyright */}
+            <p className="text-xs text-gray-500">
+              © 2026 TARA SAJU. All rights reserved.
             </p>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+
+      {/* Modals */}
+      {showTermsModal && <TermsModal onClose={() => setShowTermsModal(false)} />}
+      {showPrivacyModal && <PrivacyModal onClose={() => setShowPrivacyModal(false)} />}
+    </>
   );
 }

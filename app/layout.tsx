@@ -14,6 +14,23 @@ const notoSansKR = Noto_Sans_KR({
 export const metadata: Metadata = {
   title: "온라인 사주 분석 | 타라사주",
   description: "tarasaju web",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "타라사주",
+  },
+  icons: {
+    apple: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 export default function RootLayout({

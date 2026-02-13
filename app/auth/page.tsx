@@ -4,9 +4,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { useState } from "react";
+import TermsModal from "@/components/main/TermsModal";
+import PrivacyModal from "@/components/main/PrivacyModal";
 
 export default function AuthPage() {
     const [isLoading, setIsLoading] = useState(false);
+    const [showTermsModal, setShowTermsModal] = useState(false);
+    const [showPrivacyModal, setShowPrivacyModal] = useState(false);
     const supabase = createClient();
 
     const handleGoogleLogin = async () => {
@@ -154,13 +158,19 @@ export default function AuthPage() {
                     {/* Terms */}
                     <p className="mt-8 text-center text-xs text-white/40">
                         로그인 시{" "}
-                        <Link href="/terms" className="text-white/60 hover:text-white/80 underline">
+                        <button
+                            onClick={() => setShowTermsModal(true)}
+                            className="text-white/60 hover:text-white/80 underline cursor-pointer"
+                        >
                             이용약관
-                        </Link>{" "}
+                        </button>{" "}
                         및{" "}
-                        <Link href="/privacy" className="text-white/60 hover:text-white/80 underline">
+                        <button
+                            onClick={() => setShowPrivacyModal(true)}
+                            className="text-white/60 hover:text-white/80 underline cursor-pointer"
+                        >
                             개인정보처리방침
-                        </Link>
+                        </button>
                         에<br />
                         동의하는 것으로 간주됩니다.
                     </p>
@@ -194,6 +204,10 @@ export default function AuthPage() {
                     </Link>
                 </motion.div>
             </div>
+
+            {/* Modals */}
+            {showTermsModal && <TermsModal onClose={() => setShowTermsModal(false)} />}
+            {showPrivacyModal && <PrivacyModal onClose={() => setShowPrivacyModal(false)} />}
         </section>
     );
 }

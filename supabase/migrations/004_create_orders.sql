@@ -42,6 +42,10 @@ CREATE INDEX IF NOT EXISTS idx_orders_payment_status ON public.orders(payment_st
 -- RLS 정책 활성화
 ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policies if they exist
+DROP POLICY IF EXISTS "Users can view their own orders" ON public.orders;
+DROP POLICY IF EXISTS "Users can create their own orders" ON public.orders;
+
 -- 사용자는 본인의 주문만 조회 가능
 CREATE POLICY "Users can view their own orders"
   ON public.orders

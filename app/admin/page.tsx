@@ -6,10 +6,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import ReviewsManagement from "@/components/admin/ReviewsManagement";
+import QnAManagement from "@/components/admin/QnAManagement";
 
 // 관리자 이메일 목록 (실제 환경에서는 환경변수로 관리)
 const ADMIN_EMAILS = ["binzzz010101@gmail.com"];
 
+type AdminSection = "orders" | "reviews" | "qna";
 type OrderStatus = "all" | "pending" | "confirmed" | "processing" | "completed" | "cancelling" | "cancelled";
 
 interface Order {
@@ -41,6 +44,7 @@ interface Order {
 export default function AdminPage() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
+  const [activeSection, setActiveSection] = useState<AdminSection>("orders");
   const [orders, setOrders] = useState<Order[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus>("all");
@@ -347,13 +351,14 @@ export default function AdminPage() {
                   }}
                 />
               </Link>
-              <h1 className="text-xl font-bold text-gray-900">관리자 대시보드</h1>
+              <h1 className="text-base md:text-xl font-bold text-gray-900">관리자 대시보드</h1>
             </div>
             <button
               onClick={() => router.push("/mypage")}
-              className="rounded-full border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 transition-all hover:border-gray-400 hover:bg-gray-50 hover:shadow-sm"
+              className="rounded-full border border-gray-300 bg-white px-3 md:px-5 py-2 text-xs md:text-sm font-medium text-gray-700 transition-all hover:border-gray-400 hover:bg-gray-50 hover:shadow-sm active:bg-gray-100"
             >
-              마이페이지로
+              <span className="hidden sm:inline">마이페이지로</span>
+              <span className="sm:hidden">마이페이지</span>
             </button>
           </div>
         </div>
@@ -361,30 +366,56 @@ export default function AdminPage() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 md:px-6 lg:px-8">
+        {/* Section Tabs */}
+        <div className="mb-6 border-b border-gray-200">
+          <div className="flex gap-4">
+            {[
+              { value: "orders", label: "주문 관리" },
+              { value: "reviews", label: "구매평 관리" },
+              { value: "qna", label: "Q&A 관리" },
+            ].map((tab) => (
+              <button
+                key={tab.value}
+                onClick={() => setActiveSection(tab.value as AdminSection)}
+                className={`px-6 py-3 text-sm font-medium transition-colors border-b-2 ${
+                  activeSection === tab.value
+                    ? "border-blue-600 text-blue-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          {/* 매출 통계 */}
-          <div className="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-              <p className="text-sm text-gray-500 mb-1">총 매출</p>
-              <p className="text-2xl font-bold text-blue-600">{stats.totalRevenue.toLocaleString()}원</p>
-              <p className="text-xs text-gray-400 mt-1">완료된 주문 기준</p>
+          {/* Orders Section */}
+          {activeSection === "orders" && (
+            <>
+              {/* 매출 통계 */}
+          <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
+              <p className="text-xs md:text-sm text-gray-500 mb-1">총 매출</p>
+              <p className="text-lg md:text-2xl font-bold text-blue-600">{stats.totalRevenue.toLocaleString()}원</p>
+              <p className="text-xs text-gray-400 mt-1 hidden md:block">완료된 주문 기준</p>
             </div>
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-              <p className="text-sm text-gray-500 mb-1">총 주문</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalOrders}건</p>
+            <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
+              <p className="text-xs md:text-sm text-gray-500 mb-1">총 주문</p>
+              <p className="text-lg md:text-2xl font-bold text-gray-900">{stats.totalOrders}건</p>
               <p className="text-xs text-gray-400 mt-1">완료: {stats.completedOrders}건</p>
             </div>
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-              <p className="text-sm text-gray-500 mb-1">평균 주문액</p>
-              <p className="text-2xl font-bold text-gray-900">{Math.round(stats.avgOrderValue).toLocaleString()}원</p>
-              <p className="text-xs text-gray-400 mt-1">완료된 주문 평균</p>
+            <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
+              <p className="text-xs md:text-sm text-gray-500 mb-1">평균 주문액</p>
+              <p className="text-lg md:text-2xl font-bold text-gray-900">{Math.round(stats.avgOrderValue).toLocaleString()}원</p>
+              <p className="text-xs text-gray-400 mt-1 hidden md:block">완료된 주문 평균</p>
             </div>
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-              <p className="text-sm text-gray-500 mb-2">상태별 주문</p>
+            <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm col-span-2 md:col-span-1">
+              <p className="text-xs md:text-sm text-gray-500 mb-2">상태별 주문</p>
               <div className="space-y-1 text-xs">
                 <div className="flex justify-between"><span>입금대기:</span><span className="font-medium">{stats.statusCounts.pending}건</span></div>
                 <div className="flex justify-between"><span>분석중:</span><span className="font-medium">{stats.statusCounts.processing}건</span></div>
@@ -485,10 +516,10 @@ export default function AdminPage() {
                 <button
                   key={status.value}
                   onClick={() => setSelectedStatus(status.value as OrderStatus)}
-                  className={`whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  className={`whitespace-nowrap rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-xs md:text-sm font-medium transition-colors ${
                     selectedStatus === status.value
-                      ? "bg-blue-600 text-white"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
+                      ? "bg-blue-600 text-white active:bg-blue-700"
+                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 active:bg-gray-100"
                   }`}
                 >
                   {status.label} ({getStatusCount(status.value as OrderStatus)})
@@ -507,7 +538,7 @@ export default function AdminPage() {
               filteredOrders.map((order) => (
                 <div
                   key={order.id}
-                  className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
+                  className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                     {/* Order Info */}
@@ -598,7 +629,7 @@ export default function AdminPage() {
                       {order.order_status === "pending" && (
                         <button
                           onClick={() => confirmPayment(order)}
-                          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                          className="rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
                         >
                           입금 확인
                         </button>
@@ -607,7 +638,7 @@ export default function AdminPage() {
                       {order.order_status === "confirmed" && (
                         <button
                           onClick={() => startProcessing(order)}
-                          className="rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700"
+                          className="rounded-lg bg-purple-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-purple-700 active:bg-purple-800"
                         >
                           분석 시작
                         </button>
@@ -615,7 +646,7 @@ export default function AdminPage() {
 
                       {order.order_status === "processing" && (
                         <>
-                          <label className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700 cursor-pointer text-center">
+                          <label className="rounded-lg bg-green-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-green-700 active:bg-green-800 cursor-pointer text-center">
                             {uploadingFile === order.id ? "업로드 중..." : "결과 파일 업로드"}
                             <input
                               type="file"
@@ -630,7 +661,7 @@ export default function AdminPage() {
                           </label>
                           <button
                             onClick={() => completeOrder(order)}
-                            className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                            className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 active:bg-gray-100"
                           >
                             파일 없이 완료
                           </button>
@@ -640,7 +671,7 @@ export default function AdminPage() {
                       {order.order_status === "cancelling" && (
                         <button
                           onClick={() => cancelOrder(order)}
-                          className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
+                          className="rounded-lg bg-red-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-red-700 active:bg-red-800"
                         >
                           취소 승인
                         </button>
@@ -649,7 +680,7 @@ export default function AdminPage() {
                       {(order.order_status === "pending" || order.order_status === "confirmed") && (
                         <button
                           onClick={() => cancelOrder(order)}
-                          className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                          className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 active:bg-gray-100"
                         >
                           주문 취소
                         </button>
@@ -660,6 +691,14 @@ export default function AdminPage() {
               ))
             )}
           </div>
+            </>
+          )}
+
+          {/* Reviews Section */}
+          {activeSection === "reviews" && <ReviewsManagement />}
+
+          {/* Q&A Section */}
+          {activeSection === "qna" && <QnAManagement />}
         </motion.div>
       </main>
     </div>
