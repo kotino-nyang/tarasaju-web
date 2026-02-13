@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Header from "@/components/main/Header";
 import Footer from "@/components/main/Footer";
@@ -19,7 +19,7 @@ interface PersonForm {
   isLeapMonth: boolean;
 }
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user, isLoading } = useAuth();
@@ -556,5 +556,17 @@ export default function CheckoutPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center bg-[#050d1a]">
+        <div className="text-white">로딩 중...</div>
+      </div>
+    }>
+      <CheckoutContent />
+    </Suspense>
   );
 }
