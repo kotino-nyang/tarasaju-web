@@ -10,6 +10,9 @@ import { createClient } from "@/lib/supabase/client";
 import { useCart } from "@/contexts/CartContext";
 import { maskName, maskEmail } from "@/lib/utils/nameMask";
 import ReviewForm from "@/components/reviews/ReviewForm";
+import Header from "@/components/main/Header";
+import Footer from "@/components/main/Footer";
+import { AnimatePresence } from "framer-motion";
 
 export default function MyPage() {
   const { user, isLoading, signOut } = useAuth();
@@ -79,17 +82,17 @@ export default function MyPage() {
 
   const getStatusBadge = (status: string) => {
     const statusMap: { [key: string]: { label: string; class: string } } = {
-      pending: { label: "입금대기", class: "bg-yellow-100 text-yellow-800" },
-      confirmed: { label: "입금확인", class: "bg-blue-100 text-blue-800" },
-      processing: { label: "분석중", class: "bg-purple-100 text-purple-800" },
-      completed: { label: "완료", class: "bg-green-100 text-green-800" },
-      cancelling: { label: "취소 요청중", class: "bg-orange-100 text-orange-800" },
-      cancelled: { label: "주문 취소", class: "bg-gray-100 text-gray-800" },
+      pending: { label: "입금대기", class: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20" },
+      confirmed: { label: "입금확인", class: "bg-blue-500/10 text-blue-400 border-blue-500/20" },
+      processing: { label: "분석중", class: "bg-purple-500/10 text-purple-400 border-purple-500/20" },
+      completed: { label: "완료", class: "bg-green-500/10 text-green-400 border-green-500/20" },
+      cancelling: { label: "취소 요청중", class: "bg-orange-500/10 text-orange-400 border-orange-500/20" },
+      cancelled: { label: "주문 취소", class: "bg-red-500/10 text-red-500 border-red-500/20" },
     };
 
     const { label, class: className } = statusMap[status] || statusMap.pending;
     return (
-      <span className={`rounded-full px-3 py-1 text-xs font-medium ${className}`}>
+      <span className={`rounded-full border px-3 py-1 text-xs font-bold transition-all ${className}`}>
         {label}
       </span>
     );
@@ -190,10 +193,10 @@ export default function MyPage() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex min-h-screen items-center justify-center bg-[#050d1a]">
         <div className="text-center">
-          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600"></div>
-          <p className="text-gray-600">로딩중...</p>
+          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-white/10 border-t-blue-500"></div>
+          <p className="text-white/60">로딩중...</p>
         </div>
       </div>
     );
@@ -204,457 +207,346 @@ export default function MyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur-md shadow-sm">
-        <div className="container mx-auto px-4 py-4 md:px-6">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-              <img
-                src="https://i.imgur.com/sdU9nRt.png"
-                alt="타라사주 로고"
-                className="h-12 w-auto md:h-14"
-                onError={(e) => {
-                  e.currentTarget.src = "https://i.imgur.com/sdU9nRt.jpg";
-                }}
-              />
-            </Link>
-            <div className="flex gap-2">
-              <button
-                onClick={handleDeleteAccount}
-                className="rounded-full border border-red-300 bg-white px-5 py-2 text-sm font-medium text-red-600 transition-all hover:border-red-400 hover:bg-red-50 hover:shadow-sm"
-              >
-                회원탈퇴
-              </button>
-              <button
-                onClick={handleSignOut}
-                className="rounded-full border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 transition-all hover:border-gray-400 hover:bg-gray-50 hover:shadow-sm"
-              >
-                로그아웃
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[#050d1a] text-white selection:bg-blue-500/30">
+      <Header />
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-12 md:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mx-auto max-w-4xl"
-        >
-          {/* Welcome Section */}
-          <div className="mb-8 rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
-            <div className="flex items-center gap-4">
-              {user.user_metadata?.avatar_url && (
-                <img
-                  src={user.user_metadata.avatar_url}
-                  alt="Profile"
-                  className="h-20 w-20 rounded-full border-2 border-gray-200"
-                />
-              )}
-              <div>
-                <h1 className="mb-1 text-3xl font-light text-gray-900">
-                  안녕하세요, {user.user_metadata?.full_name || user.user_metadata?.name || "회원"}님
-                </h1>
-                <p className="text-sm text-gray-500">{user.email}</p>
+      <main className="relative pt-32 pb-20 overflow-hidden">
+        {/* Background Gradients */}
+        <div
+          className="absolute inset-x-0 top-0 h-[500px] opacity-40 pointer-events-none"
+          style={{
+            background: "radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.2) 0%, transparent 70%)"
+          }}
+        />
+
+        <div className="container relative z-10 mx-auto px-4 md:px-6 lg:px-8 max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-12"
+          >
+            {/* Header / Profile */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 transition-all hover:bg-white/[0.07]">
+              <div className="flex items-center gap-6">
+                <div className="relative">
+                  <div className="h-20 w-20 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 p-0.5 shadow-lg">
+                    <div className="flex h-full w-full items-center justify-center rounded-[14px] bg-[#050d1a] text-2xl font-bold text-white">
+                      {user.user_metadata?.full_name?.[0] || user.email?.[0].toUpperCase() || "U"}
+                    </div>
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full border-2 border-[#050d1a] bg-green-500" />
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold text-white md:text-3xl">
+                    안녕하세요, <span className="text-[#60a5fa]">{user.user_metadata?.full_name || user.user_metadata?.name || "회원"}</span>님
+                  </h1>
+                  <p className="mt-1 text-sm text-white/40">{maskEmail(user.email || "")}</p>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={handleSignOut}
+                  className="rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium transition-all hover:bg-white/10 active:scale-95"
+                >
+                  로그아웃
+                </button>
+                <button
+                  onClick={handleDeleteAccount}
+                  className="rounded-xl border border-red-500/20 bg-red-500/5 px-5 py-2.5 text-sm font-medium text-red-400 transition-all hover:bg-red-500/10 active:scale-95"
+                >
+                  회원탈퇴
+                </button>
               </div>
             </div>
-          </div>
 
-          {/* Shopping Cart Section */}
-          <div className="mb-12">
-            <h2 className="mb-4 text-xl font-medium text-gray-900">장바구니</h2>
-            <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-              {items.length === 0 ? (
-                <div className="p-12 text-center text-gray-500">
-                  <p className="mb-2 text-lg font-medium text-gray-700">
-                    장바구니가 비어있습니다
-                  </p>
-                  <Link
-                    href="/analysis"
-                    className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-                  >
-                    쇼핑하러 가기
-                  </Link>
-                </div>
-              ) : (
-                <div className="divide-y divide-gray-100">
-                  {items.map((item) => (
-                    <div key={item.id} className="flex items-center gap-4 p-6 hover:bg-gray-50 transition-colors">
-                      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-gray-100 bg-gray-50">
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="tex-base font-medium text-gray-900 mb-1">{item.title}</h3>
-                        <p className="text-sm text-gray-500 mb-1">{item.option}</p>
-                        <p className="text-sm font-bold text-blue-600">{item.price.toLocaleString()}원</p>
-                      </div>
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-red-500 transition-colors"
-                        aria-label="Remove item"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                      </button>
-                    </div>
-                  ))}
-                  <div className="bg-gray-50 p-6">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="font-medium text-gray-900">총 결제금액</span>
-                      <span className="text-xl font-bold text-blue-600">
-                        {items.reduce((sum, item) => sum + item.price, 0).toLocaleString()}원
-                      </span>
-                    </div>
+            {/* Shopping Cart Section */}
+            <section className="mb-12">
+              <h2 className="mb-4 text-xl font-bold flex items-center gap-2">
+                <svg className="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                장바구니
+              </h2>
+              <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden">
+                {items.length === 0 ? (
+                  <div className="p-12 text-center text-white/30">
+                    <p className="mb-4 text-lg italic">장바구니가 비어있습니다.</p>
                     <Link
-                      href="/checkout?fromCart=true"
-                      className="block w-full rounded-full bg-blue-600 px-6 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                      href="/analysis"
+                      className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-all hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]"
                     >
-                      결제하기
+                      쇼핑하러 가기
                     </Link>
                   </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Order History */}
-          <div>
-            <h2 className="mb-4 text-xl font-medium text-gray-900">주문내역</h2>
-            <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-              {orders.length === 0 ? (
-                <div className="p-12 text-center text-gray-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mx-auto mb-4 h-16 w-16 text-gray-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                    />
-                  </svg>
-                  <p className="mb-2 text-lg font-medium text-gray-700">
-                    주문 내역이 없습니다
-                  </p>
-                  <p className="mb-6 text-sm text-gray-500">
-                    사주 분석 서비스를 신청하고 나만의 리포트를 받아보세요
-                  </p>
-                  <Link
-                    href="/analysis"
-                    className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-                  >
-                    사주 분석 신청하기
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-              ) : (
-                <div className="divide-y divide-gray-100">
-                  {orders.map((order) => (
-                    <div key={order.id} className="p-6 hover:bg-gray-50 transition-colors">
-                      <div className="flex items-start justify-between mb-4">
-                        <div>
-                          <p className="text-sm text-gray-500 mb-1">
-                            주문일: {new Date(order.created_at).toLocaleDateString("ko-KR")}
-                          </p>
-                          <p className="text-sm font-medium text-gray-900 mb-1">
-                            주문번호: {order.order_number}
-                          </p>
+                ) : (
+                  <div className="divide-y divide-white/10">
+                    {items.map((item) => (
+                      <div key={item.id} className="flex items-center gap-6 p-6 hover:bg-white/[0.02] transition-colors">
+                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-lg">
+                          <img
+                            src={item.image}
+                            alt={item.title}
+                            className="h-full w-full object-cover transition-transform hover:scale-110"
+                          />
                         </div>
-                        {getStatusBadge(order.order_status)}
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-bold text-white mb-1 truncate">{item.title}</h3>
+                          <p className="text-sm text-white/40 mb-2">{item.option}</p>
+                          <p className="text-lg font-bold text-[#60a5fa]">{item.price.toLocaleString()}원</p>
+                        </div>
+                        <button
+                          onClick={() => removeItem(item.id)}
+                          className="rounded-xl p-3 text-white/20 hover:bg-red-500/10 hover:text-red-400 transition-all active:scale-95"
+                          aria-label="Remove item"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          </svg>
+                        </button>
                       </div>
-                      <div className="flex items-center gap-4">
-                        <div className="flex-1">
-                          <h3 className="text-base font-medium text-gray-900 mb-1">
-                            {order.product_name}
-                          </h3>
-                          <p className="text-sm text-gray-500 mb-2">
-                            {order.option} - {order.customer_name}
-                          </p>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-blue-600">
-                              {order.final_amount.toLocaleString()}원
-                            </span>
-                            {order.discount_amount > 0 && (
-                              <>
-                                <span className="text-sm text-gray-400 line-through">
-                                  {order.price.toLocaleString()}원
-                                </span>
-                                <span className="text-xs text-red-500 font-medium">
-                                  {order.discount_amount.toLocaleString()}원 할인
-                                </span>
-                              </>
+                    ))}
+                    <div className="bg-white/5 p-6 backdrop-blur-md">
+                      <div className="flex justify-between items-center mb-6">
+                        <span className="font-bold text-white/60">총 결제금액</span>
+                        <span className="text-3xl font-black text-[#60a5fa]">
+                          {items.reduce((sum, item) => sum + item.price, 0).toLocaleString()}원
+                        </span>
+                      </div>
+                      <Link
+                        href="/checkout?fromCart=true"
+                        className="block w-full rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 text-center text-base font-bold text-white transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] active:scale-[0.98]"
+                      >
+                        결제하기
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </section>
+
+            {/* Main Sections Grid */}
+            <div className="grid gap-8 lg:grid-cols-12">
+              <div className="lg:col-span-8 space-y-8">
+                {/* Order History */}
+                <section>
+                  <div className="mb-4 flex items-center justify-between">
+                    <h2 className="text-xl font-bold flex items-center gap-2">
+                      <svg className="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                      </svg>
+                      최근 주문 내역
+                    </h2>
+                  </div>
+                  <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden">
+                    {orders.length === 0 ? (
+                      <div className="py-20 text-center">
+                        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 text-white/20">
+                          <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                          </svg>
+                        </div>
+                        <p className="text-white/40">아직 주문하신 내역이 없습니다.</p>
+                        <Link href="/analysis" className="mt-6 inline-block rounded-xl bg-blue-600 px-6 py-3 text-sm font-bold text-white transition-all hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                          분석 시작하기
+                        </Link>
+                      </div>
+                    ) : (
+                      <div className="divide-y divide-white/10">
+                        {orders.map((order) => (
+                          <div key={order.id} className="p-6 transition-all hover:bg-white/[0.02]">
+                            <div className="mb-4 flex items-start justify-between">
+                              <div className="space-y-1">
+                                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white/40">
+                                  <span>{new Date(order.created_at).toLocaleDateString()}</span>
+                                  <span className="h-1 w-1 rounded-full bg-white/20" />
+                                  <span>{order.order_number}</span>
+                                </div>
+                                <h3 className="text-lg font-bold">{order.product_name}</h3>
+                                <p className="text-sm text-white/60">{order.option} · {order.customer_name}</p>
+                              </div>
+                              {getStatusBadge(order.order_status)}
+                            </div>
+
+                            <div className="flex flex-wrap items-center justify-between gap-4">
+                              <div className="text-xl font-bold text-[#60a5fa]">
+                                {order.final_amount.toLocaleString()}원
+                                {order.discount_amount > 0 && (
+                                  <span className="ml-2 text-xs font-medium text-red-400/80">
+                                    (-{order.discount_amount.toLocaleString()}원 할인)
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex gap-2">
+                                {order.order_status === "completed" && order.result_file_url && !isFileExpired(order.file_uploaded_at) && (
+                                  <a
+                                    href={order.result_file_url}
+                                    download
+                                    className="rounded-xl border border-blue-500/50 bg-blue-500/10 px-4 py-2 text-sm font-bold text-blue-400 transition-all hover:bg-blue-500/20"
+                                  >
+                                    결과 다운로드
+                                  </a>
+                                )}
+                                {order.order_status === "completed" && !reviews.some((r: any) => r.order_id === order.id) && (
+                                  <button
+                                    onClick={() => {
+                                      setSelectedOrderForReview(order);
+                                      setShowReviewModal(true);
+                                    }}
+                                    className="rounded-xl bg-white/10 px-4 py-2 text-sm font-bold transition-all hover:bg-white/20"
+                                  >
+                                    구매평 작성
+                                  </button>
+                                )}
+                                {order.order_status === "pending" && (
+                                  <button
+                                    onClick={() => handleCancelOrder(order.id, order.order_number, order.coupon_id)}
+                                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/60 transition-all hover:bg-white/10 hover:text-white"
+                                  >
+                                    주문취소
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+
+                            {order.order_status === "pending" && (
+                              <div className="mt-4 rounded-2xl bg-blue-500/5 border border-blue-500/10 p-4 text-sm">
+                                <p className="font-bold text-blue-400 mb-1">입금 대기 정보</p>
+                                <p className="text-white/60 leading-relaxed">
+                                  카카오뱅크 3333-36-585986 (고수빈) <br />
+                                  주문자명 <span className="text-white font-bold">{order.customer_name}</span>으로
+                                  금액 <span className="text-white font-bold">{order.final_amount.toLocaleString()}원</span>을 입금해주세요.
+                                </p>
+                              </div>
                             )}
                           </div>
-                        </div>
+                        ))}
                       </div>
-                      {order.order_status === "pending" && (
-                        <>
-                          <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                            <p className="text-xs text-yellow-800">
-                              <strong>입금 계좌:</strong> 카카오뱅크 3333-36-585986 (고수빈)
-                            </p>
-                            <p className="text-xs text-yellow-800 mt-1">
-                              입금자명을 주문자명({order.customer_name})으로 입금해주세요.
-                            </p>
-                          </div>
-                          <button
-                            onClick={() => handleCancelOrder(order.id, order.order_number, order.coupon_id)}
-                            className="mt-3 w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 hover:border-gray-400"
-                          >
-                            주문 취소
-                          </button>
-                        </>
-                      )}
-                      {order.order_status === "completed" && (
-                        <div className="mt-4 space-y-2">
-                          {order.result_file_url && (
-                            <>
-                              {isFileExpired(order.file_uploaded_at) ? (
-                                <div className="flex items-center justify-center gap-2 w-full rounded-lg bg-gray-100 px-4 py-3 text-sm font-medium text-gray-500 border border-gray-200">
-                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                  </svg>
-                                  다운로드 기간 만료 (30일 경과)
-                                </div>
-                              ) : (
-                                <a
-                                  href={order.result_file_url}
-                                  download
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center justify-center gap-2 w-full rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                  </svg>
-                                  분석 결과 다운로드 (30일 이내)
-                                </a>
-                              )}
-                            </>
-                          )}
-                          {!reviews.some((review: any) => review.orders?.order_number === order.order_number) ? (
-                            <button
-                              onClick={() => {
-                                setSelectedOrderForReview(order);
-                                setShowReviewModal(true);
-                              }}
-                              className="flex items-center justify-center gap-2 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
-                            >
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                              </svg>
-                              구매평 작성하기
-                            </button>
-                          ) : (
-                            <div className="flex items-center justify-center gap-2 w-full rounded-lg bg-gray-100 px-4 py-3 text-sm font-medium text-gray-500 border border-gray-200">
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                              구매평 작성 완료
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
+                    )}
+                  </div>
+                </section>
+              </div>
 
-          {/* Review History */}
-          <div className="mt-12">
-            <h2 className="mb-4 text-xl font-medium text-gray-900">내 구매평</h2>
-            <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-              {reviews.length === 0 ? (
-                <div className="p-12 text-center text-gray-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mx-auto mb-4 h-16 w-16 text-gray-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-                    />
-                  </svg>
-                  <p className="mb-2 text-lg font-medium text-gray-700">
-                    작성한 구매평이 없습니다
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    완료된 주문에서 구매평을 작성해보세요
-                  </p>
+              {/* Sidebar: Cart Stats */}
+              <div className="lg:col-span-4 space-y-8">
+                {/* Micro Stats */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-xs text-white/40 mb-1">완료 리포트</p>
+                    <p className="text-2xl font-bold">{orders.filter(o => o.order_status === 'completed').length}</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-xs text-white/40 mb-1">작성 구매평</p>
+                    <p className="text-2xl font-bold">{reviews.length}</p>
+                  </div>
                 </div>
-              ) : (
-                <div className="divide-y divide-gray-100">
-                  {reviews.map((review: any) => (
-                    <div key={review.id} className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <p className="text-sm font-medium text-gray-900 mb-1">
-                            {review.orders?.product_name || "상품명 없음"}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            주문번호: {review.orders?.order_number}
-                          </p>
+              </div>
+            </div>
+
+            {/* Bottom: Q&A and Reviews */}
+            <div className="grid gap-8 lg:grid-cols-2">
+              {/* My Reviews */}
+              <section>
+                <div className="mb-4 flex items-center justify-between">
+                  <h2 className="text-xl font-bold flex items-center gap-2">
+                    <svg className="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    </svg>
+                    나의 구매평
+                  </h2>
+                </div>
+                <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden divide-y divide-white/10">
+                  {reviews.length === 0 ? (
+                    <div className="py-20 text-center">
+                      <p className="text-white/30 italic">작성하신 구매평이 없습니다.</p>
+                    </div>
+                  ) : (
+                    reviews.map((review: any) => (
+                      <div key={review.id} className="p-6 transition-all hover:bg-white/[0.02]">
+                        <div className="mb-4 flex items-start justify-between">
+                          <div className="space-y-1">
+                            <h3 className="text-sm font-bold text-white/80">{review.orders?.product_name}</h3>
+                            <p className="text-xs text-white/40">주문번호: {review.orders?.order_number}</p>
+                          </div>
+                          <div className="flex gap-0.5 text-yellow-500">
+                            {[...Array(5)].map((_, i) => (
+                              <svg key={i} className={`h-3 w-3 ${i < review.rating ? 'fill-current' : 'text-white/10 fill-current'}`} viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                              </svg>
+                            ))}
+                          </div>
                         </div>
-                        <div className="flex items-center gap-1">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <svg
-                              key={star}
-                              className={`w-4 h-4 ${
-                                star <= review.rating ? "text-yellow-400" : "text-gray-300"
-                              }`}
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                          ))}
+                        <p className="text-sm text-white/80 leading-relaxed whitespace-pre-wrap">{review.content}</p>
+                        <div className="mt-4 flex items-center gap-3 text-[10px] font-bold uppercase tracking-wider text-white/30">
+                          <span>{new Date(review.created_at).toLocaleDateString()}</span>
+                          <span className="h-1 w-1 rounded-full bg-white/10" />
+                          {review.is_approved ? (
+                            <span className="text-green-400/80">승인됨</span>
+                          ) : (
+                            <span className="text-yellow-400/80">승인 대기중</span>
+                          )}
                         </div>
-                      </div>
-                      <p className="text-sm text-gray-700 mb-2 whitespace-pre-wrap">{review.content}</p>
-                      <div className="flex items-center gap-3 text-xs text-gray-500">
-                        <span>{new Date(review.created_at).toLocaleDateString("ko-KR")}</span>
-                        {review.is_approved ? (
-                          <span className="rounded-full bg-green-100 px-2 py-0.5 text-green-700 font-medium">
-                            승인됨
-                          </span>
-                        ) : (
-                          <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-yellow-700 font-medium">
-                            승인 대기중
-                          </span>
+                        {review.admin_reply && (
+                          <div className="mt-4 rounded-xl bg-blue-500/5 border border-blue-500/10 p-4">
+                            <p className="text-[10px] font-black uppercase text-blue-400 mb-1 tracking-widest text-center md:text-left">답변</p>
+                            <p className="text-xs text-blue-300 leading-relaxed">{review.admin_reply}</p>
+                          </div>
                         )}
                       </div>
-                      {review.admin_reply && (
-                        <div className="mt-3 rounded-lg bg-blue-50 border border-blue-100 p-3">
-                          <p className="text-xs font-medium text-blue-900 mb-1">관리자 답변</p>
-                          <p className="text-sm text-blue-800 whitespace-pre-wrap">{review.admin_reply}</p>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
+              </section>
 
-          {/* Q&A History */}
-          <div className="mt-12">
-            <h2 className="mb-4 text-xl font-medium text-gray-900">내 문의내역</h2>
-            <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-              {qnaList.length === 0 ? (
-                <div className="p-12 text-center text-gray-500">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="mx-auto mb-4 h-16 w-16 text-gray-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <p className="mb-2 text-lg font-medium text-gray-700">
-                    작성한 문의가 없습니다
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    상품 페이지에서 궁금한 점을 문의해보세요
-                  </p>
+              {/* My Q&A */}
+              <section>
+                <div className="mb-4">
+                  <h2 className="text-xl font-bold flex items-center gap-2">
+                    <svg className="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                    </svg>
+                    나의 문의 내역
+                  </h2>
                 </div>
-              ) : (
-                <div className="divide-y divide-gray-100">
-                  {qnaList.map((qna: any) => (
-                    <div key={qna.id} className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          {qna.product_name && (
-                            <p className="text-sm font-medium text-gray-900 mb-1">
-                              {qna.product_name}
-                            </p>
+                <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden divide-y divide-white/10">
+                  {qnaList.length === 0 ? (
+                    <div className="py-20 text-center">
+                      <p className="text-white/30 italic">문의 내역이 없습니다.</p>
+                    </div>
+                  ) : (
+                    qnaList.map((qna: any) => (
+                      <div key={qna.id} className="p-6 transition-all hover:bg-white/[0.02]">
+                        <div className="mb-3 flex items-start justify-between">
+                          <div className="space-y-1">
+                            <h3 className="text-sm font-bold text-white/80">{qna.product_name || "사주 분석 서비스"}</h3>
+                            <p className="text-[10px] font-bold text-white/30 uppercase tracking-wider">{new Date(qna.created_at).toLocaleDateString()}</p>
+                          </div>
+                          {qna.is_answered ? (
+                            <span className="rounded-full bg-green-500/10 border border-green-500/20 px-2 py-0.5 text-[9px] font-black text-green-400 uppercase">Answered</span>
+                          ) : (
+                            <span className="rounded-full bg-white/5 border border-white/10 px-2 py-0.5 text-[9px] font-black text-white/20 uppercase">Pending</span>
                           )}
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs text-gray-500">
-                              {new Date(qna.created_at).toLocaleDateString("ko-KR")}
-                            </span>
-                            {qna.is_answered ? (
-                              <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700 font-medium">
-                                답변완료
-                              </span>
-                            ) : (
-                              <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-xs text-yellow-700 font-medium">
-                                답변대기
-                              </span>
-                            )}
-                            {qna.is_public ? (
-                              <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-700 font-medium">
-                                공개
-                              </span>
-                            ) : (
-                              <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs text-red-700 font-medium">
-                                비공개
-                              </span>
+                        </div>
+                        <p className="text-sm text-white/60 leading-relaxed mb-4">{qna.question}</p>
+                        {qna.answer && (
+                          <div className="rounded-xl bg-green-500/5 border border-green-500/10 p-4">
+                            <p className="text-[10px] font-black uppercase text-green-400 mb-1 tracking-widest text-center md:text-left">공식 답변</p>
+                            <p className="text-xs text-green-300 leading-relaxed">{qna.answer}</p>
+                            {qna.answered_at && (
+                              <p className="text-[9px] text-green-500/40 mt-2 text-right">{new Date(qna.answered_at).toLocaleDateString()}</p>
                             )}
                           </div>
-                        </div>
+                        )}
                       </div>
-                      <div className="mb-3">
-                        <p className="text-xs font-medium text-gray-500 mb-1">질문</p>
-                        <p className="text-sm text-gray-700 whitespace-pre-wrap">{qna.question}</p>
-                      </div>
-                      {qna.answer && (
-                        <div className="rounded-lg bg-green-50 border border-green-100 p-3">
-                          <p className="text-xs font-medium text-green-900 mb-1">답변</p>
-                          <p className="text-sm text-green-800 whitespace-pre-wrap">{qna.answer}</p>
-                          {qna.answered_at && (
-                            <p className="text-xs text-green-600 mt-2">
-                              {new Date(qna.answered_at).toLocaleDateString("ko-KR")}
-                            </p>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
-              )}
+              </section>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </main>
+
+      <Footer />
 
       {/* Review Modal */}
       {showReviewModal && selectedOrderForReview && (

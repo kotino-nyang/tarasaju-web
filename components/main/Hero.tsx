@@ -43,17 +43,10 @@ export default function Hero() {
       }}
     >
       <div
-        className="absolute right-0 top-0 h-full w-1/2"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.15) 0%, rgba(5, 13, 26, 0) 70%)",
-        }}
-      />
-      <div
-        className="absolute left-0 top-0 h-full w-1/2 -scale-x-100"
-        style={{
-          background:
-            "radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.15) 0%, rgba(5, 13, 26, 0) 70%)",
+            "radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.1) 0%, rgba(5, 13, 26, 0) 80%)",
         }}
       />
 

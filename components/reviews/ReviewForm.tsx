@@ -160,9 +160,8 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
             className="transition-transform hover:scale-110"
           >
             <svg
-              className={`w-10 h-10 ${
-                star <= rating ? "text-yellow-400" : "text-gray-600"
-              }`}
+              className={`w-10 h-10 ${star <= rating ? "text-yellow-400" : "text-gray-600"
+                }`}
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -178,78 +177,72 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-[#050d1a]/80 backdrop-blur-md"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl bg-white rounded-2xl border border-gray-200 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-2xl border border-white/10 bg-[#0f172a]/90 backdrop-blur-2xl rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)] max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          className="absolute top-6 right-6 text-white/20 hover:text-white transition-all hover:rotate-90"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
         {/* Header */}
-        <div className="border-b border-gray-200 p-6 pb-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">구매평 작성</h2>
-          <p className="text-sm text-gray-500">{productName}</p>
+        <div className="border-b border-white/5 p-8">
+          <h2 className="text-2xl font-black text-white mb-2 tracking-tight">구매평 작성</h2>
+          <p className="text-sm font-bold text-blue-400/80">{productName}</p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="p-8 space-y-8">
           {/* Rating */}
-          <div>
-            <label className="block text-sm font-medium text-gray-900 mb-3">
-              평점 <span className="text-red-500">*</span>
+          <div className="text-center">
+            <label className="block text-sm font-bold text-white/40 uppercase tracking-widest mb-4">
+              평점 선택
             </label>
             {renderStars()}
-            <p className="text-center text-sm text-gray-500 mt-2">{rating}점</p>
+            <p className="text-xl font-black text-[#60a5fa] mt-4">{rating} / 5</p>
           </div>
 
           {/* Content */}
-          <div>
-            <label className="block text-sm font-medium text-gray-900 mb-2">
-              구매평 <span className="text-red-500">*</span>
+          <div className="space-y-3">
+            <label className="block text-sm font-bold text-white/60">
+              솔직한 구매평 <span className="text-blue-400">*</span>
             </label>
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              placeholder="상품에 대한 솔직한 평가를 남겨주세요. (최대 1000자)"
-              className="w-full h-40 px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none"
+              placeholder="배송, 품질, 만족도 등 상품에 대한 솔직한 평가를 남겨주세요."
+              className="w-full h-44 px-5 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all resize-none leading-relaxed"
               maxLength={1000}
             />
-            <p className="text-xs text-gray-500 mt-1 text-right">
-              {content.length} / 1000자
-            </p>
+            <div className="flex justify-between items-center px-1">
+              <span className="text-[10px] text-white/20">최대 1000자까지 작성 가능합니다.</span>
+              <span className={`text-xs font-bold ${content.length > 900 ? 'text-red-400' : 'text-white/30'}`}>
+                {content.length.toLocaleString()} / 1,000
+              </span>
+            </div>
           </div>
 
           {/* Image Upload */}
-          <div>
-            <label className="block text-sm font-medium text-gray-900 mb-2">
+          <div className="space-y-3">
+            <label className="block text-sm font-bold text-white/60">
               사진 첨부 (선택)
             </label>
             {!imagePreview ? (
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition-colors bg-gray-50">
-                <svg className="w-8 h-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <p className="text-sm text-gray-600">클릭하여 이미지 업로드</p>
-                <p className="text-xs text-gray-400 mt-1">최대 5MB, JPG/PNG</p>
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:border-blue-500/30 hover:bg-white/[0.02] transition-all group">
+                <div className="flex flex-col items-center justify-center pt-2">
+                  <svg className="w-8 h-8 text-white/10 group-hover:text-blue-400/50 transition-colors mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <p className="text-xs font-bold text-white/30 group-hover:text-white/50 transition-colors">클릭하여 이미지 업로드</p>
+                </div>
                 <input
                   type="file"
                   accept="image/*"
@@ -258,47 +251,48 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
                 />
               </label>
             ) : (
-              <div className="relative">
+              <div className="relative group overflow-hidden rounded-2xl border border-white/10">
                 <img
                   src={imagePreview}
                   alt="Preview"
-                  className="w-full h-48 object-cover rounded-lg border border-gray-200"
+                  className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <button
-                  type="button"
-                  onClick={removeImage}
-                  className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition-colors shadow-lg"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <button
+                    type="button"
+                    onClick={removeImage}
+                    className="bg-red-500 text-white rounded-xl px-4 py-2 text-xs font-bold hover:bg-red-600 transition-colors shadow-xl"
+                  >
+                    이미지 삭제
+                  </button>
+                </div>
               </div>
             )}
           </div>
 
           {/* Info */}
-          <div className="rounded-lg bg-blue-50 border border-blue-200 p-4">
-            <p className="text-sm text-blue-700">
-              • 상품과 무관한 내용이나 부적절한 내용은 삭제될 수 있습니다.
+          <div className="rounded-2xl bg-blue-500/5 border border-blue-500/10 p-5">
+            <p className="text-xs text-blue-400/80 leading-relaxed font-medium">
+              • 작성하신 구매평은 사주분석 서비스 품질 향상을 위해 사용됩니다.<br />
+              • 부적절한 내용이나 개인정보 포함 시 예고 없이 삭제될 수 있습니다.
             </p>
           </div>
 
           {/* Buttons */}
-          <div className="flex gap-3">
+          <div className="flex gap-4 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+              className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-bold text-white/60 transition-all hover:bg-white/10 hover:text-white"
             >
               취소
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+              className="flex-1 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 font-bold text-white transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "등록중..." : "등록하기"}
+              {isSubmitting ? "등록 중..." : "구매평 등록"}
             </button>
           </div>
         </form>

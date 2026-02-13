@@ -3,14 +3,17 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useState, Suspense } from "react";
 import TermsModal from "@/components/main/TermsModal";
 import PrivacyModal from "@/components/main/PrivacyModal";
 
-export default function AuthPage() {
+function AuthContent() {
     const [isLoading, setIsLoading] = useState(false);
     const [showTermsModal, setShowTermsModal] = useState(false);
     const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+    const searchParams = useSearchParams();
+    const next = searchParams.get("next") || "/";
     const supabase = createClient();
 
     const handleGoogleLogin = async () => {
@@ -19,7 +22,7 @@ export default function AuthPage() {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    redirectTo: `${window.location.origin}/auth/callback`,
+                    redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
                 },
             });
             if (error) throw error;
@@ -40,17 +43,10 @@ export default function AuthPage() {
         >
             {/* Background gradients */}
             <div
-                className="absolute right-0 top-0 h-1/2 w-1/2"
+                className="absolute inset-0"
                 style={{
                     background:
-                        "radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.2) 0%, rgba(5, 13, 26, 0) 60%)",
-                }}
-            />
-            <div
-                className="absolute left-0 top-0 h-1/2 w-1/2 -scale-x-100"
-                style={{
-                    background:
-                        "radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.2) 0%, rgba(5, 13, 26, 0) 60%)",
+                        "radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.2) 0%, transparent 60%), radial-gradient(circle at 15% 30%, rgba(59, 130, 246, 0.2) 0%, transparent 60%)",
                 }}
             />
 
@@ -209,5 +205,13 @@ export default function AuthPage() {
             {showTermsModal && <TermsModal onClose={() => setShowTermsModal(false)} />}
             {showPrivacyModal && <PrivacyModal onClose={() => setShowPrivacyModal(false)} />}
         </section>
+    );
+}
+
+export default function AuthPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-[#050d1a]" />}>
+            <AuthContent />
+        </Suspense>
     );
 }

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/main/Header";
 import Footer from "@/components/main/Footer";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 import ReviewForm from "@/components/reviews/ReviewForm";
@@ -113,7 +113,8 @@ export default function AnalysisPage() {
         // 로그인 체크
         if (!user) {
             alert("로그인이 필요합니다.");
-            router.push("/auth");
+            const currentPath = encodeURIComponent(window.location.pathname + window.location.search);
+            router.push(`/auth?next=${currentPath}`);
             return;
         }
 
@@ -146,7 +147,8 @@ export default function AnalysisPage() {
         // 로그인 체크
         if (!user) {
             alert("로그인이 필요합니다.");
-            router.push("/auth");
+            const currentPath = encodeURIComponent(window.location.pathname + window.location.search);
+            router.push(`/auth?next=${currentPath}`);
             return;
         }
 
@@ -155,433 +157,370 @@ export default function AnalysisPage() {
     };
 
     return (
-        <>
+        <div className="min-h-screen bg-[#050d1a] text-white selection:bg-blue-500/30">
             <Header />
-            <main
-                className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-50 to-white pt-32 pb-20"
-            >
-                <div className="container relative z-10 mx-auto px-4 md:px-6 lg:px-8 max-w-4xl">
 
-                    {/* Top Section: Product Info */}
-                    <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-20">
-                        {/* Left: Thumbnail */}
-                        <div className="w-full lg:w-1/3">
-                            <div className="aspect-square w-full relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-                                <img
-                                    src="/detail image/thumnail.png"
-                                    alt="[불만족시 100%환불] 종합사주분석"
-                                    className="object-cover w-full h-full select-none"
-                                    onContextMenu={(e) => e.preventDefault()}
-                                    draggable={false}
-                                />
+            <main className="relative pt-32 pb-20 overflow-hidden">
+                {/* Background Gradients */}
+                <div
+                    className="absolute inset-x-0 top-0 h-[500px] opacity-40 pointer-events-none"
+                    style={{
+                        background: "radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.2) 0%, transparent 70%)"
+                    }}
+                />
+
+                <div className="container relative z-10 mx-auto px-4 md:px-6 lg:px-8">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="mb-12 text-center"
+                    >
+                        <h1 className="mb-4 text-3xl font-light md:text-5xl">
+                            종합 <span className="font-bold text-[#60a5fa]">사주 분석</span>
+                        </h1>
+                        <p className="mx-auto max-w-2xl text-white/60">
+                            당신의 삶을 꿰뚫어보는 정밀한 분석 리포트로 <br className="hidden md:block" />
+                            명확한 인생의 지도를 그려드립니다.
+                        </p>
+                    </motion.div>
+
+                    <div className="grid gap-8 lg:grid-cols-12">
+                        {/* Content Area */}
+                        <div className="lg:col-span-8">
+                            {/* Tabs */}
+                            <div className="mb-6 flex gap-2 border-b border-white/10 pb-px">
+                                {[
+                                    { id: 'detail', label: '상세정보' },
+                                    { id: 'reviews', label: '구매평' },
+                                    { id: 'qna', label: 'Q&A' }
+                                ].map((tab) => (
+                                    <button
+                                        key={tab.id}
+                                        onClick={() => setActiveTab(tab.id)}
+                                        className={`relative px-6 py-3 text-sm font-medium transition-colors ${activeTab === tab.id ? 'text-white' : 'text-white/40 hover:text-white/70'
+                                            }`}
+                                    >
+                                        {tab.label}
+                                        {activeTab === tab.id && (
+                                            <motion.div
+                                                layoutId="activeTab"
+                                                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#3b82f6]"
+                                            />
+                                        )}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {/* Tab Content */}
+                            <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 md:p-10">
+                                {activeTab === "detail" && (
+                                    <div className="space-y-12">
+                                        <section>
+                                            <h2 className="mb-6 flex items-center gap-3 text-2xl font-medium">
+                                                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-blue-400">01</span>
+                                                어떤 내용을 분석하나요?
+                                            </h2>
+                                            <div className="grid gap-4 sm:grid-cols-2">
+                                                {[
+                                                    { title: "나 이해(성격·심리)", desc: "강점과 보완점, 심리 기저 분석" },
+                                                    { title: "관계(연애·배우자)", desc: "인연의 결, 관계 지속력 분석" },
+                                                    { title: "커리어(직업운)", desc: "적성, 이직 시기, 성공 전략" },
+                                                    { title: "자산(재물운)", desc: "재물 흐름, 투자 성향, 리스크" },
+                                                    { title: "컨디션(건강운)", desc: "신체 에너지, 주의할 건강 포인트" },
+                                                    { title: "큰 흐름(대운)", desc: "인생의 변곡점과 기회 포착" }
+                                                ].map((item, idx) => (
+                                                    <div key={idx} className="rounded-2xl border border-white/5 bg-white/5 p-5 transition-colors hover:bg-white/10">
+                                                        <h3 className="mb-1 font-medium text-white">{item.title}</h3>
+                                                        <p className="text-sm text-white/50">{item.desc}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </section>
+
+                                        <section>
+                                            <h2 className="mb-6 flex items-center gap-3 text-2xl font-medium">
+                                                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/20 text-blue-400">02</span>
+                                                이렇게 진행됩니다
+                                            </h2>
+                                            <div className="relative space-y-8 pl-8 before:absolute before:left-[15px] before:top-2 before:h-[calc(100%-16px)] before:w-px before:bg-white/10">
+                                                {[
+                                                    { step: "신청 완료", desc: "이름, 생년월일, 태어난 시간 입력 후 결제" },
+                                                    { step: "상세 분석", desc: "타라사주의 정밀 알고리즘으로 데이터 분석 및 정리" },
+                                                    { step: "리포트 발송", desc: "PDF 리포트 생성 및 마이페이지 업로드 (24시간 이내)" },
+                                                    { step: "추가 질의", desc: "리포트 내용에 대한 1회 추가 궁금증 해결" }
+                                                ].map((item, idx) => (
+                                                    <div key={idx} className="relative">
+                                                        <div className="absolute -left-[23px] top-1 h-3 w-3 rounded-full border-2 border-blue-500 bg-[#050d1a]" />
+                                                        <h3 className="mb-1 font-medium">{item.step}</h3>
+                                                        <p className="text-sm text-white/50">{item.desc}</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </section>
+                                    </div>
+                                )}
+
+                                {activeTab === "reviews" && (
+                                    <div className="space-y-6">
+                                        <div className="flex items-center justify-between mb-8">
+                                            <div>
+                                                <h3 className="text-xl font-medium">구매평 ({reviews.length})</h3>
+                                                <div className="mt-1 flex items-center gap-2">
+                                                    <div className="flex text-yellow-400">
+                                                        {[...Array(5)].map((_, i) => (
+                                                            <svg key={i} className="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                            </svg>
+                                                        ))}
+                                                    </div>
+                                                    <span className="text-sm font-medium">4.9/5.0</span>
+                                                </div>
+                                            </div>
+                                            <button
+                                                onClick={() => setShowReviewModal(true)}
+                                                className="rounded-full bg-blue-600 px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-blue-700 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]"
+                                            >
+                                                구매평 작성
+                                            </button>
+                                        </div>
+
+                                        <div className="grid gap-4">
+                                            {reviews.map((review) => (
+                                                <div key={review.id} className="rounded-2xl border border-white/5 bg-white/5 p-6 transition-colors hover:bg-white/10">
+                                                    <div className="mb-3 flex items-center justify-between">
+                                                        <div className="flex items-center gap-3">
+                                                            <div className="h-8 w-8 rounded-full bg-blue-500/10 flex items-center justify-center text-xs font-bold text-blue-400">
+                                                                {review.orders?.customer_name?.[0] || '익'}
+                                                            </div>
+                                                            <div>
+                                                                <span className="block text-sm font-medium">{review.orders?.customer_name || '익명'}</span>
+                                                                <div className="flex text-yellow-500">
+                                                                    {[...Array(review.rating)].map((_, i) => (
+                                                                        <svg key={i} className="h-3 w-3 fill-current" viewBox="0 0 20 20">
+                                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                                        </svg>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span className="text-xs text-white/30">{new Date(review.created_at).toLocaleDateString()}</span>
+                                                    </div>
+                                                    <p className="text-sm leading-relaxed text-white/70">{review.content}</p>
+                                                    {review.image_url && (
+                                                        <img src={review.image_url} alt="Review" className="mt-4 max-h-40 rounded-lg border border-white/10" />
+                                                    )}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {activeTab === "qna" && (
+                                    <div className="space-y-6">
+                                        <div className="flex items-center justify-between mb-8">
+                                            <h3 className="text-xl font-medium">Q&A ({qnaList.length})</h3>
+                                            <button
+                                                onClick={() => setShowQnAModal(true)}
+                                                className="rounded-full bg-white/10 px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-white/20 hover:border-white/30 border border-white/10"
+                                            >
+                                                문의하기
+                                            </button>
+                                        </div>
+
+                                        <div className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10">
+                                            {qnaList.map((qna) => (
+                                                <button
+                                                    key={qna.id}
+                                                    onClick={() => handleQnAClick(qna)}
+                                                    className="flex items-center justify-between bg-[#0f172a] p-5 text-left transition-colors hover:bg-white/5"
+                                                >
+                                                    <div className="flex items-center gap-4">
+                                                        {qna.is_public ? (
+                                                            <svg className="h-4 w-4 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                                            </svg>
+                                                        ) : (
+                                                            <svg className="h-4 w-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                                            </svg>
+                                                        )}
+                                                        <span className={`text-sm ${qna.is_public || unlockedQnAIds.has(qna.id) ? 'text-white' : 'text-white/30'}`}>
+                                                            {qna.is_public || unlockedQnAIds.has(qna.id) ? qna.question.substring(0, 30) + "..." : "비밀글입니다."}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex items-center gap-4">
+                                                        {qna.is_answered ? (
+                                                            <span className="rounded-full bg-blue-500/20 px-2 py-0.5 text-[10px] font-bold text-blue-400">답변완료</span>
+                                                        ) : (
+                                                            <span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] font-bold text-white/30">대기중</span>
+                                                        )}
+                                                        <span className="text-xs text-white/30">{new Date(qna.created_at).toLocaleDateString()}</span>
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
-                        {/* Right: Product Details & Actions */}
-                        <div className="w-full lg:w-2/3 flex flex-col justify-center">
-                            <div className="mb-2">
-                                <span className="inline-block rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600">
-                                    BEST
-                                </span>
-                                <span className="ml-2 inline-block rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-medium text-red-600">
-                                    30명 한정 특가
-                                </span>
-                            </div>
-                            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900">[불만족시 100%환불] 종합사주분석</h1>
-                            <div className="flex items-end gap-3 mb-8">
-                                <span className="text-lg text-gray-400 line-through">64,500원</span>
-                                <p className="text-3xl font-bold text-blue-600">29,800원</p>
-                            </div>
-
-                            {/* Options */}
-                            <div className="space-y-4 mb-6">
-                                {/* 기본 1인 */}
-                                <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-900">종합사주분석 1인</p>
-                                            <p className="text-xs text-gray-500 mt-1">29,800원</p>
-                                        </div>
-                                        <div className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-2">
-                                            <span className="text-gray-900 font-medium">1</span>
-                                        </div>
-                                    </div>
+                        {/* Order Sticky Sidebar */}
+                        <div className="lg:col-span-4 lg:sticky lg:top-32 h-fit">
+                            <div className="rounded-3xl border-2 border-blue-500/30 bg-white/5 backdrop-blur-2xl p-8 shadow-[0_20px_50px_rgba(37,99,235,0.2)]">
+                                <div className="mb-6 flex items-center justify-between">
+                                    <h2 className="text-2xl font-bold">주문하기</h2>
+                                    <span className="rounded-full bg-blue-500/20 px-3 py-1 text-xs font-bold text-blue-400">BEST</span>
                                 </div>
 
-                                {/* 추가 인원 */}
-                                <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                                <div className="mb-8 space-y-4">
+                                    <div className="flex items-center justify-between text-sm text-white/60">
+                                        <span>기본 사주 분석 (1인)</span>
+                                        <span>{basePrice.toLocaleString()}원</span>
+                                    </div>
+
                                     <div className="flex items-center justify-between">
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-900">종합사주분석 1인 추가</p>
-                                            <p className="text-xs text-gray-500 mt-1">+24,500원 / 1인</p>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-medium">추가 분석 인원</span>
+                                            <span className="text-xs text-white/40">함께 보는 궁합/관계 가능</span>
                                         </div>
-                                        <div className="flex items-center gap-3">
+                                        <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 p-1">
                                             <button
                                                 onClick={() => setAdditionalQuantity(Math.max(0, additionalQuantity - 1))}
-                                                className="w-8 h-8 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
-                                                disabled={additionalQuantity === 0}
+                                                className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-white/10"
                                             >
                                                 -
                                             </button>
-                                            <span className="w-8 text-center text-gray-900 font-medium">{additionalQuantity}</span>
+                                            <span className="w-4 text-center font-medium">{additionalQuantity}</span>
                                             <button
                                                 onClick={() => setAdditionalQuantity(additionalQuantity + 1)}
-                                                className="w-8 h-8 rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
+                                                className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-white/10"
                                             >
                                                 +
                                             </button>
                                         </div>
                                     </div>
+
+                                    {additionalQuantity > 0 && (
+                                        <div className="flex items-center justify-between text-sm text-blue-400/80">
+                                            <span>추가 인원 할인 적용</span>
+                                            <span>+{(additionalPrice * additionalQuantity).toLocaleString()}원</span>
+                                        </div>
+                                    )}
                                 </div>
 
-                                {/* 총 금액 표시 */}
-                                <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <p className="text-sm font-medium text-gray-900">총 {totalPeople}명</p>
-                                            <p className="text-xs text-gray-600 mt-1">분석 대상 인원</p>
-                                        </div>
+                                <div className="mb-8 border-t border-white/10 pt-6">
+                                    <div className="mb-2 flex items-center justify-between">
+                                        <span className="text-white/60">최종 결제 금액</span>
                                         <div className="text-right">
-                                            <p className="text-xl font-bold text-blue-600">{totalPrice.toLocaleString()}원</p>
+                                            <span className="text-3xl font-bold text-white">{totalPrice.toLocaleString()}</span>
+                                            <span className="ml-1 text-lg text-white/70">원</span>
                                         </div>
                                     </div>
+                                    <p className="text-center text-[10px] text-white/30 italic">
+                                        * 분석 리포트는 신청 후 24시간 이내에 발송됩니다.
+                                    </p>
                                 </div>
-                            </div>
 
-                            {/* Disclaimer */}
-                            <p className="text-sm text-gray-500 mb-6">*본 상품은 디지털 상품으로 배송이 없습니다.</p>
-
-                            {/* Action Buttons */}
-                            <div className="flex gap-4">
-                                <button
-                                    onClick={handleAddToCart}
-                                    className="flex-1 rounded-lg border border-gray-300 bg-white px-6 py-4 font-medium text-gray-700 transition-colors hover:bg-gray-50"
-                                >
-                                    장바구니
-                                </button>
-                                <button
-                                    onClick={handlePurchase}
-                                    className="flex-1 rounded-lg bg-blue-600 px-6 py-4 font-medium text-white transition-colors hover:bg-blue-700 shadow-sm"
-                                >
-                                    구매하기
-                                </button>
+                                <div className="space-y-3">
+                                    <button
+                                        onClick={() => {
+                                            const item = {
+                                                id: "analysis_all",
+                                                title: "종합 사주 분석",
+                                                price: totalPrice,
+                                                image: "https://i.imgur.com/sdU9nRt.png",
+                                                option: `${totalPeople}인 분석`,
+                                                baseQuantity,
+                                                additionalQuantity,
+                                            };
+                                            addItem(item);
+                                            alert("장바구니에 담겼습니다.");
+                                        }}
+                                        className="w-full rounded-2xl border border-white/20 bg-white/5 py-4 font-medium transition-all hover:bg-white/10"
+                                    >
+                                        장바구니 담기
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            if (!user) {
+                                                alert("로그인이 필요합니다.");
+                                                const currentPath = encodeURIComponent(window.location.pathname + window.location.search);
+                                                router.push(`/auth?next=${currentPath}`);
+                                                return;
+                                            }
+                                            router.push(`/checkout?totalPrice=${totalPrice}&baseQuantity=${baseQuantity}&additionalQuantity=${additionalQuantity}`);
+                                        }}
+                                        className="group relative w-full overflow-hidden rounded-2xl bg-blue-600 py-4 font-bold transition-all hover:bg-blue-700 hover:shadow-[0_0_30px_rgba(37,99,235,0.5)] active:scale-[0.98]"
+                                    >
+                                        <span className="relative z-10">지금 바로 신청하기</span>
+                                        <div className="absolute inset-x-0 bottom-0 h-1 bg-white/20" />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    {/* Bottom Section: Tabs & Content */}
-                    <div className="w-full">
-                        {/* Tabs Navigation */}
-                        <div className="sticky top-20 z-10 flex border-b border-gray-200 bg-white/95 backdrop-blur-sm mb-8">
-                            {["detail", "reviews", "qna"].map((tab) => (
-                                <button
-                                    key={tab}
-                                    onClick={() => setActiveTab(tab)}
-                                    className={`flex-1 px-4 py-4 text-sm md:text-base font-medium transition-colors ${activeTab === tab
-                                        ? "border-b-2 border-gray-400 text-gray-700"
-                                        : "text-gray-400 hover:text-gray-600"
-                                        }`}
-                                >
-                                    {tab === "detail" && "상세정보"}
-                                    {tab === "reviews" && "구매평"}
-                                    {tab === "qna" && "Q&A"}
-                                </button>
-                            ))}
-                        </div>
-
-                        {/* Tab Content */}
-                        <div className="min-h-[400px]">
-                            {activeTab === "detail" && (
-                                <div className="flex flex-col items-center max-w-4xl mx-auto animate-in fade-in duration-300">
-                                    <img
-                                        src="/detail image/1.png"
-                                        alt="Detail 1"
-                                        className="w-full h-auto object-contain mb-0 select-none"
-                                        onContextMenu={(e) => e.preventDefault()}
-                                        draggable={false}
-                                    />
-                                    <img
-                                        src="/detail image/2.gif"
-                                        alt="Detail 2"
-                                        className="w-full h-auto object-contain mb-0 select-none"
-                                        onContextMenu={(e) => e.preventDefault()}
-                                        draggable={false}
-                                    />
-                                    <img
-                                        src="/detail image/3.png"
-                                        alt="Detail 3"
-                                        className="w-full h-auto object-contain mb-0 select-none"
-                                        onContextMenu={(e) => e.preventDefault()}
-                                        draggable={false}
-                                    />
-                                    <img
-                                        src="/detail image/4.gif"
-                                        alt="Detail 4"
-                                        className="w-full h-auto object-contain mb-0 select-none"
-                                        onContextMenu={(e) => e.preventDefault()}
-                                        draggable={false}
-                                    />
-                                    <img
-                                        src="/detail image/5.png"
-                                        alt="Detail 5"
-                                        className="w-full h-auto object-contain mb-0 select-none"
-                                        onContextMenu={(e) => e.preventDefault()}
-                                        draggable={false}
-                                    />
-                                </div>
-                            )}
-
-                            {activeTab === "reviews" && (
-                                <div className="animate-in fade-in duration-300">
-                                    {reviews.length === 0 ? (
-                                        <div className="py-12 text-center text-gray-500 bg-white rounded-xl border border-gray-200 shadow-sm">
-                                            <p className="mb-2 text-lg font-medium text-gray-700">등록된 구매평이 없습니다.</p>
-                                            <p className="mb-6 text-sm">첫 번째 구매평을 남겨주세요!</p>
-                                            <button
-                                                onClick={() => setShowReviewModal(true)}
-                                                className="rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
-                                            >
-                                                구매평 작성
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <>
-                                            <div className="mb-4 flex justify-end">
-                                                <button
-                                                    onClick={() => setShowReviewModal(true)}
-                                                    className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-                                                >
-                                                    구매평 작성
-                                                </button>
-                                            </div>
-                                            <div className="space-y-4">
-                                                {reviews.map((review: any) => (
-                                                    <div key={review.id} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-                                                        <div className="flex gap-4 mb-3">
-                                                            <div className="flex-1">
-                                                                <div className="flex items-start justify-between mb-2">
-                                                                    <p className="font-medium text-gray-900">{review.orders?.customer_name?.charAt(0)}**</p>
-                                                                    <span className="text-xs text-gray-500">
-                                                                        {new Date(review.created_at).toLocaleDateString("ko-KR")}
-                                                                    </span>
-                                                                </div>
-                                                                <div className="flex items-center gap-1 mb-3">
-                                                                    {[1, 2, 3, 4, 5].map((star) => (
-                                                                        <svg
-                                                                            key={star}
-                                                                            className={`w-4 h-4 ${star <= review.rating ? "text-yellow-400" : "text-gray-300"}`}
-                                                                            fill="currentColor"
-                                                                            viewBox="0 0 20 20"
-                                                                        >
-                                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                                                        </svg>
-                                                                    ))}
-                                                                </div>
-                                                                <p className="text-gray-700 whitespace-pre-wrap">{review.content}</p>
-                                                            </div>
-                                                            {review.image_url && (
-                                                                <div className="flex-shrink-0">
-                                                                    <img
-                                                                        src={review.image_url}
-                                                                        alt="Review"
-                                                                        className="w-24 h-24 object-cover rounded-lg"
-                                                                    />
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                        {review.admin_reply && (
-                                                            <div className="mt-3 rounded-lg bg-blue-50 border border-blue-100 p-4">
-                                                                <p className="text-sm font-medium text-blue-900 mb-1">관리자 답변</p>
-                                                                <p className="text-sm text-blue-800 whitespace-pre-wrap">{review.admin_reply}</p>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
-                            )}
-
-                            {activeTab === "qna" && (
-                                <div className="animate-in fade-in duration-300">
-                                    {qnaList.length === 0 ? (
-                                        <div className="py-12 text-center text-gray-500 bg-white rounded-xl border border-gray-200 shadow-sm">
-                                            <p className="mb-2 text-lg font-medium text-gray-700">등록된 Q&A가 없습니다.</p>
-                                            <p className="mb-6 text-sm">궁금한 점이 있다면 문의해주세요.</p>
-                                            <button
-                                                onClick={() => setShowQnAModal(true)}
-                                                className="rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
-                                            >
-                                                상품문의
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <>
-                                            <div className="mb-4 flex justify-end">
-                                                <button
-                                                    onClick={() => setShowQnAModal(true)}
-                                                    className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-                                                >
-                                                    상품문의
-                                                </button>
-                                            </div>
-                                            <div className="space-y-4">
-                                                {qnaList.map((qna: any) => {
-                                                    const isLocked = !qna.is_public && !unlockedQnAIds.has(qna.id);
-                                                    return (
-                                                        <div
-                                                            key={qna.id}
-                                                            className={`rounded-xl border border-gray-200 bg-white p-6 shadow-sm ${isLocked ? "cursor-pointer hover:border-blue-300 hover:shadow-md transition-all" : ""}`}
-                                                            onClick={() => isLocked && handleQnAClick(qna)}
-                                                        >
-                                                            <div className="flex items-start justify-between mb-3">
-                                                                <div className="flex items-center gap-2">
-                                                                    <p className="font-medium text-gray-900">{qna.author_name?.charAt(0)}**</p>
-                                                                    {!qna.is_public && (
-                                                                        <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                                                            <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                                                                        </svg>
-                                                                    )}
-                                                                    <span className="text-xs text-gray-500">
-                                                                        {new Date(qna.created_at).toLocaleDateString("ko-KR")}
-                                                                    </span>
-                                                                </div>
-                                                                {qna.is_answered ? (
-                                                                    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
-                                                                        답변완료
-                                                                    </span>
-                                                                ) : (
-                                                                    <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
-                                                                        답변대기
-                                                                    </span>
-                                                                )}
-                                                            </div>
-
-                                                            <div className="mb-3">
-                                                                <p className="text-sm font-medium text-gray-500 mb-1">질문</p>
-                                                                <p className="text-gray-700 whitespace-pre-wrap">{qna.question}</p>
-                                                            </div>
-
-                                                            {!isLocked && qna.answer && (
-                                                                <div className="rounded-lg bg-green-50 border border-green-100 p-4">
-                                                                    <p className="text-sm font-medium text-green-900 mb-1">답변</p>
-                                                                    <p className="text-sm text-green-800 whitespace-pre-wrap">{qna.answer}</p>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
-                                        </>
-                                    )}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
                 </div>
             </main>
+
             <Footer />
 
-            {/* Modals */}
-            {showReviewModal && (
-                <ReviewForm
-                    onClose={() => {
-                        setShowReviewModal(false);
-                        loadReviews();
-                    }}
-                    productName="[불만족시 100%환불] 종합사주분석"
-                />
-            )}
-            {showQnAModal && (
-                <QnAForm
-                    onClose={() => setShowQnAModal(false)}
-                    onSuccess={() => loadQnA()}
-                    productName="[불만족시 100%환불] 종합사주분석"
-                />
-            )}
-
-            {/* Password Modal for Private Q&A */}
-            {passwordModal.show && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="relative w-full max-w-md rounded-2xl bg-white border border-gray-200 p-6 shadow-2xl">
-                        <button
-                            onClick={() => {
-                                setPasswordModal({ show: false, qna: null });
-                                setPasswordInput("");
-                                setPasswordError("");
-                            }}
-                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            <AnimatePresence>
+                {showReviewModal && (
+                    <ReviewForm
+                        productName="종합 사주 분석"
+                        onClose={() => {
+                            setShowReviewModal(false);
+                            loadReviews();
+                        }}
+                    />
+                )}
+                {showQnAModal && (
+                    <QnAForm
+                        productName="종합 사주 분석"
+                        onClose={() => {
+                            setShowQnAModal(false);
+                            loadQnA();
+                        }}
+                    />
+                )}
+                {passwordModal.show && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+                        <div className="absolute inset-0 bg-black/60" onClick={() => setPasswordModal({ show: false, qna: null })} />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="relative w-full max-w-sm rounded-3xl border border-white/10 bg-[#0f172a] p-8 shadow-2xl"
                         >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-
-                        <div className="text-center mb-6">
-                            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                                </svg>
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">비공개 문의</h3>
-                            <p className="text-sm text-gray-600">
-                                이 문의는 비밀번호로 보호되어 있습니다.<br />
-                                비밀번호를 입력해주세요.
-                            </p>
-                        </div>
-
-                        <div className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-900 mb-2">
-                                    비밀번호
-                                </label>
-                                <input
-                                    type="password"
-                                    value={passwordInput}
-                                    onChange={(e) => {
-                                        setPasswordInput(e.target.value);
-                                        setPasswordError("");
-                                    }}
-                                    onKeyDown={(e) => {
-                                        if (e.key === "Enter") {
-                                            handlePasswordSubmit();
-                                        }
-                                    }}
-                                    placeholder="비밀번호를 입력하세요"
-                                    className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                                    autoFocus
-                                />
-                                {passwordError && (
-                                    <p className="text-sm text-red-500 mt-2">{passwordError}</p>
-                                )}
-                            </div>
-
-                            <div className="flex gap-3 pt-2">
+                            <h3 className="mb-4 text-xl font-bold">비밀번호 확인</h3>
+                            <p className="mb-6 text-sm text-white/50">비밀글 조회를 위해 비밀번호를 입력해주세요.</p>
+                            <input
+                                type="password"
+                                value={passwordInput}
+                                onChange={(e) => setPasswordInput(e.target.value)}
+                                className="mb-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-blue-500 focus:outline-none"
+                                placeholder="비밀번호"
+                                autoFocus
+                            />
+                            {passwordError && <p className="mb-4 text-xs text-red-400">{passwordError}</p>}
+                            <div className="flex gap-2">
                                 <button
-                                    type="button"
-                                    onClick={() => {
-                                        setPasswordModal({ show: false, qna: null });
-                                        setPasswordInput("");
-                                        setPasswordError("");
-                                    }}
-                                    className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                                    onClick={() => setPasswordModal({ show: false, qna: null })}
+                                    className="flex-1 rounded-xl border border-white/10 px-4 py-3 text-sm transition-colors hover:bg-white/5"
                                 >
                                     취소
                                 </button>
                                 <button
-                                    type="button"
                                     onClick={handlePasswordSubmit}
-                                    className="flex-1 rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700 shadow-sm"
+                                    className="flex-1 rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold transition-all hover:bg-blue-700"
                                 >
                                     확인
                                 </button>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
-                </div>
-            )}
-        </>
+                )}
+            </AnimatePresence>
+        </div>
     );
 }

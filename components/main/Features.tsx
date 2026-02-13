@@ -7,13 +7,13 @@ const features = [
     id: 1,
     title: "나 이해(성격・심리)",
     description: "흔들리는 이유를 구조로 정리해 결정 피로를 줄입니다.",
-    icon: "🧘"
+    icon: "🧘🏻‍♀️"
   },
   {
     id: 2,
     title: "관계(연애・배우자)",
     description: "맞는 사람의 결·타이밍을 확인해 같은 실수를 반복하지 않게 합니다.",
-    icon: "💑"
+    icon: "💗"
   },
   {
     id: 3,
@@ -54,13 +54,12 @@ export default function Features() {
           background: "linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.3) 50%, transparent 100%)",
         }}
       />
-
       {/* Background gradients */}
       <div
-        className="absolute right-0 top-0 h-1/2 w-1/2 opacity-50"
+        className="absolute inset-x-0 top-0 h-full opacity-40 pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.2) 0%, rgba(5, 13, 26, 0) 60%)",
+            "radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.15) 0%, rgba(15, 23, 42, 0) 70%)",
         }}
       />
 
