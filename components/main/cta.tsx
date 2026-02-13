@@ -262,7 +262,7 @@ export default function CTA() {
                                 </label>
                                 <p className="text-white/50 text-xs mt-1">
                                     수집된 정보(이름, 생년월일, 태어난 시간, 연락처, 이메일)는 사주 분석 서비스 제공을 위해서만 사용되며,
-                                    서비스 완료 후 3개월 이내에 파기됩니다.
+                                    서비스 완료 후 1개월 이내에 파기됩니다.
                                 </p>
                             </div>
                         </div>

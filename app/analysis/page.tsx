@@ -1,34 +1,69 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/main/Header";
 import Footer from "@/components/main/Footer";
 import { motion } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function AnalysisPage() {
+    const router = useRouter();
     const [activeTab, setActiveTab] = useState("detail");
-    const [selectedOption, setSelectedOption] = useState("");
+    const [baseQuantity] = useState(1); // 기본 1인은 항상 1개
+    const [additionalQuantity, setAdditionalQuantity] = useState(0); // 추가 인원
     const { addItem } = useCart();
+    const { user } = useAuth();
+
+    const basePrice = 29800;
+    const additionalPrice = 24500;
+    const totalPrice = basePrice + (additionalPrice * additionalQuantity);
+    const totalPeople = baseQuantity + additionalQuantity;
 
     const handleAddToCart = () => {
-        if (!selectedOption) {
-            alert("옵션을 선택해주세요.");
+        // 로그인 체크
+        if (!user) {
+            alert("로그인이 필요합니다.");
+            router.push("/auth");
             return;
         }
 
-        const price = selectedOption === "1person" ? 29800 : 54300; // 29800 + 24500
-        const optionLabel = selectedOption === "1person" ? "종합사주분석 1인" : "종합사주분석 2인";
-
+        // 기본 1인 추가
         addItem({
-            id: Date.now().toString(),
+            id: Date.now().toString() + "-base",
             title: "[불만족시 100%환불] 종합사주분석",
-            option: optionLabel,
-            price: price,
-            image: "/detail image/thumnail.png"
+            option: "종합사주분석 1인",
+            price: basePrice,
+            image: "/detail image/thumnail.png",
+            personIndex: 0
         });
 
-        alert("장바구니에 담겼습니다.");
+        // 추가 인원 추가
+        for (let i = 0; i < additionalQuantity; i++) {
+            addItem({
+                id: Date.now().toString() + "-add-" + i,
+                title: "[불만족시 100%환불] 종합사주분석",
+                option: "종합사주분석 1인 추가",
+                price: additionalPrice,
+                image: "/detail image/thumnail.png",
+                personIndex: i + 1
+            });
+        }
+
+        alert(`${totalPeople}명의 사주분석이 장바구니에 담겼습니다.`);
+    };
+
+    const handlePurchase = () => {
+        // 로그인 체크
+        if (!user) {
+            alert("로그인이 필요합니다.");
+            router.push("/auth");
+            return;
+        }
+
+        // 구매 페이지로 이동 (인원수 정보 전달)
+        router.push(`/checkout?baseQuantity=${baseQuantity}&additionalQuantity=${additionalQuantity}&totalPrice=${totalPrice}`);
     };
 
     return (
@@ -107,20 +142,56 @@ export default function AnalysisPage() {
 
                             {/* Options */}
                             <div className="space-y-4 mb-6">
-                                <div>
-                                    <label htmlFor="option1" className="block text-sm font-medium text-white/70 mb-2">
-                                        옵션 선택
-                                    </label>
-                                    <select
-                                        id="option1"
-                                        className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white focus:border-[#3b82f6] focus:outline-none focus:ring-1 focus:ring-[#3b82f6]"
-                                        value={selectedOption}
-                                        onChange={(e) => setSelectedOption(e.target.value)}
-                                    >
-                                        <option value="">옵션을 선택해주세요</option>
-                                        <option value="1person">종합사주분석 1인</option>
-                                        <option value="2person">종합사주분석 2인 (+24,500원)</option>
-                                    </select>
+                                {/* 기본 1인 */}
+                                <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="text-sm font-medium text-white">종합사주분석 1인</p>
+                                            <p className="text-xs text-white/50 mt-1">29,800원</p>
+                                        </div>
+                                        <div className="rounded-lg border border-white/10 bg-white/5 px-4 py-2">
+                                            <span className="text-white">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 추가 인원 */}
+                                <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="text-sm font-medium text-white">종합사주분석 1인 추가</p>
+                                            <p className="text-xs text-white/50 mt-1">+24,500원 / 1인</p>
+                                        </div>
+                                        <div className="flex items-center gap-3">
+                                            <button
+                                                onClick={() => setAdditionalQuantity(Math.max(0, additionalQuantity - 1))}
+                                                className="w-8 h-8 rounded-lg border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-colors"
+                                                disabled={additionalQuantity === 0}
+                                            >
+                                                -
+                                            </button>
+                                            <span className="w-8 text-center text-white font-medium">{additionalQuantity}</span>
+                                            <button
+                                                onClick={() => setAdditionalQuantity(additionalQuantity + 1)}
+                                                className="w-8 h-8 rounded-lg border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-colors"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* 총 금액 표시 */}
+                                <div className="rounded-lg border border-[#3b82f6]/30 bg-[#3b82f6]/10 p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="text-sm font-medium text-white">총 {totalPeople}명</p>
+                                            <p className="text-xs text-white/50 mt-1">분석 대상 인원</p>
+                                        </div>
+                                        <div className="text-right">
+                                            <p className="text-xl font-bold text-[#3b82f6]">{totalPrice.toLocaleString()}원</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -135,7 +206,10 @@ export default function AnalysisPage() {
                                 >
                                     장바구니
                                 </button>
-                                <button className="flex-1 rounded-lg bg-[#3b82f6] px-6 py-4 font-medium text-white transition-colors hover:bg-[#2563eb] shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                                <button
+                                    onClick={handlePurchase}
+                                    className="flex-1 rounded-lg bg-[#3b82f6] px-6 py-4 font-medium text-white transition-colors hover:bg-[#2563eb] shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                                >
                                     구매하기
                                 </button>
                             </div>

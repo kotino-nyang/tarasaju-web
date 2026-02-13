@@ -6,6 +6,7 @@ import Link from "next/link";
 export default function Pricing() {
   return (
     <section
+      id="pricing"
       className="relative w-full overflow-hidden bg-[#0f172a] py-20 font-light text-white antialiased md:py-28"
     >
       {/* Gradient divider */}

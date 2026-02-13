@@ -75,7 +75,7 @@ export default function Hero() {
 
           <div className="mb-16 sm:mb-20 flex justify-center">
             <Link
-              href="#application-form"
+              href="#pricing"
               className="relative w-full overflow-hidden rounded-full border border-white/10 bg-white/10 backdrop-blur-lg px-8 py-4 text-white font-medium shadow-[0_8px_32px_rgba(59,130,246,0.2)] transition-all duration-300 hover:bg-white/20 hover:shadow-[0_8px_32px_rgba(59,130,246,0.4)] hover:border-[#3b82f6]/30 sm:w-auto"
             >
               사주 분석 신청하기

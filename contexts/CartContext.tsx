@@ -8,6 +8,7 @@ export interface CartItem {
     option: string;
     price: number;
     image: string;
+    personIndex?: number; // 몇 번째 사람인지 (0부터 시작)
 }
 
 interface CartContextType {
