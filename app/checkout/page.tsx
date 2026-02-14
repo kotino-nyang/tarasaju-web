@@ -431,20 +431,18 @@ function CheckoutContent() {
                         onChange={(e) => updatePersonForm(index, "birthTime", e.target.value)}
                         className="w-full rounded-xl border border-woody-brown/20 bg-white px-4 py-3 text-foreground outline-none focus:border-terracotta/50"
                       >
-                        <option value="" className="bg-white">시간을 선택하세요</option>
-                        <option value="unknown" className="bg-white">모름 (00시 기준 분석)</option>
-                        <option value="ja" className="bg-white">자시 (23:30-01:30)</option>
-                        <option value="chuk" className="bg-white">축시 (01:30-03:30)</option>
-                        <option value="in" className="bg-white">인시 (03:30-05:30)</option>
-                        <option value="myo" className="bg-white">묘시 (05:30-07:30)</option>
-                        <option value="jin" className="bg-white">진시 (07:30-09:30)</option>
-                        <option value="sa" className="bg-white">사시 (09:30-11:30)</option>
-                        <option value="o" className="bg-white">오시 (11:30-13:30)</option>
-                        <option value="mi" className="bg-white">미시 (13:30-15:30)</option>
-                        <option value="sin" className="bg-white">신시 (15:30-17:30)</option>
-                        <option value="yu" className="bg-white">유시 (17:30-19:30)</option>
-                        <option value="sul" className="bg-white">술시 (19:30-21:30)</option>
-                        <option value="hae" className="bg-white">해시 (21:30-23:30)</option>
+                        <option value="ja" className="bg-white">자시 (23:00-01:00)</option>
+                        <option value="chuk" className="bg-white">축시 (01:00-03:00)</option>
+                        <option value="in" className="bg-white">인시 (03:00-05:00)</option>
+                        <option value="myo" className="bg-white">묘시 (05:00-07:00)</option>
+                        <option value="jin" className="bg-white">진시 (07:00-09:00)</option>
+                        <option value="sa" className="bg-white">사시 (09:00-11:00)</option>
+                        <option value="o" className="bg-white">오시 (11:00-13:00)</option>
+                        <option value="mi" className="bg-white">미시 (13:00-15:00)</option>
+                        <option value="sin" className="bg-white">신시 (15:00-17:00)</option>
+                        <option value="yu" className="bg-white">유시 (17:00-19:00)</option>
+                        <option value="sul" className="bg-white">술시 (19:00-21:00)</option>
+                        <option value="hae" className="bg-white">해시 (21:00-23:00)</option>
                       </select>
                     </div>
                   </div>

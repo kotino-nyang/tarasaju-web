@@ -212,18 +212,18 @@ export default function CTA() {
                                 >
                                     <option value="">선택해주세요</option>
                                     <option value="unknown">모름 (00시 기준 분석)</option>
-                                    <option value="ja">자시 (23:30 ~ 01:29)</option>
-                                    <option value="chuk">축시 (01:30 ~ 03:29)</option>
-                                    <option value="in">인시 (03:30 ~ 05:29)</option>
-                                    <option value="myo">묘시 (05:30 ~ 07:29)</option>
-                                    <option value="jin">진시 (07:30 ~ 09:29)</option>
-                                    <option value="sa">사시 (09:30 ~ 11:29)</option>
-                                    <option value="o">오시 (11:30 ~ 13:29)</option>
-                                    <option value="mi">미시 (13:30 ~ 15:29)</option>
-                                    <option value="shin">신시 (15:30 ~ 17:29)</option>
-                                    <option value="yu">유시 (17:30 ~ 19:29)</option>
-                                    <option value="sul">술시 (19:30 ~ 21:29)</option>
-                                    <option value="hae">해시 (21:30 ~ 23:29)</option>
+                                    <option value="ja" className="bg-white">자시 (23:00-01:00)</option>
+                                    <option value="chuk" className="bg-white">축시 (01:00-03:00)</option>
+                                    <option value="in" className="bg-white">인시 (03:00-05:00)</option>
+                                    <option value="myo" className="bg-white">묘시 (05:00-07:00)</option>
+                                    <option value="jin" className="bg-white">진시 (07:00-09:00)</option>
+                                    <option value="sa" className="bg-white">사시 (09:00-11:00)</option>
+                                    <option value="o" className="bg-white">오시 (11:00-13:00)</option>
+                                    <option value="mi" className="bg-white">미시 (13:00-15:00)</option>
+                                    <option value="sin" className="bg-white">신시 (15:00-17:00)</option>
+                                    <option value="yu" className="bg-white">유시 (17:00-19:00)</option>
+                                    <option value="sul" className="bg-white">술시 (19:00-21:00)</option>
+                                    <option value="hae" className="bg-white">해시 (21:00-23:00)</option>
                                 </select>
                             </div>
 
