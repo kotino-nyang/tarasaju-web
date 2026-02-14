@@ -13,16 +13,16 @@ export default function Pricing() {
       <div
         className="absolute left-0 top-0 h-px w-full hidden md:block"
         style={{
-          background: "linear-gradient(90deg, transparent 0%, rgba(242, 238, 233, 0.2) 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(242, 238, 233, 0.1) 50%, transparent 100%)",
         }}
       />
 
       {/* Background gradients */}
       <div
-        className="absolute left-0 top-0 h-1/2 w-1/2 opacity-30"
+        className="absolute inset-0 pointer-events-none opacity-30"
         style={{
           background:
-            "radial-gradient(circle at 30% 30%, rgba(198, 123, 92, 0.3) 0%, rgba(112, 94, 82, 0) 60%)",
+            "radial-gradient(circle at 15% 30%, rgba(198, 123, 92, 0.3) 0%, rgba(112, 94, 82, 0) 60%)",
         }}
       />
 

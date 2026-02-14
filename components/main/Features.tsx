@@ -51,16 +51,16 @@ export default function Features() {
       <div
         className="absolute left-0 top-0 h-px w-full hidden md:block"
         style={{
-          background: "linear-gradient(90deg, transparent 0%, rgba(44, 22, 1, 0.3) 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(44, 22, 1, 0.1) 50%, transparent 100%)",
         }}
       />
 
       {/* Background gradients */}
       <div
-        className="absolute right-0 top-0 h-1/2 w-1/2 opacity-30"
+        className="absolute inset-0 pointer-events-none opacity-30"
         style={{
           background:
-            "radial-gradient(circle at 70% 30%, rgba(44, 22, 1, 0.12) 0%, rgba(229, 222, 213, 0) 60%)",
+            "radial-gradient(circle at 85% 30%, rgba(44, 22, 1, 0.12) 0%, rgba(229, 222, 213, 0) 60%)",
         }}
       />
 

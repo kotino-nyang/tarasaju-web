@@ -13,17 +13,12 @@ export default function Hero() {
       }}
     >
       <div
-        className="absolute right-0 top-0 h-full w-1/2"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(circle at 70% 30%, rgba(44, 22, 1, 0.12) 0%, rgba(242, 238, 233, 0) 70%)",
-        }}
-      />
-      <div
-        className="absolute left-0 top-0 h-full w-1/2 -scale-x-100"
-        style={{
-          background:
-            "radial-gradient(circle at 70% 30%, rgba(198, 123, 92, 0.08) 0%, rgba(242, 238, 233, 0) 70%)",
+          background: `
+            radial-gradient(circle at 85% 30%, rgba(44, 22, 1, 0.12) 0%, rgba(242, 238, 233, 0) 60%),
+            radial-gradient(circle at 15% 30%, rgba(198, 123, 92, 0.08) 0%, rgba(242, 238, 233, 0) 60%)
+          `,
         }}
       />
 
@@ -53,7 +48,7 @@ export default function Hero() {
             </h1>
             <p className="mb-10 text-base text-foreground/60 md:text-lg lg:text-xl">
               수백년간 축적된 전통 사주명리의 원리를
-              <br className="hidden md:block" />
+              <br />
               현대적으로 정리한 개인 분석 리포트
             </p>
 

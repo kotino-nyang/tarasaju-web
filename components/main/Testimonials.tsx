@@ -25,7 +25,7 @@ export default function Testimonials() {
       <div
         className="absolute left-0 top-0 h-px w-full"
         style={{
-          background: "linear-gradient(90deg, transparent 0%, rgba(44, 22, 1, 0.35) 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(44, 22, 1, 0.15) 50%, transparent 100%)",
         }}
       />
 
