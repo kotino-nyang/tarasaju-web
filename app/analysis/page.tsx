@@ -177,7 +177,7 @@ export default function AnalysisPage() {
                     <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-20">
                         {/* Left: Thumbnail */}
                         <div className="w-full lg:w-1/3">
-                            <div className="aspect-square w-full relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(59,130,246,0.2)]">
+                            <div className="aspect-square w-full relative overflow-hidden rounded-2xl border border-woody-brown/10 bg-white shadow-xl">
                                 <img
                                     src="/detail image/thumnail.png"
                                     alt="[불만족시 100%환불] 종합사주분석"
