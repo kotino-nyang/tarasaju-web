@@ -291,281 +291,276 @@ function CheckoutContent() {
   return (
     <>
       <Header />
-      <main className="relative min-h-screen overflow-hidden bg-[#050d1a] pt-32 pb-20 text-white">
+      <div className="min-h-screen bg-background font-light text-foreground antialiased pb-20">
+        <Header />
+
         {/* Background gradients */}
         <div
           className="fixed inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle at 50% 10%, rgba(59, 130, 246, 0.1) 0%, rgba(5, 13, 26, 0) 70%)",
+              "radial-gradient(circle at 50% 10%, rgba(198, 123, 92, 0.08) 0%, rgba(242, 238, 233, 0) 70%)",
           }}
         />
-        <div className="container relative z-10 mx-auto px-4 md:px-6 lg:px-8 max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-3">주문/결제</h1>
-            <p className="text-[#60a5fa] mb-10 font-light">총 {peopleCount}명의 사주분석을 신청합니다</p>
+        <div className="mx-auto max-w-5xl">
+          <h1 className="mb-8 text-3xl font-light text-foreground">주문/결제</h1>
 
-            {/* 공통 이메일 */}
-            <div className="mb-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 md:p-10 shadow-[0_8px_32px_rgba(59,130,246,0.1)]">
-              <h2 className="text-2xl font-bold mb-6">이메일 정보</h2>
-              <div>
-                <label className="block text-sm font-medium text-white/70 mb-3">
-                  이메일 (PDF 발송용) <span className="text-red-400">*</span>
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="이메일을 입력하세요"
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-white focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all"
-                />
-                <p className="text-xs text-white/30 mt-3">모든 분석 리포트가 이 이메일로 발송됩니다.</p>
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {/* Left Column: Forms */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Analysis Targets */}
+              <div className="rounded-2xl border border-woody-brown/10 bg-white p-6 shadow-sm">
+                <h2 className="mb-4 text-xl font-medium text-foreground">분석 대상 정보</h2>
+                <div>
+                  <label className="block text-sm font-medium text-foreground/70 mb-3">
+                    이메일 (PDF 발송용) <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="이메일을 입력하세요"
+                    className="w-full rounded-xl border border-woody-brown/20 bg-sub-background px-4 py-3 text-foreground outline-none focus:border-terracotta/50"
+                  />
+                  <p className="text-xs text-foreground/40 mt-3">모든 분석 리포트가 이 이메일로 발송됩니다.</p>
+                </div>
               </div>
-            </div>
 
-            {/* 각 사람별 정보 입력 폼 */}
-            {peopleForms.map((person, index) => (
-              <div key={index} className="mb-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 md:p-10 shadow-[0_8px_32px_rgba(59,130,246,0.1)]">
-                <h2 className="text-2xl font-bold mb-6">
-                  {index + 1}번째 분석 대상자 정보 {index === 0 && <span className="text-sm font-normal text-[#60a5fa] px-2 py-1 rounded-md bg-white/5 ml-2">기본</span>}
-                  {index > 0 && <span className="text-sm font-normal text-white/40 ml-2">(추가)</span>}
-                </h2>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-white/70 mb-2">
-                      이름 <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={person.name}
-                      onChange={(e) => updatePersonForm(index, "name", e.target.value)}
-                      placeholder="이름을 입력하세요"
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-white focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all font-light"
-                    />
-                  </div>
-                  {index === 0 && (
-                    <div>
-                      <label className="block text-sm font-medium text-white/70 mb-2">
-                        연락처 <span className="text-red-400">*</span>
-                      </label>
-                      <input
-                        type="tel"
-                        value={person.phone}
-                        onChange={(e) => updatePersonForm(index, "phone", e.target.value)}
-                        placeholder="010-0000-0000"
-                        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-white focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all font-light font-mono"
-                      />
-                    </div>
-                  )}
-                  <div>
-                    <label className="block text-sm font-medium text-white/70 mb-2">
-                      성별 <span className="text-red-400">*</span>
-                    </label>
-                    <select
-                      value={person.gender}
-                      onChange={(e) => updatePersonForm(index, "gender", e.target.value)}
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-white focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all font-light"
-                    >
-                      <option value="" className="bg-[#0f172a]">성별을 선택하세요</option>
-                      <option value="male" className="bg-[#0f172a]">남성</option>
-                      <option value="female" className="bg-[#0f172a]">여성</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-white/70 mb-2">
-                      생년월일 <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      type="date"
-                      value={person.birthDate}
-                      onChange={(e) => updatePersonForm(index, "birthDate", e.target.value)}
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-white focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all font-light font-mono"
-                    />
-                  </div>
-                  <div className="flex flex-col md:flex-row gap-4">
-                    <div className="flex-1">
-                      <label className="block text-sm font-medium text-white/70 mb-2">
-                        양력/음력 <span className="text-red-400">*</span>
-                      </label>
-                      <select
-                        value={person.calendarType}
-                        onChange={(e) => updatePersonForm(index, "calendarType", e.target.value)}
-                        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-white focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all font-light"
+              {/* 각 사람별 정보 입력 폼 */}
+              {peopleForms.map((person, index) => (
+                <div key={index} className="rounded-xl border border-woody-brown/10 bg-sub-background p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm font-bold text-terracotta">대상 {index + 1}</span>
+                    {peopleForms.length > 1 && (
+                      <button
+                        onClick={() => {
+                          setPeopleForms(prev => prev.filter((_, i) => i !== index));
+                        }}
+                        className="text-xs text-foreground/40 hover:text-red-400 transition-colors"
                       >
-                        <option value="solar" className="bg-[#0f172a]">양력</option>
-                        <option value="lunar" className="bg-[#0f172a]">음력</option>
-                      </select>
-                    </div>
-                    {person.calendarType === "lunar" && (
-                      <div className="flex items-end pb-1 md:pb-0">
-                        <label className="flex items-center gap-2 px-2 md:px-4 py-3 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={person.isLeapMonth}
-                            onChange={(e) => updatePersonForm(index, "isLeapMonth", e.target.checked)}
-                            className="w-4 h-4 rounded border-white/10 bg-white/5 text-[#3b82f6] focus:ring-[#3b82f6]"
-                          />
-                          <span className="text-sm text-white/70 whitespace-nowrap">윤달</span>
-                        </label>
-                      </div>
+                        삭제
+                      </button>
                     )}
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-white/70 mb-2">
-                      태어난 시간 <span className="text-red-400">*</span>
-                    </label>
-                    <select
-                      value={person.birthTime}
-                      onChange={(e) => updatePersonForm(index, "birthTime", e.target.value)}
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-white focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all font-light"
-                    >
-                      <option value="" className="bg-[#0f172a]">시간을 선택하세요</option>
-                      <option value="unknown" className="bg-[#0f172a]">모름 (00시 기준 분석)</option>
-                      <option value="ja" className="bg-[#0f172a]">자시 (23:30-01:30)</option>
-                      <option value="chuk" className="bg-[#0f172a]">축시 (01:30-03:30)</option>
-                      <option value="in" className="bg-[#0f172a]">인시 (03:30-05:30)</option>
-                      <option value="myo" className="bg-[#0f172a]">묘시 (05:30-07:30)</option>
-                      <option value="jin" className="bg-[#0f172a]">진시 (07:30-09:30)</option>
-                      <option value="sa" className="bg-[#0f172a]">사시 (09:30-11:30)</option>
-                      <option value="o" className="bg-[#0f172a]">오시 (11:30-13:30)</option>
-                      <option value="mi" className="bg-[#0f172a]">미시 (13:30-15:30)</option>
-                      <option value="sin" className="bg-[#0f172a]">신시 (15:30-17:30)</option>
-                      <option value="yu" className="bg-[#0f172a]">유시 (17:30-19:30)</option>
-                      <option value="sul" className="bg-[#0f172a]">술시 (19:30-21:30)</option>
-                      <option value="hae" className="bg-[#0f172a]">해시 (21:30-23:30)</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {/* 개인정보 수집 동의 */}
-            <div className="mb-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 md:p-10 shadow-[0_8px_32px_rgba(59,130,246,0.1)]">
-              <label className="flex items-start gap-4 cursor-pointer group">
-                <input
-                  type="checkbox"
-                  checked={agreePrivacy}
-                  onChange={(e) => setAgreePrivacy(e.target.checked)}
-                  className="mt-1 w-5 h-5 rounded-lg border-white/10 bg-white/5 text-[#3b82f6] focus:ring-[#3b82f6]/50 transition-all"
-                />
-                <div className="flex-1">
-                  <span className="text-lg font-bold text-white group-hover:text-[#60a5fa] transition-colors">
-                    개인정보 수집 및 이용 동의 <span className="text-red-400">*</span>
-                  </span>
-                  <p className="mt-3 text-xs text-white/40 leading-relaxed font-light">
-                    타라사주는 사주 분석 서비스 제공을 위해 이름, 연락처, 이메일, 생년월일, 성별, 출생시간 정보를 수집합니다.
-                    수집된 개인정보는 서비스 제공 목적으로만 사용되며, 관련 법령에 따라 안전하게 관리됩니다.
-                  </p>
-                </div>
-              </label>
-            </div>
-
-            {/* 결제 정보 */}
-            <div className="mb-10 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 md:p-10 shadow-[0_8px_32px_rgba(59,130,246,0.1)]">
-              <h2 className="text-2xl font-bold mb-8">결제 정보</h2>
-
-              {/* 결제 방식 */}
-              <div className="mb-10">
-                <label className="block text-sm font-medium text-white/70 mb-4">
-                  결제 방식
-                </label>
-                <div className="rounded-2xl border-2 border-[#3b82f6]/30 bg-blue-500/5 px-6 py-6 shadow-[0_0_24px_rgba(59,130,246,0.1)]">
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500/20 text-[#60a5fa]">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                      </svg>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-foreground/70 mb-2">
+                        이름 <span className="text-red-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={person.name}
+                        onChange={(e) => updatePersonForm(index, "name", e.target.value)}
+                        placeholder="이름을 입력하세요"
+                        className="w-full rounded-xl border border-woody-brown/20 bg-white px-4 py-3 text-foreground outline-none focus:border-terracotta/50"
+                      />
                     </div>
-                    <span className="text-xl font-bold text-white">무통장 입금</span>
-                  </div>
-                  <div className="mt-6 p-4 rounded-xl bg-black/20 text-sm text-white/70 space-y-2 border border-white/5 font-light">
-                    <p className="flex justify-between"><span>• 은행</span> <span className="text-white font-medium">카카오뱅크</span></p>
-                    <p className="flex justify-between"><span>• 계좌번호</span> <span className="text-[#60a5fa] font-mono font-medium">3333-36-585986</span></p>
-                    <p className="flex justify-between"><span>• 예금주</span> <span className="text-white font-medium">고수빈(원포세븐)</span></p>
-                    <div className="mt-4 pt-4 border-t border-white/5 text-center text-[#60a5fa]/90">
-                      입금 확인 후 <span className="font-medium text-white">24시간 이내</span> 분석 리포트가 발송됩니다
+                    {index === 0 && (
+                      <div>
+                        <label className="block text-sm font-medium text-foreground/70 mb-2">
+                          연락처 <span className="text-red-400">*</span>
+                        </label>
+                        <input
+                          type="tel"
+                          value={person.phone}
+                          onChange={(e) => updatePersonForm(index, "phone", e.target.value)}
+                          placeholder="010-0000-0000"
+                          className="w-full rounded-xl border border-woody-brown/20 bg-white px-4 py-3 text-foreground outline-none focus:border-terracotta/50"
+                        />
+                      </div>
+                    )}
+                    <div>
+                      <label className="block text-sm font-medium text-foreground/70 mb-2">
+                        성별 <span className="text-red-400">*</span>
+                      </label>
+                      <select
+                        value={person.gender}
+                        onChange={(e) => updatePersonForm(index, "gender", e.target.value)}
+                        className="w-full rounded-xl border border-woody-brown/20 bg-white px-4 py-3 text-foreground outline-none focus:border-terracotta/50"
+                      >
+                        <option value="" className="bg-white">성별을 선택하세요</option>
+                        <option value="male" className="bg-white">남성</option>
+                        <option value="female" className="bg-white">여성</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground/70 mb-2">
+                        생년월일 <span className="text-red-400">*</span>
+                      </label>
+                      <input
+                        type="date"
+                        value={person.birthDate}
+                        onChange={(e) => updatePersonForm(index, "birthDate", e.target.value)}
+                        className="w-full rounded-xl border border-woody-brown/20 bg-white px-4 py-3 text-foreground outline-none focus:border-terracotta/50"
+                      />
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-4">
+                      <div className="flex-1">
+                        <label className="block text-sm font-medium text-foreground/70 mb-2">
+                          양력/음력 <span className="text-red-400">*</span>
+                        </label>
+                        <select
+                          value={person.calendarType}
+                          onChange={(e) => updatePersonForm(index, "calendarType", e.target.value)}
+                          className="w-full rounded-xl border border-woody-brown/20 bg-white px-4 py-3 text-foreground outline-none focus:border-terracotta/50"
+                        >
+                          <option value="solar" className="bg-white">양력</option>
+                          <option value="lunar" className="bg-white">음력</option>
+                        </select>
+                      </div>
+                      {person.calendarType === "lunar" && (
+                        <div className="flex items-end pb-1 md:pb-0">
+                          <label className="flex items-center gap-2 px-2 md:px-4 py-3 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={person.isLeapMonth}
+                              onChange={(e) => updatePersonForm(index, "isLeapMonth", e.target.checked)}
+                              className="w-4 h-4 rounded border-woody-brown/20 bg-white text-terracotta focus:ring-terracotta"
+                            />
+                            <span className="text-sm text-foreground/70 whitespace-nowrap">윤달</span>
+                          </label>
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground/70 mb-2">
+                        태어난 시간 <span className="text-red-400">*</span>
+                      </label>
+                      <select
+                        value={person.birthTime}
+                        onChange={(e) => updatePersonForm(index, "birthTime", e.target.value)}
+                        className="w-full rounded-xl border border-woody-brown/20 bg-white px-4 py-3 text-foreground outline-none focus:border-terracotta/50"
+                      >
+                        <option value="" className="bg-white">시간을 선택하세요</option>
+                        <option value="unknown" className="bg-white">모름 (00시 기준 분석)</option>
+                        <option value="ja" className="bg-white">자시 (23:30-01:30)</option>
+                        <option value="chuk" className="bg-white">축시 (01:30-03:30)</option>
+                        <option value="in" className="bg-white">인시 (03:30-05:30)</option>
+                        <option value="myo" className="bg-white">묘시 (05:30-07:30)</option>
+                        <option value="jin" className="bg-white">진시 (07:30-09:30)</option>
+                        <option value="sa" className="bg-white">사시 (09:30-11:30)</option>
+                        <option value="o" className="bg-white">오시 (11:30-13:30)</option>
+                        <option value="mi" className="bg-white">미시 (13:30-15:30)</option>
+                        <option value="sin" className="bg-white">신시 (15:30-17:30)</option>
+                        <option value="yu" className="bg-white">유시 (17:30-19:30)</option>
+                        <option value="sul" className="bg-white">술시 (19:30-21:30)</option>
+                        <option value="hae" className="bg-white">해시 (21:30-23:30)</option>
+                      </select>
                     </div>
                   </div>
                 </div>
+              ))}
+
+              {/* 개인정보 수집 동의 */}
+              <div className="rounded-2xl border border-woody-brown/10 bg-white p-6 shadow-sm">
+                <label className="flex items-start gap-4 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={agreePrivacy}
+                    onChange={(e) => setAgreePrivacy(e.target.checked)}
+                    className="mt-1 w-5 h-5 rounded-lg border-woody-brown/20 bg-sub-background text-terracotta focus:ring-terracotta/50 transition-all"
+                  />
+                  <div className="flex-1">
+                    <span className="text-lg font-medium text-foreground group-hover:text-terracotta transition-colors">
+                      개인정보 수집 및 이용 동의 <span className="text-red-400">*</span>
+                    </span>
+                    <p className="mt-3 text-xs text-foreground/40 leading-relaxed">
+                      타라사주는 사주 분석 서비스 제공을 위해 이름, 연락처, 이메일, 생년월일, 성별, 출생시간 정보를 수집합니다.
+                      수집된 개인정보는 서비스 제공 목적으로만 사용되며, 관련 법령에 따라 안전하게 관리됩니다.
+                    </p>
+                  </div>
+                </label>
               </div>
 
-              {/* 쿠폰 적용 */}
-              <div className="mb-10">
-                <label className="block text-sm font-medium text-white/70 mb-4">
-                  할인 쿠폰 {coupons.length > 0 && <span className="text-[#60a5fa] font-bold">({coupons.length}장 보유)</span>}
-                </label>
-                {coupons.length > 0 ? (
+              {/* Coupon Section */}
+              <div className="rounded-2xl border border-woody-brown/10 bg-white p-6 shadow-sm">
+                <h2 className="mb-4 text-xl font-medium text-foreground">쿠폰 할인</h2>
+                <div className="flex gap-2">
                   <select
                     value={selectedCoupon?.id || ""}
                     onChange={(e) => {
                       const coupon = coupons.find(c => c.id === e.target.value);
                       applyCoupon(coupon);
                     }}
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-white focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all font-light"
+                    className="flex-1 rounded-xl border border-woody-brown/20 bg-white px-4 py-3 text-foreground outline-none focus:border-terracotta/50"
                   >
-                    <option value="" className="bg-[#0f172a]">사용 가능한 쿠폰을 선택하세요</option>
+                    <option value="">사용 가능한 쿠폰을 선택하세요</option>
                     {coupons.map((coupon) => (
-                      <option key={coupon.id} value={coupon.id} className="bg-[#0f172a]">
+                      <option key={coupon.id} value={coupon.id} className="bg-white">
                         {coupon.coupons.name} - {coupon.coupons.discount_value.toLocaleString()}
                         {coupon.coupons.discount_type === "fixed" ? "원" : "%"} 할인
                         (만료: {new Date(coupon.expires_at).toLocaleDateString()})
                       </option>
                     ))}
                   </select>
-                ) : (
-                  <div className="rounded-xl border border-white/10 bg-white/5 px-6 py-4 text-white/20 text-sm font-light text-center">
-                    사용 가능한 쿠폰이 없습니다
-                  </div>
-                )}
+                </div>
               </div>
 
-              {/* 결제 금액 */}
-              <div className="space-y-4 bg-black/20 rounded-2xl p-6 border border-white/5">
-                <div className="flex justify-between text-white/60 font-light">
-                  <span>상품 금액 ({peopleCount}명)</span>
-                  <span className="font-mono">{totalPrice.toLocaleString()}원</span>
-                </div>
-                <div className="flex justify-between text-white/60 font-light">
-                  <span>할인 금액</span>
-                  <span className="text-red-400/80 font-mono">-{discountAmount.toLocaleString()}원</span>
-                </div>
-                {selectedCoupon && (
-                  <div className="flex items-center gap-2 text-sm text-[#60a5fa] bg-blue-500/10 px-3 py-1.5 rounded-lg w-fit">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
-                    </svg>
-                    <span className="font-medium">{selectedCoupon.coupons.name} 적용됨</span>
+              <div className="rounded-2xl border border-woody-brown/10 bg-white p-6 shadow-sm">
+                <h2 className="mb-4 text-xl font-medium text-foreground">결제 방식 선택</h2>
+                <div className="grid grid-cols-2 gap-3">
+                  <div
+                    className="rounded-xl border p-4 text-center transition-all border-terracotta bg-terracotta/10 text-terracotta"
+                  >
+                    무통장 입금
                   </div>
-                )}
-                <div className="border-t border-white/10 pt-4 flex justify-between items-baseline">
-                  <span className="text-lg font-bold">최종 입금 금액</span>
-                  <span className="text-3xl font-bold text-[#60a5fa] drop-shadow-[0_0_12px_rgba(59,130,246,0.3)] font-mono">
-                    {(totalPrice - discountAmount).toLocaleString()}원
-                  </span>
+                  <button
+                    className="rounded-xl border border-woody-brown/10 bg-sub-background p-4 text-center text-foreground/20 cursor-not-allowed"
+                    disabled
+                  >
+                    카드 결제 (준비중)
+                  </button>
+                </div>
+                <div className="mt-6 p-4 rounded-xl bg-sub-background text-sm text-foreground/70 space-y-2 border border-woody-brown/10">
+                  <p className="flex justify-between"><span>• 은행</span> <span className="text-foreground font-medium">카카오뱅크</span></p>
+                  <p className="flex justify-between"><span>• 계좌번호</span> <span className="text-terracotta font-mono font-medium">3333-36-585986</span></p>
+                  <p className="flex justify-between"><span>• 예금주</span> <span className="text-foreground font-medium">고수빈(원포세븐)</span></p>
+                  <div className="mt-4 pt-4 border-t border-woody-brown/10 text-center text-terracotta/90">
+                    입금 확인 후 <span className="font-medium text-foreground">24시간 이내</span> 분석 리포트가 발송됩니다
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* 주문 완료 버튼 */}
-            <motion.button
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handlePayment}
-              className="w-full rounded-2xl bg-blue-600 px-8 py-5 text-xl font-bold text-white transition-all hover:bg-blue-500 shadow-[0_8px_32px_rgba(59,130,246,0.4)] hover:shadow-[0_12px_48px_rgba(59,130,246,0.6)]"
-            >
-              {(totalPrice - discountAmount).toLocaleString()}원 주문하기
-            </motion.button>
+            {/* Right Column: Order Summary */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-28 rounded-2xl border border-woody-brown/10 bg-white p-6 shadow-sm">
+                <h2 className="mb-6 text-xl font-medium text-foreground">주문 요약</h2>
 
-            <p className="mt-6 text-center text-sm text-white/20 font-light">
-              주문 완료 후 입금 계좌 정보가 다시 한 번 안내됩니다.
-            </p>
-          </motion.div>
+                <div className="space-y-4 mb-8">
+                  <div className="flex justify-between text-foreground/60">
+                    <span>상품 금액</span>
+                    <span>{totalPrice.toLocaleString()}원</span>
+                  </div>
+                  {discountAmount > 0 && (
+                    <div className="flex justify-between text-red-500">
+                      <span>쿠폰 할인</span>
+                      <span>-{discountAmount.toLocaleString()}원</span>
+                    </div>
+                  )}
+                  <div className="border-t border-woody-brown/10 pt-4 flex justify-between">
+                    <span className="text-lg font-medium text-foreground">총 결제 금액</span>
+                    <span className="text-2xl font-bold text-terracotta">{(totalPrice - discountAmount).toLocaleString()}원</span>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <button
+                    onClick={handlePayment}
+                    disabled={isLoading}
+                    className="w-full rounded-full bg-terracotta px-6 py-4 font-bold text-white shadow-sm transition-all hover:bg-terracotta/90 disabled:opacity-50"
+                  >
+                    {isLoading ? "처리중..." : `${(totalPrice - discountAmount).toLocaleString()}원 결제하기`}
+                  </button>
+                  <p className="text-center text-xs text-foreground/40">
+                    무통장 입금의 경우, 입금 확인 후 분석이 시작됩니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
+      </div>
       <Footer />
     </>
   );

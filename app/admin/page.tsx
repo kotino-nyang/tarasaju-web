@@ -10,7 +10,7 @@ import ReviewsManagement from "@/components/admin/ReviewsManagement";
 import QnAManagement from "@/components/admin/QnAManagement";
 
 // 관리자 이메일 목록 (실제 환경에서는 환경변수로 관리)
-const ADMIN_EMAILS = ["binzzz010101@gmail.com"];
+const ADMIN_EMAILS = ["tarasajukr@gmail.com"];
 
 type AdminSection = "orders" | "reviews" | "qna";
 type OrderStatus = "all" | "pending" | "confirmed" | "processing" | "completed" | "cancelling" | "cancelled";
@@ -377,11 +377,10 @@ export default function AdminPage() {
               <button
                 key={tab.value}
                 onClick={() => setActiveSection(tab.value as AdminSection)}
-                className={`px-6 py-3 text-sm font-medium transition-colors border-b-2 ${
-                  activeSection === tab.value
+                className={`px-6 py-3 text-sm font-medium transition-colors border-b-2 ${activeSection === tab.value
                     ? "border-blue-600 text-blue-600"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
+                  }`}
               >
                 {tab.label}
               </button>
@@ -398,299 +397,298 @@ export default function AdminPage() {
           {activeSection === "orders" && (
             <>
               {/* 매출 통계 */}
-          <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
-              <p className="text-xs md:text-sm text-gray-500 mb-1">총 매출</p>
-              <p className="text-lg md:text-2xl font-bold text-blue-600">{stats.totalRevenue.toLocaleString()}원</p>
-              <p className="text-xs text-gray-400 mt-1 hidden md:block">완료된 주문 기준</p>
-            </div>
-            <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
-              <p className="text-xs md:text-sm text-gray-500 mb-1">총 주문</p>
-              <p className="text-lg md:text-2xl font-bold text-gray-900">{stats.totalOrders}건</p>
-              <p className="text-xs text-gray-400 mt-1">완료: {stats.completedOrders}건</p>
-            </div>
-            <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
-              <p className="text-xs md:text-sm text-gray-500 mb-1">평균 주문액</p>
-              <p className="text-lg md:text-2xl font-bold text-gray-900">{Math.round(stats.avgOrderValue).toLocaleString()}원</p>
-              <p className="text-xs text-gray-400 mt-1 hidden md:block">완료된 주문 평균</p>
-            </div>
-            <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm col-span-2 md:col-span-1">
-              <p className="text-xs md:text-sm text-gray-500 mb-2">상태별 주문</p>
-              <div className="space-y-1 text-xs">
-                <div className="flex justify-between"><span>입금대기:</span><span className="font-medium">{stats.statusCounts.pending}건</span></div>
-                <div className="flex justify-between"><span>분석중:</span><span className="font-medium">{stats.statusCounts.processing}건</span></div>
-              </div>
-            </div>
-          </div>
-
-          {/* 날짜 필터 */}
-          <div className="mb-6 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-            <div className="flex flex-wrap items-center gap-4">
-              <div>
-                <label className="text-sm font-medium text-gray-700 mb-2 block">기간 선택</label>
-                <select
-                  value={dateFilter}
-                  onChange={(e) => setDateFilter(e.target.value as "all" | "year" | "month" | "day")}
-                  className="rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                >
-                  <option value="all">전체</option>
-                  <option value="year">연도별</option>
-                  <option value="month">월별</option>
-                  <option value="day">일별</option>
-                </select>
+              <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
+                  <p className="text-xs md:text-sm text-gray-500 mb-1">총 매출</p>
+                  <p className="text-lg md:text-2xl font-bold text-blue-600">{stats.totalRevenue.toLocaleString()}원</p>
+                  <p className="text-xs text-gray-400 mt-1 hidden md:block">완료된 주문 기준</p>
+                </div>
+                <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
+                  <p className="text-xs md:text-sm text-gray-500 mb-1">총 주문</p>
+                  <p className="text-lg md:text-2xl font-bold text-gray-900">{stats.totalOrders}건</p>
+                  <p className="text-xs text-gray-400 mt-1">완료: {stats.completedOrders}건</p>
+                </div>
+                <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
+                  <p className="text-xs md:text-sm text-gray-500 mb-1">평균 주문액</p>
+                  <p className="text-lg md:text-2xl font-bold text-gray-900">{Math.round(stats.avgOrderValue).toLocaleString()}원</p>
+                  <p className="text-xs text-gray-400 mt-1 hidden md:block">완료된 주문 평균</p>
+                </div>
+                <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm col-span-2 md:col-span-1">
+                  <p className="text-xs md:text-sm text-gray-500 mb-2">상태별 주문</p>
+                  <div className="space-y-1 text-xs">
+                    <div className="flex justify-between"><span>입금대기:</span><span className="font-medium">{stats.statusCounts.pending}건</span></div>
+                    <div className="flex justify-between"><span>분석중:</span><span className="font-medium">{stats.statusCounts.processing}건</span></div>
+                  </div>
+                </div>
               </div>
 
-              {dateFilter !== "all" && (
-                <>
+              {/* 날짜 필터 */}
+              <div className="mb-6 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                <div className="flex flex-wrap items-center gap-4">
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-2 block">연도</label>
+                    <label className="text-sm font-medium text-gray-700 mb-2 block">기간 선택</label>
                     <select
-                      value={selectedYear}
-                      onChange={(e) => setSelectedYear(Number(e.target.value))}
+                      value={dateFilter}
+                      onChange={(e) => setDateFilter(e.target.value as "all" | "year" | "month" | "day")}
                       className="rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     >
-                      {Array.from({ length: 5 }, (_, i) => new Date().getFullYear() - i).map((year) => (
-                        <option key={year} value={year}>{year}년</option>
-                      ))}
+                      <option value="all">전체</option>
+                      <option value="year">연도별</option>
+                      <option value="month">월별</option>
+                      <option value="day">일별</option>
                     </select>
                   </div>
 
-                  {(dateFilter === "month" || dateFilter === "day") && (
-                    <div>
-                      <label className="text-sm font-medium text-gray-700 mb-2 block">월</label>
-                      <select
-                        value={selectedMonth}
-                        onChange={(e) => setSelectedMonth(Number(e.target.value))}
-                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      >
-                        {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-                          <option key={month} value={month}>{month}월</option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-
-                  {dateFilter === "day" && (
-                    <div>
-                      <label className="text-sm font-medium text-gray-700 mb-2 block">일</label>
-                      <select
-                        value={selectedDay}
-                        onChange={(e) => setSelectedDay(Number(e.target.value))}
-                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      >
-                        {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
-                          <option key={day} value={day}>{day}일</option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-
-                  <button
-                    onClick={() => {
-                      setDateFilter("all");
-                      setSelectedYear(new Date().getFullYear());
-                      setSelectedMonth(new Date().getMonth() + 1);
-                      setSelectedDay(new Date().getDate());
-                    }}
-                    className="mt-7 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                  >
-                    초기화
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Status Filter Tabs */}
-          <div className="mb-6 overflow-x-auto">
-            <div className="flex gap-2 border-b border-gray-200 pb-2">
-              {[
-                { value: "all", label: "전체" },
-                { value: "pending", label: "입금대기" },
-                { value: "confirmed", label: "입금확인" },
-                { value: "processing", label: "분석중" },
-                { value: "completed", label: "완료" },
-                { value: "cancelling", label: "취소요청" },
-                { value: "cancelled", label: "취소완료" },
-              ].map((status) => (
-                <button
-                  key={status.value}
-                  onClick={() => setSelectedStatus(status.value as OrderStatus)}
-                  className={`whitespace-nowrap rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-xs md:text-sm font-medium transition-colors ${
-                    selectedStatus === status.value
-                      ? "bg-blue-600 text-white active:bg-blue-700"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 active:bg-gray-100"
-                  }`}
-                >
-                  {status.label} ({getStatusCount(status.value as OrderStatus)})
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Orders List */}
-          <div className="grid gap-4">
-            {filteredOrders.length === 0 ? (
-              <div className="rounded-xl border border-gray-200 bg-white p-12 text-center shadow-sm">
-                <p className="text-gray-500">해당 상태의 주문이 없습니다.</p>
-              </div>
-            ) : (
-              filteredOrders.map((order) => (
-                <div
-                  key={order.id}
-                  className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                    {/* Order Info */}
-                    <div className="flex-1">
-                      <div className="mb-3 flex items-center gap-3">
-                        <h3 className="text-lg font-bold text-gray-900">{order.order_number}</h3>
-                        {getStatusBadge(order.order_status)}
+                  {dateFilter !== "all" && (
+                    <>
+                      <div>
+                        <label className="text-sm font-medium text-gray-700 mb-2 block">연도</label>
+                        <select
+                          value={selectedYear}
+                          onChange={(e) => setSelectedYear(Number(e.target.value))}
+                          className="rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        >
+                          {Array.from({ length: 5 }, (_, i) => new Date().getFullYear() - i).map((year) => (
+                            <option key={year} value={year}>{year}년</option>
+                          ))}
+                        </select>
                       </div>
 
-                      <div className="grid gap-2 text-sm">
-                        <div className="grid grid-cols-2 gap-x-4">
-                          <p className="text-gray-500">주문일시:</p>
-                          <p className="font-medium text-gray-900">
-                            {new Date(order.created_at).toLocaleString("ko-KR")}
-                          </p>
+                      {(dateFilter === "month" || dateFilter === "day") && (
+                        <div>
+                          <label className="text-sm font-medium text-gray-700 mb-2 block">월</label>
+                          <select
+                            value={selectedMonth}
+                            onChange={(e) => setSelectedMonth(Number(e.target.value))}
+                            className="rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          >
+                            {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
+                              <option key={month} value={month}>{month}월</option>
+                            ))}
+                          </select>
                         </div>
-                        <div className="grid grid-cols-2 gap-x-4">
-                          <p className="text-gray-500">상품:</p>
-                          <p className="font-medium text-gray-900">{order.product_name}</p>
+                      )}
+
+                      {dateFilter === "day" && (
+                        <div>
+                          <label className="text-sm font-medium text-gray-700 mb-2 block">일</label>
+                          <select
+                            value={selectedDay}
+                            onChange={(e) => setSelectedDay(Number(e.target.value))}
+                            className="rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          >
+                            {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
+                              <option key={day} value={day}>{day}일</option>
+                            ))}
+                          </select>
                         </div>
-                        <div className="grid grid-cols-2 gap-x-4">
-                          <p className="text-gray-500">옵션:</p>
-                          <p className="font-medium text-gray-900">{order.option}</p>
-                        </div>
-                        <div className="grid grid-cols-2 gap-x-4">
-                          <p className="text-gray-500">결제금액:</p>
-                          <p className="font-bold text-blue-600">
-                            {order.final_amount.toLocaleString()}원
-                            {order.discount_amount > 0 && (
-                              <span className="ml-2 text-xs text-gray-500 line-through">
-                                {order.price.toLocaleString()}원
-                              </span>
-                            )}
-                          </p>
-                        </div>
-                        <div className="grid grid-cols-2 gap-x-4">
-                          <p className="text-gray-500">주문자:</p>
-                          <p className="font-medium text-gray-900">{order.customer_name}</p>
-                        </div>
-                        <div className="grid grid-cols-2 gap-x-4">
-                          <p className="text-gray-500">연락처:</p>
-                          <p className="font-medium text-gray-900">{order.customer_phone}</p>
-                        </div>
-                        <div className="grid grid-cols-2 gap-x-4">
-                          <p className="text-gray-500">이메일:</p>
-                          <p className="font-medium text-gray-900">{order.customer_email}</p>
-                        </div>
-                      </div>
+                      )}
 
                       <button
-                        onClick={() => setSelectedOrder(selectedOrder?.id === order.id ? null : order)}
-                        className="mt-3 text-sm text-blue-600 hover:text-blue-700 font-medium"
+                        onClick={() => {
+                          setDateFilter("all");
+                          setSelectedYear(new Date().getFullYear());
+                          setSelectedMonth(new Date().getMonth() + 1);
+                          setSelectedDay(new Date().getDate());
+                        }}
+                        className="mt-7 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                       >
-                        {selectedOrder?.id === order.id ? "상세정보 닫기 ▲" : "상세정보 보기 ▼"}
+                        초기화
                       </button>
+                    </>
+                  )}
+                </div>
+              </div>
 
-                      {/* Detailed Info */}
-                      {selectedOrder?.id === order.id && (
-                        <div className="mt-4 rounded-lg bg-gray-50 p-4">
-                          <h4 className="mb-3 font-bold text-gray-900">사주 정보</h4>
+              {/* Status Filter Tabs */}
+              <div className="mb-6 overflow-x-auto">
+                <div className="flex gap-2 border-b border-gray-200 pb-2">
+                  {[
+                    { value: "all", label: "전체" },
+                    { value: "pending", label: "입금대기" },
+                    { value: "confirmed", label: "입금확인" },
+                    { value: "processing", label: "분석중" },
+                    { value: "completed", label: "완료" },
+                    { value: "cancelling", label: "취소요청" },
+                    { value: "cancelled", label: "취소완료" },
+                  ].map((status) => (
+                    <button
+                      key={status.value}
+                      onClick={() => setSelectedStatus(status.value as OrderStatus)}
+                      className={`whitespace-nowrap rounded-lg px-3 md:px-4 py-2.5 md:py-2 text-xs md:text-sm font-medium transition-colors ${selectedStatus === status.value
+                          ? "bg-blue-600 text-white active:bg-blue-700"
+                          : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 active:bg-gray-100"
+                        }`}
+                    >
+                      {status.label} ({getStatusCount(status.value as OrderStatus)})
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Orders List */}
+              <div className="grid gap-4">
+                {filteredOrders.length === 0 ? (
+                  <div className="rounded-xl border border-gray-200 bg-white p-12 text-center shadow-sm">
+                    <p className="text-gray-500">해당 상태의 주문이 없습니다.</p>
+                  </div>
+                ) : (
+                  filteredOrders.map((order) => (
+                    <div
+                      key={order.id}
+                      className="rounded-xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                        {/* Order Info */}
+                        <div className="flex-1">
+                          <div className="mb-3 flex items-center gap-3">
+                            <h3 className="text-lg font-bold text-gray-900">{order.order_number}</h3>
+                            {getStatusBadge(order.order_status)}
+                          </div>
+
                           <div className="grid gap-2 text-sm">
                             <div className="grid grid-cols-2 gap-x-4">
-                              <p className="text-gray-500">성별:</p>
-                              <p className="font-medium text-gray-900">{order.gender === "male" ? "남성" : "여성"}</p>
-                            </div>
-                            <div className="grid grid-cols-2 gap-x-4">
-                              <p className="text-gray-500">생년월일:</p>
-                              <p className="font-medium text-gray-900">{order.birth_date}</p>
-                            </div>
-                            <div className="grid grid-cols-2 gap-x-4">
-                              <p className="text-gray-500">출생시간:</p>
-                              <p className="font-medium text-gray-900">{order.birth_time}</p>
-                            </div>
-                            <div className="grid grid-cols-2 gap-x-4">
-                              <p className="text-gray-500">달력종류:</p>
+                              <p className="text-gray-500">주문일시:</p>
                               <p className="font-medium text-gray-900">
-                                {order.calendar_type === "solar" ? "양력" : "음력"}
-                                {order.calendar_type === "lunar" && order.is_leap_month && " (윤달)"}
+                                {new Date(order.created_at).toLocaleString("ko-KR")}
                               </p>
                             </div>
+                            <div className="grid grid-cols-2 gap-x-4">
+                              <p className="text-gray-500">상품:</p>
+                              <p className="font-medium text-gray-900">{order.product_name}</p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-x-4">
+                              <p className="text-gray-500">옵션:</p>
+                              <p className="font-medium text-gray-900">{order.option}</p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-x-4">
+                              <p className="text-gray-500">결제금액:</p>
+                              <p className="font-bold text-blue-600">
+                                {order.final_amount.toLocaleString()}원
+                                {order.discount_amount > 0 && (
+                                  <span className="ml-2 text-xs text-gray-500 line-through">
+                                    {order.price.toLocaleString()}원
+                                  </span>
+                                )}
+                              </p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-x-4">
+                              <p className="text-gray-500">주문자:</p>
+                              <p className="font-medium text-gray-900">{order.customer_name}</p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-x-4">
+                              <p className="text-gray-500">연락처:</p>
+                              <p className="font-medium text-gray-900">{order.customer_phone}</p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-x-4">
+                              <p className="text-gray-500">이메일:</p>
+                              <p className="font-medium text-gray-900">{order.customer_email}</p>
+                            </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
 
-                    {/* Action Buttons */}
-                    <div className="flex flex-col gap-2 lg:min-w-[200px]">
-                      {order.order_status === "pending" && (
-                        <button
-                          onClick={() => confirmPayment(order)}
-                          className="rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
-                        >
-                          입금 확인
-                        </button>
-                      )}
-
-                      {order.order_status === "confirmed" && (
-                        <button
-                          onClick={() => startProcessing(order)}
-                          className="rounded-lg bg-purple-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-purple-700 active:bg-purple-800"
-                        >
-                          분석 시작
-                        </button>
-                      )}
-
-                      {order.order_status === "processing" && (
-                        <>
-                          <label className="rounded-lg bg-green-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-green-700 active:bg-green-800 cursor-pointer text-center">
-                            {uploadingFile === order.id ? "업로드 중..." : "결과 파일 업로드"}
-                            <input
-                              type="file"
-                              accept=".pdf,.zip"
-                              className="hidden"
-                              disabled={uploadingFile === order.id}
-                              onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) handleFileUpload(order, file);
-                              }}
-                            />
-                          </label>
                           <button
-                            onClick={() => completeOrder(order)}
-                            className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 active:bg-gray-100"
+                            onClick={() => setSelectedOrder(selectedOrder?.id === order.id ? null : order)}
+                            className="mt-3 text-sm text-blue-600 hover:text-blue-700 font-medium"
                           >
-                            파일 없이 완료
+                            {selectedOrder?.id === order.id ? "상세정보 닫기 ▲" : "상세정보 보기 ▼"}
                           </button>
-                        </>
-                      )}
 
-                      {order.order_status === "cancelling" && (
-                        <button
-                          onClick={() => cancelOrder(order)}
-                          className="rounded-lg bg-red-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-red-700 active:bg-red-800"
-                        >
-                          취소 승인
-                        </button>
-                      )}
+                          {/* Detailed Info */}
+                          {selectedOrder?.id === order.id && (
+                            <div className="mt-4 rounded-lg bg-gray-50 p-4">
+                              <h4 className="mb-3 font-bold text-gray-900">사주 정보</h4>
+                              <div className="grid gap-2 text-sm">
+                                <div className="grid grid-cols-2 gap-x-4">
+                                  <p className="text-gray-500">성별:</p>
+                                  <p className="font-medium text-gray-900">{order.gender === "male" ? "남성" : "여성"}</p>
+                                </div>
+                                <div className="grid grid-cols-2 gap-x-4">
+                                  <p className="text-gray-500">생년월일:</p>
+                                  <p className="font-medium text-gray-900">{order.birth_date}</p>
+                                </div>
+                                <div className="grid grid-cols-2 gap-x-4">
+                                  <p className="text-gray-500">출생시간:</p>
+                                  <p className="font-medium text-gray-900">{order.birth_time}</p>
+                                </div>
+                                <div className="grid grid-cols-2 gap-x-4">
+                                  <p className="text-gray-500">달력종류:</p>
+                                  <p className="font-medium text-gray-900">
+                                    {order.calendar_type === "solar" ? "양력" : "음력"}
+                                    {order.calendar_type === "lunar" && order.is_leap_month && " (윤달)"}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
 
-                      {(order.order_status === "pending" || order.order_status === "confirmed") && (
-                        <button
-                          onClick={() => cancelOrder(order)}
-                          className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 active:bg-gray-100"
-                        >
-                          주문 취소
-                        </button>
-                      )}
+                        {/* Action Buttons */}
+                        <div className="flex flex-col gap-2 lg:min-w-[200px]">
+                          {order.order_status === "pending" && (
+                            <button
+                              onClick={() => confirmPayment(order)}
+                              className="rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700 active:bg-blue-800"
+                            >
+                              입금 확인
+                            </button>
+                          )}
+
+                          {order.order_status === "confirmed" && (
+                            <button
+                              onClick={() => startProcessing(order)}
+                              className="rounded-lg bg-purple-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-purple-700 active:bg-purple-800"
+                            >
+                              분석 시작
+                            </button>
+                          )}
+
+                          {order.order_status === "processing" && (
+                            <>
+                              <label className="rounded-lg bg-green-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-green-700 active:bg-green-800 cursor-pointer text-center">
+                                {uploadingFile === order.id ? "업로드 중..." : "결과 파일 업로드"}
+                                <input
+                                  type="file"
+                                  accept=".pdf,.zip"
+                                  className="hidden"
+                                  disabled={uploadingFile === order.id}
+                                  onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) handleFileUpload(order, file);
+                                  }}
+                                />
+                              </label>
+                              <button
+                                onClick={() => completeOrder(order)}
+                                className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 active:bg-gray-100"
+                              >
+                                파일 없이 완료
+                              </button>
+                            </>
+                          )}
+
+                          {order.order_status === "cancelling" && (
+                            <button
+                              onClick={() => cancelOrder(order)}
+                              className="rounded-lg bg-red-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-red-700 active:bg-red-800"
+                            >
+                              취소 승인
+                            </button>
+                          )}
+
+                          {(order.order_status === "pending" || order.order_status === "confirmed") && (
+                            <button
+                              onClick={() => cancelOrder(order)}
+                              className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 active:bg-gray-100"
+                            >
+                              주문 취소
+                            </button>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+                  ))
+                )}
+              </div>
             </>
           )}
 

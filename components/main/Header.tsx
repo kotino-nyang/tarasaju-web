@@ -22,27 +22,27 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#050d1a]/80 backdrop-blur-lg">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-woody-brown/20 bg-white/95 backdrop-blur-lg">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between md:h-24">
+        <div className="flex h-16 items-center justify-between md:h-20">
           {/* Logo */}
           <Link
             href="/"
             className="flex items-center transition-opacity duration-200 hover:opacity-80"
           >
             <img
-              src="https://i.imgur.com/x2I0GIX.png"
+              src="/logo_brown.png"
               alt="타라사주 로고"
               className="h-14 w-auto md:h-16"
               onError={(e) => {
-                e.currentTarget.src = "https://i.imgur.com/x2I0GIX.jpg";
+                e.currentTarget.src = "/logo_brown.png";
               }}
             />
           </Link>
 
           {/* Mobile Menu Toggle */}
           <button
-            className="flex h-10 w-10 items-center justify-center text-white md:hidden"
+            className="flex h-10 w-10 items-center justify-center text-foreground md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg
@@ -73,37 +73,32 @@ export default function Header() {
           <nav className="hidden items-center gap-4 md:flex md:gap-6 lg:gap-8">
             <Link
               href="/analysis"
-              className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white md:text-base"
+              className="text-sm font-medium text-foreground/70 transition-colors duration-200 hover:text-foreground md:text-base"
             >
               종합사주분석
             </Link>
             {!isLoading && user && (
               <Link
                 href="/mypage"
-                className="text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white md:text-base"
+                className="text-sm font-medium text-foreground/70 transition-colors duration-200 hover:text-foreground md:text-base"
               >
                 My Page
               </Link>
             )}
             {!isLoading && (
               user ? (
-                <motion.button
+                <button
                   onClick={handleLogout}
-                  className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-md transition-all duration-200 hover:border-white/30 hover:bg-white/20 hover:shadow-[0_4px_16px_rgba(255,255,255,0.1)] md:px-6 md:text-base"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="text-sm font-medium text-foreground/70 transition-colors duration-200 hover:text-foreground md:text-base"
                 >
                   Logout
-                </motion.button>
+                </button>
               ) : (
-                <Link href="/auth">
-                  <motion.button
-                    className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-md transition-all duration-200 hover:border-white/30 hover:bg-white/20 hover:shadow-[0_4px_16px_rgba(255,255,255,0.1)] md:px-6 md:text-base"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Login
-                  </motion.button>
+                <Link
+                  href="/auth"
+                  className="text-sm font-medium text-foreground/70 transition-colors duration-200 hover:text-foreground md:text-base"
+                >
+                  로그인
                 </Link>
               )
             )}
@@ -118,13 +113,13 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden bg-[#050d1a] border-b border-white/10 md:hidden"
+            className="overflow-hidden bg-white border-b border-woody-brown/20 md:hidden"
           >
             <nav className="flex flex-col gap-4 p-6">
               <Link
                 href="/analysis"
                 onClick={() => setIsMenuOpen(false)}
-                className="text-lg font-medium text-white/70 transition-colors hover:text-white"
+                className="text-lg font-medium text-foreground/70 transition-colors hover:text-foreground"
               >
                 종합사주분석
               </Link>
@@ -132,25 +127,27 @@ export default function Header() {
                 <Link
                   href="/mypage"
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-lg font-medium text-white/70 transition-colors hover:text-white"
+                  className="text-lg font-medium text-foreground/70 transition-colors hover:text-foreground"
                 >
                   My Page
                 </Link>
               )}
-              <div className="mt-4 pt-4 border-t border-white/10">
+              <div className="mt-4 pt-4 border-t border-woody-brown/20">
                 {!isLoading && (
                   user ? (
                     <button
                       onClick={handleLogout}
-                      className="w-full rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-base font-medium text-white"
+                      className="text-lg font-medium text-foreground/70 transition-colors hover:text-foreground text-left"
                     >
                       Logout
                     </button>
                   ) : (
-                    <Link href="/auth" onClick={() => setIsMenuOpen(false)}>
-                      <button className="w-full rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-base font-medium text-white">
-                        Login
-                      </button>
+                    <Link
+                      href="/auth"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="text-lg font-medium text-foreground/70 transition-colors hover:text-foreground"
+                    >
+                      로그인
                     </Link>
                   )
                 )}

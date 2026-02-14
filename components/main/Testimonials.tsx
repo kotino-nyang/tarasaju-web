@@ -20,12 +20,12 @@ const duplicatedReviews = [...reviews, ...reviews];
 
 export default function Testimonials() {
   return (
-    <section className="relative w-full overflow-hidden bg-[#0f172a] py-20 md:py-28 font-light text-white antialiased">
+    <section className="relative w-full overflow-hidden bg-white py-20 md:py-28 font-light text-foreground antialiased">
       {/* Gradient divider */}
       <div
         className="absolute left-0 top-0 h-px w-full"
         style={{
-          background: "linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.3) 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(44, 22, 1, 0.35) 50%, transparent 100%)",
         }}
       />
 
@@ -37,10 +37,10 @@ export default function Testimonials() {
           transition={{ duration: 0.8 }}
           className="mb-12 text-center"
         >
-          <h2 className="mb-4 text-3xl font-light md:text-4xl lg:text-5xl">
-            고객 만족도 <span className="font-bold text-[#60a5fa]">100%</span>
+          <h2 className="mb-4 text-3xl font-light text-foreground md:text-4xl lg:text-5xl">
+            고객 만족도 <span className="font-bold" style={{ color: '#2c1601' }}>100%</span>
           </h2>
-          <p className="text-white/60">실제 고객님들의 생생한 후기입니다</p>
+          <p className="text-foreground/60">실제 고객님들의 생생한 후기입니다</p>
         </motion.div>
 
         <div className="relative overflow-hidden">
@@ -61,12 +61,12 @@ export default function Testimonials() {
             {duplicatedReviews.map((review, index) => (
               <div
                 key={`${review.id}-${index}`}
-                className="flex-shrink-0 w-[400px] min-h-[200px] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-[0_8px_32px_rgba(59,130,246,0.2)] flex flex-col justify-between"
+                className="flex-shrink-0 w-[400px] min-h-[200px] rounded-2xl border border-japandi-border bg-white/50 backdrop-blur-xl p-8 shadow-[0_8px_32px_rgba(44,22,1,0.08)] flex flex-col justify-between"
               >
-                <p className="text-white/80 text-base leading-relaxed mb-4">
+                <p className="text-foreground/80 text-base leading-relaxed mb-4">
                   "{review.content}"
                 </p>
-                <p className="text-[#60a5fa] text-sm font-medium">
+                <p className="text-sm font-medium" style={{ color: '#2c1601' }}>
                   - {review.author}
                 </p>
               </div>

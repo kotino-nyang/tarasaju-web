@@ -10,19 +10,19 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="relative bg-gray-900 py-8 text-white">
+      <footer className="relative bg-sub-background py-8 text-foreground">
         {/* Gradient divider */}
         <div
           className="absolute left-0 top-0 h-px w-full hidden md:block"
           style={{
-            background: "linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.3) 50%, transparent 100%)",
+            background: "linear-gradient(90deg, transparent 0%, rgba(112, 94, 82, 0.3) 50%, transparent 100%)",
           }}
         />
 
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center text-center space-y-3">
             {/* Company Info - 가로 한 줄 -> 모바일 세로 */}
-            <div className="text-xs text-gray-400 max-w-2xl mx-auto">
+            <div className="text-xs text-foreground/60 max-w-2xl mx-auto">
               <p className="md:inline">상호: 원포세븐 | </p>
               <p className="md:inline">대표: 고수빈 | </p>
               <p className="md:inline">사업자번호: 601-05-84230 | </p>
@@ -36,23 +36,23 @@ export default function Footer() {
             <div className="flex gap-3 text-xs">
               <button
                 onClick={() => setShowTermsModal(true)}
-                className="text-gray-400 hover:text-white transition-colors underline cursor-pointer"
+                className="text-foreground/60 hover:text-foreground transition-colors underline cursor-pointer"
               >
                 이용약관
               </button>
-              <span className="text-gray-600">|</span>
+              <span className="text-foreground/40">|</span>
               <button
                 onClick={() => setShowPrivacyModal(true)}
-                className="text-gray-400 hover:text-white transition-colors underline cursor-pointer"
+                className="text-foreground/60 hover:text-foreground transition-colors underline cursor-pointer"
               >
                 개인정보처리방침
               </button>
-              <span className="text-gray-600">|</span>
-              <span className="text-gray-400">이메일무단수집거부</span>
+              <span className="text-foreground/40">|</span>
+              <span className="text-foreground/60">이메일무단수집거부</span>
             </div>
 
             {/* Copyright */}
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-foreground/50">
               © 2026 TARA SAJU. All rights reserved.
             </p>
           </div>

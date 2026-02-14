@@ -45,22 +45,22 @@ export default function Features() {
   return (
     <section
       id="features"
-      className="relative w-full overflow-hidden bg-[#0f172a] py-20 font-light text-white antialiased md:py-28"
+      className="relative w-full overflow-hidden bg-white py-20 font-light text-foreground antialiased md:py-28"
     >
       {/* Gradient divider */}
       <div
         className="absolute left-0 top-0 h-px w-full hidden md:block"
         style={{
-          background: "linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.3) 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(44, 22, 1, 0.3) 50%, transparent 100%)",
         }}
       />
 
       {/* Background gradients */}
       <div
-        className="absolute right-0 top-0 h-1/2 w-1/2 opacity-50"
+        className="absolute right-0 top-0 h-1/2 w-1/2 opacity-30"
         style={{
           background:
-            "radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.2) 0%, rgba(5, 13, 26, 0) 60%)",
+            "radial-gradient(circle at 70% 30%, rgba(44, 22, 1, 0.12) 0%, rgba(229, 222, 213, 0) 60%)",
         }}
       />
 
@@ -72,10 +72,10 @@ export default function Features() {
           transition={{ duration: 0.8 }}
           className="mb-16 text-center"
         >
-          <h2 className="mb-4 text-3xl font-light text-white md:text-4xl lg:text-5xl px-4">
-            정밀 사주 분석으로 <br className="md:hidden" /> <span className="font-bold text-[#60a5fa]">인생의 지도</span>를 받으세요
+          <h2 className="mb-4 text-3xl font-light text-foreground md:text-4xl lg:text-5xl px-4">
+            정밀 사주 분석으로 <br className="md:hidden" /> <span className="font-bold" style={{ color: '#2c1601' }}>인생의 지도</span>를 받으세요
           </h2>
-          <p className="mx-auto max-w-2xl text-white/60 px-6">
+          <p className="mx-auto max-w-2xl text-foreground/60 px-6">
             6가지 핵심 영역에 대한 체계적인 분석을 통해 <br className="md:hidden" /> 당신의 삶을 명확하게 정리합니다
           </p>
         </motion.div>
@@ -88,13 +88,13 @@ export default function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-[0_8px_32px_rgba(59,130,246,0.2)] transition-all hover:border-[#3b82f6]/30 hover:bg-white/10 hover:shadow-[0_8px_32px_rgba(59,130,246,0.4)]"
+              className="group rounded-2xl border border-japandi-border bg-white/50 backdrop-blur-xl p-8 shadow-[0_8px_32px_rgba(44,22,1,0.08)] transition-all hover:border-terracotta/40 hover:bg-white hover:shadow-[0_16px_48px_rgba(198,123,92,0.15)]"
             >
               <div className="mb-4 text-5xl">{feature.icon}</div>
-              <h3 className="mb-3 text-xl font-medium text-white">
+              <h3 className="mb-3 text-xl font-medium text-foreground">
                 {feature.title}
               </h3>
-              <p className="text-sm leading-relaxed text-white/70">
+              <p className="text-sm leading-relaxed text-foreground/70">
                 {feature.description}
               </p>
             </motion.div>

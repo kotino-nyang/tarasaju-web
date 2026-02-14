@@ -160,7 +160,7 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
             className="transition-all hover:scale-110 active:scale-95"
           >
             <svg
-              className={`w-10 h-10 ${star <= rating ? "text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.4)]" : "text-white/10"
+              className={`w-10 h-10 ${star <= rating ? "text-terracotta drop-shadow-[0_0_8px_rgba(198,123,92,0.4)]" : "text-woody-brown/10"
                 }`}
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -182,11 +182,11 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl bg-[#0f172a] rounded-3xl border border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.2)] max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-2xl bg-white rounded-3xl border border-woody-brown/10 shadow-xl max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-white/20 hover:text-white transition-colors"
+          className="absolute top-6 right-6 text-foreground/20 hover:text-foreground transition-colors"
         >
           <svg
             className="w-6 h-6"
@@ -204,51 +204,51 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
         </button>
 
         {/* Header */}
-        <div className="border-b border-white/10 p-8 pb-6">
-          <h2 className="text-2xl font-bold text-white mb-2">구매평 작성</h2>
-          <p className="text-sm text-[#60a5fa]">{productName}</p>
+        <div className="border-b border-woody-brown/10 p-8 pb-6">
+          <h2 className="text-2xl font-bold text-foreground mb-2">구매평 작성</h2>
+          <p className="text-sm text-terracotta">{productName}</p>
         </div>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-8 space-y-8">
           {/* Rating */}
           <div>
-            <label className="block text-sm font-medium text-white/70 mb-4">
+            <label className="block text-sm font-medium text-foreground/70 mb-4">
               평점 <span className="text-red-400">*</span>
             </label>
             {renderStars()}
-            <p className="text-center text-sm text-white/40 mt-3">{rating}점</p>
+            <p className="text-center text-sm text-foreground/40 mt-3">{rating}점</p>
           </div>
 
           {/* Content */}
           <div>
-            <label className="block text-sm font-medium text-white/70 mb-3">
+            <label className="block text-sm font-medium text-foreground/70 mb-3">
               구매평 <span className="text-red-400">*</span>
             </label>
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="상품에 대한 솔직한 평가를 남겨주세요. (최대 1000자)"
-              className="w-full h-44 px-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-[#3b82f6]/50 focus:ring-1 focus:ring-[#3b82f6]/50 resize-none transition-all"
+              className="w-full h-44 px-4 py-4 bg-sub-background border border-woody-brown/10 rounded-2xl text-foreground placeholder-foreground/20 focus:outline-none focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/50 resize-none transition-all"
               maxLength={1000}
             />
-            <p className="text-[10px] text-white/20 mt-2 text-right font-mono">
+            <p className="text-[10px] text-foreground/20 mt-2 text-right font-mono">
               {content.length} / 1000자
             </p>
           </div>
 
           {/* Image Upload */}
           <div>
-            <label className="block text-sm font-medium text-white/70 mb-3">
+            <label className="block text-sm font-medium text-foreground/70 mb-3">
               사진 첨부 (선택)
             </label>
             {!imagePreview ? (
-              <label className="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-white/10 rounded-2xl cursor-pointer hover:border-[#3b82f6]/50 hover:bg-white/5 transition-all bg-white/5">
-                <svg className="w-8 h-8 text-white/20 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <label className="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed border-woody-brown/10 rounded-2xl cursor-pointer hover:border-terracotta/50 hover:bg-sub-background transition-all bg-sub-background">
+                <svg className="w-8 h-8 text-foreground/20 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <p className="text-sm text-white/40">클릭하여 이미지 업로드</p>
-                <p className="text-[10px] text-white/20 mt-1">최대 5MB, JPG/PNG</p>
+                <p className="text-sm text-foreground/40">클릭하여 이미지 업로드</p>
+                <p className="text-[10px] text-foreground/20 mt-1">최대 5MB, JPG/PNG</p>
                 <input
                   type="file"
                   accept="image/*"
@@ -261,7 +261,7 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
                 <img
                   src={imagePreview}
                   alt="Preview"
-                  className="w-full h-56 object-cover rounded-2xl border border-white/10"
+                  className="w-full h-56 object-cover rounded-2xl border border-woody-brown/10"
                 />
                 <button
                   type="button"
@@ -277,8 +277,8 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
           </div>
 
           {/* Info */}
-          <div className="rounded-2xl bg-blue-500/5 border border-blue-500/20 p-5">
-            <p className="text-sm text-[#60a5fa]/80 leading-relaxed">
+          <div className="rounded-2xl bg-terracotta/5 border border-terracotta/20 p-5">
+            <p className="text-sm text-terracotta/80 leading-relaxed">
               • 상품과 무관한 내용이나 부적절한 내용은 삭제될 수 있습니다.
             </p>
           </div>
@@ -288,14 +288,14 @@ export default function ReviewForm({ onClose, productName, orderId }: ReviewForm
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 rounded-2xl border border-white/10 bg-white/5 px-6 py-4 font-medium text-white/70 transition-all hover:bg-white/10 hover:text-white"
+              className="flex-1 rounded-2xl border border-woody-brown/10 bg-white px-6 py-4 font-medium text-foreground/70 transition-all hover:bg-sub-background hover:text-foreground"
             >
               취소
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 rounded-2xl bg-blue-600 px-6 py-4 font-medium text-white transition-all hover:bg-blue-700 hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 rounded-2xl bg-terracotta px-6 py-4 font-medium text-white transition-all hover:bg-terracotta/90 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "등록중..." : "등록하기"}
             </button>

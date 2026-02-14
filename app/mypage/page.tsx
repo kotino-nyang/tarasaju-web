@@ -80,11 +80,11 @@ export default function MyPage() {
   const getStatusBadge = (status: string) => {
     const statusMap: { [key: string]: { label: string; class: string } } = {
       pending: { label: "입금대기", class: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20" },
-      confirmed: { label: "입금확인", class: "bg-blue-500/10 text-[#60a5fa] border-[#3b82f6]/20" },
+      confirmed: { label: "입금확인", class: "bg-sage/10 text-sage border-sage/20" },
       processing: { label: "분석중", class: "bg-purple-500/10 text-purple-400 border-purple-500/20" },
       completed: { label: "완료", class: "bg-green-500/10 text-green-400 border-green-500/20" },
       cancelling: { label: "취소 요청중", class: "bg-orange-500/10 text-orange-400 border-orange-500/20" },
-      cancelled: { label: "주문 취소", class: "bg-white/10 text-white/40 border-white/10" },
+      cancelled: { label: "주문 취소", class: "bg-woody-brown/10 text-woody-brown/40 border-woody-brown/10" },
     };
 
     const { label, class: className } = statusMap[status] || statusMap.pending;
@@ -190,10 +190,10 @@ export default function MyPage() {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#050d1a]">
+      <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="text-center">
-          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-white/10 border-t-[#3b82f6]"></div>
-          <p className="text-white/60">로딩중...</p>
+          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-woody-brown/10 border-t-terracotta"></div>
+          <p className="text-foreground/60">로딩중...</p>
         </div>
       </div>
     );
@@ -204,23 +204,23 @@ export default function MyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#050d1a] font-light text-white antialiased">
+    <div className="min-h-screen bg-background font-light text-foreground antialiased">
       {/* Background gradients */}
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle at 50% 10%, rgba(59, 130, 246, 0.1) 0%, rgba(5, 13, 26, 0) 70%)",
+            "radial-gradient(circle at 50% 10%, rgba(198, 123, 92, 0.08) 0%, rgba(242, 238, 233, 0) 70%)",
         }}
       />
 
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050d1a]/80 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b border-woody-brown/10 bg-white/90 backdrop-blur-md">
         <div className="container mx-auto px-4 py-4 md:px-6">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
               <img
-                src="https://i.imgur.com/x2I0GIX.png"
+                src="/logo_brown.png"
                 alt="타라사주 로고"
                 className="h-14 w-auto md:h-16"
               />
@@ -228,13 +228,13 @@ export default function MyPage() {
             <div className="flex gap-3">
               <button
                 onClick={handleDeleteAccount}
-                className="rounded-full border border-red-500/30 bg-red-500/10 px-5 py-2 text-sm font-medium text-red-400 transition-all hover:bg-red-500/20"
+                className="rounded-full border border-red-500/20 bg-red-500/5 px-5 py-2 text-sm font-medium text-red-400 transition-all hover:bg-red-500/10"
               >
                 회원탈퇴
               </button>
               <button
                 onClick={handleSignOut}
-                className="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-medium text-white/70 transition-all hover:bg-white/10 hover:text-white"
+                className="rounded-full border border-woody-brown/10 bg-white px-5 py-2 text-sm font-medium text-foreground/70 transition-all hover:bg-sub-background hover:text-foreground"
               >
                 로그아웃
               </button>
@@ -252,45 +252,45 @@ export default function MyPage() {
           className="mx-auto max-w-4xl"
         >
           {/* Welcome Section */}
-          <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-[0_8px_32px_rgba(59,130,246,0.15)]">
+          <div className="mb-8 rounded-2xl border border-woody-brown/10 bg-white p-8 shadow-sm">
             <div className="flex items-center gap-6">
               {user.user_metadata?.avatar_url && (
                 <img
                   src={user.user_metadata.avatar_url}
                   alt="Profile"
-                  className="h-20 w-20 rounded-full border-2 border-white/10 shadow-lg"
+                  className="h-20 w-20 rounded-full border-2 border-background shadow-sm"
                 />
               )}
               <div>
-                <h1 className="mb-1 text-xl md:text-3xl font-light text-white">
-                  안녕하세요, <span className="font-bold text-[#60a5fa]">{user.user_metadata?.full_name || user.user_metadata?.name || "회원"}</span>님
+                <h1 className="mb-1 text-xl md:text-3xl font-light text-foreground">
+                  안녕하세요, <span className="font-bold text-terracotta">{user.user_metadata?.full_name || user.user_metadata?.name || "회원"}</span>님
                 </h1>
-                <p className="text-sm text-white/40">{user.email}</p>
+                <p className="text-sm text-foreground/40">{user.email}</p>
               </div>
             </div>
           </div>
 
           {/* Shopping Cart Section */}
           <div className="mb-12">
-            <h2 className="mb-4 text-xl font-medium text-white/90">장바구니</h2>
-            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(59,130,246,0.15)] overflow-hidden">
+            <h2 className="mb-4 text-xl font-medium text-foreground/90">장바구니</h2>
+            <div className="rounded-2xl border border-woody-brown/10 bg-white shadow-sm overflow-hidden">
               {items.length === 0 ? (
-                <div className="p-16 text-center text-white/40">
-                  <p className="mb-2 text-lg font-medium text-white/60">
+                <div className="p-16 text-center text-foreground/40">
+                  <p className="mb-2 text-lg font-medium text-foreground/60">
                     장바구니가 비어있습니다
                   </p>
                   <Link
                     href="/analysis"
-                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-blue-600 px-8 py-3 text-sm font-medium text-white transition-all hover:bg-blue-700 hover:shadow-[0_4px_24px_rgba(59,130,246,0.4)]"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-terracotta px-8 py-3 text-sm font-medium text-white transition-all hover:bg-terracotta/90 shadow-sm"
                   >
                     쇼핑하러 가기
                   </Link>
                 </div>
               ) : (
-                <div className="divide-y divide-white/5">
+                <div className="divide-y divide-woody-brown/5">
                   {items.map((item) => (
-                    <div key={item.id} className="flex items-center gap-6 p-6 hover:bg-white/5 transition-all">
-                      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5">
+                    <div key={item.id} className="flex items-center gap-6 p-6">
+                      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border border-woody-brown/10 bg-white">
                         <img
                           src={item.image}
                           alt={item.title}
@@ -299,13 +299,13 @@ export default function MyPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <Link href="/analysis">
-                          <h3 className="text-base font-medium text-white mb-1 hover:text-[#60a5fa] transition-colors">{item.title}</h3>
+                          <h3 className="text-base font-medium text-foreground mb-1 hover:text-terracotta transition-colors">{item.title}</h3>
                         </Link>
-                        <p className="text-sm font-bold text-[#60a5fa]">{item.price.toLocaleString()}원</p>
+                        <p className="text-sm font-bold text-terracotta">{item.price.toLocaleString()}원</p>
                       </div>
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="rounded-full p-2 text-white/20 hover:bg-red-500/10 hover:text-red-400 transition-all"
+                        className="rounded-full p-2 text-foreground/20 hover:bg-red-500/10 hover:text-red-400 transition-all"
                         aria-label="Remove item"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -314,16 +314,16 @@ export default function MyPage() {
                       </button>
                     </div>
                   ))}
-                  <div className="bg-white/5 p-6 border-t border-white/10">
+                  <div className="bg-sub-background p-6 border-t border-woody-brown/5">
                     <div className="flex justify-between items-center mb-6">
-                      <span className="font-medium text-white/60">총 결제금액</span>
-                      <span className="text-2xl font-bold text-[#60a5fa]">
+                      <span className="font-medium text-foreground/60">총 결제금액</span>
+                      <span className="text-2xl font-bold text-terracotta">
                         {items.reduce((sum, item) => sum + item.price, 0).toLocaleString()}원
                       </span>
                     </div>
                     <Link
                       href="/checkout?fromCart=true"
-                      className="block w-full rounded-full bg-blue-600 px-6 py-4 text-center text-sm font-medium text-white transition-all hover:bg-blue-700 hover:shadow-[0_8px_32px_rgba(59,130,246,0.3)]"
+                      className="block w-full rounded-full bg-terracotta px-6 py-4 text-center text-sm font-medium text-white transition-all hover:bg-terracotta/90"
                     >
                       결제하기
                     </Link>
@@ -335,13 +335,13 @@ export default function MyPage() {
 
           {/* Order History */}
           <div>
-            <h2 className="mb-4 text-xl font-medium text-white/90">주문내역</h2>
-            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(59,130,246,0.15)] overflow-hidden">
+            <h2 className="mb-4 text-xl font-medium text-foreground/90">주문내역</h2>
+            <div className="rounded-2xl border border-woody-brown/10 bg-white shadow-sm overflow-hidden">
               {orders.length === 0 ? (
-                <div className="p-16 text-center text-white/40">
+                <div className="p-16 text-center text-foreground/40">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="mx-auto mb-4 h-16 w-16 text-white/10"
+                    className="mx-auto mb-4 h-16 w-16 text-woody-brown/10"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -353,15 +353,15 @@ export default function MyPage() {
                       d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                     />
                   </svg>
-                  <p className="mb-2 text-lg font-medium text-white/60">
+                  <p className="mb-2 text-lg font-medium text-foreground/60">
                     주문 내역이 없습니다
                   </p>
-                  <p className="mb-8 text-sm text-white/30">
+                  <p className="mb-8 text-sm text-foreground/30">
                     사주 분석 서비스를 신청하고 나만의 리포트를 받아보세요
                   </p>
                   <Link
                     href="/analysis"
-                    className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-8 py-3 text-sm font-medium text-white transition-all hover:bg-blue-700 hover:shadow-[0_4px_24px_rgba(59,130,246,0.4)]"
+                    className="inline-flex items-center gap-2 rounded-full bg-terracotta px-8 py-3 text-sm font-medium text-white transition-all hover:bg-terracotta/90 shadow-sm"
                   >
                     사주 분석 신청하기
                     <svg
@@ -381,44 +381,46 @@ export default function MyPage() {
                   </Link>
                 </div>
               ) : (
-                <div className="divide-y divide-white/10">
+                <div className="divide-y divide-woody-brown/5">
                   {orders.map((order) => (
-                    <div key={order.id} className="p-8 hover:bg-white/5 transition-all">
+                    <div key={order.id} className="p-8">
                       <div className="flex items-start justify-between mb-6">
                         <div>
-                          <p className="text-sm text-white/30 mb-1">
+                          <p className="text-sm text-foreground/30 mb-1">
                             주문일: {new Date(order.created_at).toLocaleDateString("ko-KR")}
                           </p>
-                          <p className="text-sm font-medium text-white/80 mb-1">
-                            주문번호: <span className="text-[#60a5fa] font-bold">{order.order_number}</span>
+                          <p className="text-sm font-medium text-foreground/80 mb-1">
+                            주문번호: <span className="text-terracotta font-bold">{order.order_number}</span>
                           </p>
                         </div>
-                        <div className="flex flex-col items-end gap-3">
+                        <div>
                           {getStatusBadge(order.order_status)}
+                        </div>
+                      </div>
+                      <div className="flex gap-6">
+                        <div className="flex-shrink-0">
                           <img
                             src="/detail image/thumnail.png"
                             alt={order.product_name}
-                            className="h-16 w-16 rounded-xl border border-white/10 object-cover"
+                            className="h-28 w-28 rounded-xl border border-woody-brown/10 object-cover shadow-sm"
                           />
                         </div>
-                      </div>
-                      <div className="flex items-center gap-4">
                         <div className="flex-1">
                           <Link href="/analysis">
-                            <h3 className="text-base font-medium text-white mb-2 hover:text-[#60a5fa] transition-colors">
+                            <h3 className="text-lg font-medium text-foreground mb-2 hover:text-terracotta transition-colors">
                               {order.product_name}
                             </h3>
                           </Link>
-                          <p className="text-sm text-white/40 mb-3">
+                          <p className="text-sm text-foreground/40 mb-4">
                             {order.option} - {order.customer_name}
                           </p>
                           <div className="flex items-center gap-3">
-                            <span className="text-base font-bold text-[#60a5fa]">
+                            <span className="text-xl font-bold text-terracotta">
                               {order.final_amount.toLocaleString()}원
                             </span>
                             {order.discount_amount > 0 && (
                               <>
-                                <span className="text-sm text-white/20 line-through">
+                                <span className="text-sm text-foreground/20 line-through">
                                   {order.price.toLocaleString()}원
                                 </span>
                                 <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] text-red-400 font-medium">
@@ -431,17 +433,17 @@ export default function MyPage() {
                       </div>
                       {order.order_status === "pending" && (
                         <>
-                          <div className="mt-6 p-4 bg-yellow-500/5 border border-yellow-500/20 rounded-xl">
-                            <p className="text-xs text-yellow-500/80 leading-relaxed">
-                              <strong className="text-yellow-500">입금 계좌:</strong> 카카오뱅크 3333-36-585986 (고수빈)
+                          <div className="mt-6 p-5 bg-terracotta/5 border border-terracotta/20 rounded-xl">
+                            <p className="text-sm text-foreground/80 leading-relaxed">
+                              <strong className="text-terracotta">입금 계좌:</strong> <span className="font-mono text-foreground">카카오뱅크 3333-36-585986 (고수빈)</span>
                             </p>
-                            <p className="text-xs text-yellow-500/80 mt-1">
+                            <p className="text-xs text-foreground/50 mt-2">
                               입금자명을 주문자명({order.customer_name})으로 입금해주세요.
                             </p>
                           </div>
                           <button
                             onClick={() => handleCancelOrder(order.id, order.order_number, order.coupon_id)}
-                            className="mt-4 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white/40 transition-all hover:bg-white/10 hover:text-white"
+                            className="mt-4 w-full rounded-xl border border-woody-brown/10 bg-white px-4 py-3 text-sm font-medium text-foreground/40 transition-all hover:bg-sub-background"
                           >
                             주문 취소
                           </button>
@@ -452,7 +454,7 @@ export default function MyPage() {
                           {order.result_file_url && (
                             <>
                               {isFileExpired(order.file_uploaded_at) ? (
-                                <div className="flex items-center justify-center gap-2 w-full rounded-xl bg-white/5 px-4 py-4 text-sm font-medium text-white/20 border border-white/5">
+                                <div className="flex items-center justify-center gap-2 w-full rounded-xl bg-sub-background px-4 py-4 text-sm font-medium text-foreground/20 border border-woody-brown/5">
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                   </svg>
@@ -464,7 +466,7 @@ export default function MyPage() {
                                   download
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex items-center justify-center gap-2 w-full rounded-xl bg-blue-600 px-4 py-4 text-sm font-medium text-white transition-all hover:bg-blue-700 hover:shadow-[0_8px_24px_rgba(59,130,246,0.3)]"
+                                  className="flex items-center justify-center gap-2 w-full rounded-xl bg-terracotta px-4 py-4 text-sm font-medium text-white transition-all hover:bg-terracotta/90"
                                 >
                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -480,7 +482,7 @@ export default function MyPage() {
                                 setSelectedOrderForReview(order);
                                 setShowReviewModal(true);
                               }}
-                              className="flex items-center justify-center gap-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-medium text-white/70 transition-all hover:bg-white/10 hover:text-white"
+                              className="flex items-center justify-center gap-2 w-full rounded-xl border border-woody-brown/10 bg-white px-4 py-4 text-sm font-medium text-foreground/70 transition-all hover:bg-sub-background"
                             >
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
@@ -488,7 +490,7 @@ export default function MyPage() {
                               구매평 작성하기
                             </button>
                           ) : (
-                            <div className="flex items-center justify-center gap-2 w-full rounded-xl bg-white/5 px-4 py-4 text-sm font-medium text-white/20 border border-white/5">
+                            <div className="flex items-center justify-center gap-2 w-full rounded-xl bg-sub-background px-4 py-4 text-sm font-medium text-foreground/20 border border-woody-brown/5">
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
@@ -506,13 +508,13 @@ export default function MyPage() {
 
           {/* Review History */}
           <div className="mt-12">
-            <h2 className="mb-4 text-xl font-medium text-white/90">내 구매평</h2>
-            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(59,130,246,0.15)] overflow-hidden">
+            <h2 className="mb-4 text-xl font-medium text-foreground">내 구매평</h2>
+            <div className="rounded-2xl border border-woody-brown/10 bg-white shadow-sm overflow-hidden">
               {reviews.length === 0 ? (
-                <div className="p-16 text-center text-white/40">
+                <div className="p-16 text-center text-foreground/40">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="mx-auto mb-4 h-16 w-16 text-white/10"
+                    className="mx-auto mb-4 h-16 w-16 text-woody-brown/10"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -524,31 +526,31 @@ export default function MyPage() {
                       d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
                     />
                   </svg>
-                  <p className="mb-2 text-lg font-medium text-white/60">
+                  <p className="mb-2 text-lg font-medium text-foreground/60">
                     작성한 구매평이 없습니다
                   </p>
-                  <p className="text-sm text-white/30">
+                  <p className="text-sm text-foreground/30">
                     완료된 주문에서<br className="md:hidden" /> 구매평을 작성해보세요
                   </p>
                 </div>
               ) : (
-                <div className="divide-y divide-white/10">
+                <div className="divide-y divide-woody-brown/10">
                   {reviews.map((review: any) => (
-                    <div key={review.id} className="p-8 hover:bg-white/5 transition-all">
+                    <div key={review.id} className="p-8">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-white mb-1">
+                          <p className="text-sm font-medium text-foreground mb-1">
                             {review.orders?.product_name || "상품명 없음"}
                           </p>
-                          <p className="text-xs text-white/30">
-                            주문번호: <span className="text-[#60a5fa]">{review.orders?.order_number}</span>
+                          <p className="text-xs text-foreground/30">
+                            주문번호: <span className="text-terracotta">{review.orders?.order_number}</span>
                           </p>
                         </div>
                         <div className="flex items-center gap-1">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <svg
                               key={star}
-                              className={`w-4 h-4 ${star <= review.rating ? "text-yellow-400" : "text-white/10"
+                              className={`w-4 h-4 ${star <= review.rating ? "text-terracotta" : "text-woody-brown/10"
                                 }`}
                               fill="currentColor"
                               viewBox="0 0 20 20"
@@ -558,23 +560,23 @@ export default function MyPage() {
                           ))}
                         </div>
                       </div>
-                      <p className="text-sm text-white/70 mb-4 whitespace-pre-wrap leading-relaxed">{review.content}</p>
-                      <div className="flex items-center gap-3 text-xs text-white/30">
+                      <p className="text-sm text-foreground/70 mb-4 whitespace-pre-wrap leading-relaxed">{review.content}</p>
+                      <div className="flex items-center gap-3 text-xs text-foreground/30">
                         <span>{new Date(review.created_at).toLocaleDateString("ko-KR")}</span>
                         {review.is_approved ? (
-                          <span className="rounded-full bg-green-500/10 px-2 py-0.5 text-green-400 font-medium border border-green-500/20 text-[10px]">
+                          <span className="rounded-full bg-sage/10 px-2 py-0.5 text-sage font-medium border border-sage/20 text-[10px]">
                             승인됨
                           </span>
                         ) : (
-                          <span className="rounded-full bg-yellow-500/10 px-2 py-0.5 text-yellow-400 font-medium border border-yellow-500/20 text-[10px]">
+                          <span className="rounded-full bg-woody-brown/10 px-2 py-0.5 text-woody-brown/60 font-medium border border-woody-brown/20 text-[10px]">
                             승인 대기중
                           </span>
                         )}
                       </div>
                       {review.admin_reply && (
-                        <div className="mt-4 rounded-xl bg-blue-500/10 border border-[#3b82f6]/30 p-4">
-                          <p className="text-xs font-medium text-[#60a5fa] mb-1">관리자 답변</p>
-                          <p className="text-sm text-white/70 whitespace-pre-wrap leading-relaxed">{review.admin_reply}</p>
+                        <div className="mt-4 rounded-xl bg-terracotta/5 border border-terracotta/20 p-4">
+                          <p className="text-xs font-medium text-terracotta mb-1">관리자 답변</p>
+                          <p className="text-sm text-foreground/70 whitespace-pre-wrap leading-relaxed">{review.admin_reply}</p>
                         </div>
                       )}
                     </div>
@@ -586,13 +588,13 @@ export default function MyPage() {
 
           {/* Q&A History */}
           <div className="mt-12">
-            <h2 className="mb-4 text-xl font-medium text-white/90">내 문의내역</h2>
-            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_32px_rgba(59,130,246,0.15)] overflow-hidden">
+            <h2 className="mb-4 text-xl font-medium text-foreground">내 문의내역</h2>
+            <div className="rounded-2xl border border-woody-brown/10 bg-white shadow-sm overflow-hidden">
               {qnaList.length === 0 ? (
-                <div className="p-16 text-center text-white/40">
+                <div className="p-16 text-center text-foreground/40">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="mx-auto mb-4 h-16 w-16 text-white/10"
+                    className="mx-auto mb-4 h-16 w-16 text-woody-brown/10"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -604,39 +606,39 @@ export default function MyPage() {
                       d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <p className="mb-2 text-lg font-medium text-white/60">
+                  <p className="mb-2 text-lg font-medium text-foreground/60">
                     작성한 문의가 없습니다
                   </p>
-                  <p className="text-sm text-white/30">
+                  <p className="text-sm text-foreground/30">
                     상품 페이지에서<br className="md:hidden" /> 궁금한 점을 문의해보세요
                   </p>
                 </div>
               ) : (
-                <div className="divide-y divide-white/10">
+                <div className="divide-y divide-woody-brown/10">
                   {qnaList.map((qna: any) => (
-                    <div key={qna.id} className="p-8 hover:bg-white/5 transition-all">
+                    <div key={qna.id} className="p-8">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
                           {qna.product_name && (
-                            <p className="text-sm font-medium text-white mb-2">
+                            <p className="text-sm font-medium text-foreground mb-2">
                               {qna.product_name}
                             </p>
                           )}
                           <div className="flex items-center gap-3">
-                            <span className="text-xs text-white/30">
+                            <span className="text-xs text-foreground/30">
                               {new Date(qna.created_at).toLocaleDateString("ko-KR")}
                             </span>
                             {qna.is_answered ? (
-                              <span className="rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] text-green-400 font-medium border border-green-500/20">
+                              <span className="rounded-full bg-sage/10 px-2 py-0.5 text-[10px] text-sage font-medium border border-sage/20">
                                 답변완료
                               </span>
                             ) : (
-                              <span className="rounded-full bg-yellow-500/10 px-2 py-0.5 text-[10px] text-yellow-400 font-medium border border-yellow-500/20">
+                              <span className="rounded-full bg-woody-brown/10 px-2 py-0.5 text-[10px] text-woody-brown/60 font-medium border border-woody-brown/20">
                                 답변대기
                               </span>
                             )}
                             {qna.is_public ? (
-                              <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-white/40 font-medium border border-white/10">
+                              <span className="rounded-full bg-sub-background px-2 py-0.5 text-[10px] text-foreground/40 font-medium border border-woody-brown/10">
                                 공개
                               </span>
                             ) : (
@@ -648,15 +650,15 @@ export default function MyPage() {
                         </div>
                       </div>
                       <div className="mb-4">
-                        <p className="text-xs font-medium text-white/20 mb-1">질문</p>
-                        <p className="text-sm text-white/70 whitespace-pre-wrap leading-relaxed">{qna.question}</p>
+                        <p className="text-xs font-medium text-foreground/20 mb-1">질문</p>
+                        <p className="text-sm text-foreground/70 whitespace-pre-wrap leading-relaxed">{qna.question}</p>
                       </div>
                       {qna.answer && (
-                        <div className="rounded-xl bg-green-500/10 border border-green-500/30 p-4">
-                          <p className="text-xs font-medium text-green-400 mb-1">답변</p>
-                          <p className="text-sm text-white/70 whitespace-pre-wrap leading-relaxed">{qna.answer}</p>
+                        <div className="rounded-xl bg-sage/5 border border-sage/20 p-4">
+                          <p className="text-xs font-medium text-sage mb-1">답변</p>
+                          <p className="text-sm text-foreground/70 whitespace-pre-wrap leading-relaxed">{qna.answer}</p>
                           {qna.answered_at && (
-                            <p className="text-[10px] text-white/20 mt-3">
+                            <p className="text-[10px] text-foreground/20 mt-3">
                               {new Date(qna.answered_at).toLocaleDateString("ko-KR")}
                             </p>
                           )}

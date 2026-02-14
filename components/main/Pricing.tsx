@@ -7,22 +7,22 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="relative w-full overflow-hidden bg-[#0f172a] py-20 font-light text-white antialiased md:py-28"
+      className="relative w-full overflow-hidden bg-woody-brown py-20 font-light text-white antialiased md:py-28"
     >
       {/* Gradient divider */}
       <div
         className="absolute left-0 top-0 h-px w-full hidden md:block"
         style={{
-          background: "linear-gradient(90deg, transparent 0%, rgba(96, 165, 250, 0.3) 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(242, 238, 233, 0.2) 50%, transparent 100%)",
         }}
       />
 
       {/* Background gradients */}
       <div
-        className="absolute left-0 top-0 h-1/2 w-1/2 opacity-50"
+        className="absolute left-0 top-0 h-1/2 w-1/2 opacity-30"
         style={{
           background:
-            "radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.2) 0%, rgba(5, 13, 26, 0) 60%)",
+            "radial-gradient(circle at 30% 30%, rgba(198, 123, 92, 0.3) 0%, rgba(112, 94, 82, 0) 60%)",
         }}
       />
 
@@ -35,10 +35,10 @@ export default function Pricing() {
           className="mb-16 text-center"
         >
           <h2 className="mb-4 text-3xl font-light text-white md:text-4xl lg:text-5xl px-4">
-            합리적인 가격으로 <br className="md:hidden" /> <span className="font-bold text-[#60a5fa]">시작하세요</span>
+            합리적인 가격으로 <br className="md:hidden" /> <span className="font-bold text-sub-background">시작하세요</span>
           </h2>
           <p className="mx-auto max-w-2xl text-white/60 px-6">
-            한 번의 결제로 평생 간직할 수 있는 <br className="md:hidden" /> <span className="md:inline text-[#60a5fa]">나만의 사주 분석 리포트</span>
+            한 번의 결제로 평생 간직할 수 있는 <br className="md:hidden" /> <span className="md:inline text-background">나만의 사주 분석 리포트</span>
           </p>
         </motion.div>
 
@@ -49,13 +49,13 @@ export default function Pricing() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mx-auto max-w-md"
         >
-          <div className="relative overflow-hidden rounded-3xl border-2 border-[#3b82f6]/30 bg-white/5 backdrop-blur-xl p-8 shadow-[0_16px_48px_rgba(59,130,246,0.3)] md:p-10">
+          <div className="relative overflow-hidden rounded-3xl border-2 border-terracotta/30 bg-white/10 backdrop-blur-xl p-8 shadow-[0_16px_48px_rgba(198,123,92,0.3)] md:p-10">
             {/* Badges */}
             <div className="absolute right-4 top-4 md:right-6 md:top-6 flex flex-col items-center gap-1.5 md:gap-2">
-              <span className="rounded-full bg-[#3b82f6]/20 backdrop-blur-md border border-[#60a5fa]/30 px-2 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-medium text-[#60a5fa] text-center">
+              <span className="rounded-full bg-terracotta/30 backdrop-blur-md border border-terracotta px-2 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-medium text-background text-center">
                 BEST
               </span>
-              <span className="rounded-full bg-orange-500/20 backdrop-blur-md border border-orange-400/30 px-2 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-bold text-orange-400 text-center">
+              <span className="rounded-full backdrop-blur-md border px-2 py-0.5 md:px-3 md:py-1 text-[10px] md:text-xs font-bold text-background text-center" style={{ backgroundColor: 'rgba(44, 22, 1, 0.3)', borderColor: '#2c1601' }}>
                 30명 한정
               </span>
             </div>
@@ -94,7 +94,7 @@ export default function Pricing() {
               ].map((item, index) => (
                 <li key={index} className="flex items-start gap-3">
                   <svg
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#60a5fa]"
+                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-terracotta"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -113,7 +113,7 @@ export default function Pricing() {
 
             <Link
               href="/analysis"
-              className="block w-full rounded-full border border-white/10 bg-white/10 backdrop-blur-lg py-4 text-center font-medium text-white shadow-[0_8px_32px_rgba(59,130,246,0.3)] transition-all duration-300 hover:bg-white/20 hover:shadow-[0_8px_32px_rgba(59,130,246,0.5)] hover:border-[#3b82f6]/30"
+              className="block w-full rounded-full border border-terracotta/30 bg-terracotta/20 backdrop-blur-lg py-4 text-center font-medium text-white shadow-[0_8px_32px_rgba(198,123,92,0.4)] transition-all duration-300 hover:bg-terracotta/30 hover:shadow-[0_12px_40px_rgba(198,123,92,0.6)] hover:border-terracotta/50"
             >
               지금 신청하기
             </Link>

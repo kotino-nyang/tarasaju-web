@@ -160,14 +160,14 @@ export default function AnalysisPage() {
         <>
             <Header />
             <main
-                className="relative min-h-screen overflow-hidden bg-[#050d1a] pt-32 pb-20 font-light text-white antialiased"
+                className="relative min-h-screen overflow-hidden bg-background pt-32 pb-20 font-light text-foreground antialiased"
             >
                 {/* Background gradients */}
                 <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
                         background:
-                            "radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.1) 0%, rgba(5, 13, 26, 0) 80%)",
+                            "radial-gradient(circle at 50% 30%, rgba(198, 123, 92, 0.08) 0%, rgba(242, 238, 233, 0) 80%)",
                     }}
                 />
 
@@ -191,55 +191,55 @@ export default function AnalysisPage() {
                         {/* Right: Product Details & Actions */}
                         <div className="w-full lg:w-2/3 flex flex-col justify-center">
                             <div className="mb-2">
-                                <span className="inline-block rounded-full border border-[#60a5fa]/30 bg-[#3b82f6]/20 px-3 py-1 text-xs font-medium text-[#60a5fa]">
+                                <span className="inline-block rounded-full border border-terracotta/30 bg-terracotta/10 px-3 py-1 text-xs font-medium text-terracotta">
                                     BEST
                                 </span>
-                                <span className="ml-2 inline-block rounded-full border border-red-400/30 bg-red-500/20 px-3 py-1 text-xs font-medium text-red-400">
+                                <span className="ml-2 inline-block rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-xs font-medium text-red-400">
                                     30명 한정 특가
                                 </span>
                             </div>
-                            <h1 className="text-xl md:text-4xl font-light mb-2 text-white">
-                                [불만족시 100%환불] <span className="font-bold text-white">종합사주분석</span>
+                            <h1 className="text-xl md:text-4xl font-light mb-2 text-foreground">
+                                [불만족시 100%환불] <span className="font-bold text-foreground">종합사주분석</span>
                             </h1>
                             <div className="flex items-end gap-3 mb-8">
-                                <span className="text-lg text-white/40 line-through">64,500원</span>
-                                <p className="text-3xl font-bold text-[#60a5fa]">29,800원</p>
+                                <span className="text-lg text-foreground/40 line-through">64,500원</span>
+                                <p className="text-3xl font-bold text-terracotta">29,800원</p>
                             </div>
 
                             {/* Options */}
                             <div className="space-y-4 mb-6">
                                 {/* 기본 1인 */}
-                                <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 shadow-[0_8px_32px_rgba(59,130,246,0.1)]">
+                                <div className="rounded-xl border border-woody-brown/10 bg-white shadow-sm p-4">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="text-sm font-medium text-white">종합사주분석 1인</p>
-                                            <p className="text-xs text-white/50 mt-1">29,800원</p>
+                                            <p className="text-sm font-medium text-foreground">종합사주분석 1인</p>
+                                            <p className="text-xs text-foreground/50 mt-1">29,800원</p>
                                         </div>
-                                        <div className="rounded-lg border border-white/10 bg-white/10 px-4 py-2">
-                                            <span className="text-white font-medium">1</span>
+                                        <div className="rounded-lg border border-woody-brown/10 bg-sub-background px-4 py-2">
+                                            <span className="text-foreground font-medium">1</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* 추가 인원 */}
-                                <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 shadow-[0_8px_32px_rgba(59,130,246,0.1)]">
+                                <div className="rounded-xl border border-woody-brown/10 bg-white shadow-sm p-4">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="text-sm font-medium text-white">종합사주분석 1인 추가</p>
-                                            <p className="text-xs text-white/50 mt-1">+24,500원 / 1인</p>
+                                            <p className="text-sm font-medium text-foreground">종합사주분석 1인 추가</p>
+                                            <p className="text-xs text-foreground/50 mt-1">+24,500원 / 1인</p>
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <button
                                                 onClick={() => setAdditionalQuantity(Math.max(0, additionalQuantity - 1))}
-                                                className="w-8 h-8 rounded-lg border border-white/10 bg-white/10 text-white hover:bg-white/20 transition-colors disabled:opacity-30"
+                                                className="w-8 h-8 rounded-lg border border-woody-brown/10 bg-sub-background text-foreground hover:bg-japandi-border transition-colors disabled:opacity-30"
                                                 disabled={additionalQuantity === 0}
                                             >
                                                 -
                                             </button>
-                                            <span className="w-8 text-center text-white font-medium">{additionalQuantity}</span>
+                                            <span className="w-8 text-center text-foreground font-medium">{additionalQuantity}</span>
                                             <button
                                                 onClick={() => setAdditionalQuantity(additionalQuantity + 1)}
-                                                className="w-8 h-8 rounded-lg border border-white/10 bg-white/10 text-white hover:bg-white/20 transition-colors"
+                                                className="w-8 h-8 rounded-lg border border-woody-brown/10 bg-sub-background text-foreground hover:bg-japandi-border transition-colors"
                                             >
                                                 +
                                             </button>
@@ -248,14 +248,14 @@ export default function AnalysisPage() {
                                 </div>
 
                                 {/* 총 금액 표시 */}
-                                <div className="rounded-xl border border-[#3b82f6]/30 bg-[#3b82f6]/10 p-4 shadow-[0_8px_32px_rgba(59,130,246,0.2)]">
+                                <div className="rounded-xl border border-terracotta/30 bg-terracotta/5 p-4 shadow-sm">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="text-sm font-medium text-white">총 {totalPeople}명</p>
-                                            <p className="text-xs text-white/70 mt-1">분석 대상 인원</p>
+                                            <p className="text-sm font-medium text-foreground">총 {totalPeople}명</p>
+                                            <p className="text-xs text-foreground/70 mt-1">분석 대상 인원</p>
                                         </div>
                                         <div className="text-right">
-                                            <p className="text-xl font-bold text-[#60a5fa]">{totalPrice.toLocaleString()}원</p>
+                                            <p className="text-xl font-bold text-terracotta">{totalPrice.toLocaleString()}원</p>
                                         </div>
                                     </div>
                                 </div>
@@ -268,13 +268,13 @@ export default function AnalysisPage() {
                             <div className="flex gap-4">
                                 <button
                                     onClick={handleAddToCart}
-                                    className="flex-1 rounded-full border border-white/20 bg-white/10 px-6 py-4 font-medium text-white backdrop-blur-md transition-all duration-200 hover:border-white/30 hover:bg-white/20 hover:shadow-[0_4px_16px_rgba(255,255,255,0.1)]"
+                                    className="flex-1 rounded-full border border-woody-brown/20 bg-white px-6 py-4 font-medium text-foreground shadow-sm transition-all duration-200 hover:border-woody-brown/40 hover:bg-sub-background"
                                 >
                                     장바구니
                                 </button>
                                 <button
                                     onClick={handlePurchase}
-                                    className="flex-1 rounded-full bg-blue-600 px-6 py-4 font-medium text-white transition-all duration-200 hover:bg-blue-700 hover:shadow-[0_8px_32px_rgba(59,130,246,0.3)] shadow-sm"
+                                    className="flex-1 rounded-full bg-terracotta px-6 py-4 font-medium text-white shadow-sm transition-all duration-200 hover:bg-terracotta/90 hover:shadow-md"
                                 >
                                     구매하기
                                 </button>
@@ -285,14 +285,14 @@ export default function AnalysisPage() {
                     {/* Bottom Section: Tabs & Content */}
                     <div className="w-full">
                         {/* Tabs Navigation */}
-                        <div className="sticky top-20 z-10 flex border-b border-white/10 bg-[#050d1a]/80 backdrop-blur-md mb-8">
+                        <div className="sticky top-16 z-10 flex border-b border-woody-brown/10 bg-white/90 backdrop-blur-md mb-8">
                             {["detail", "reviews", "qna"].map((tab) => (
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab)}
                                     className={`flex-1 px-4 py-4 text-sm md:text-base font-medium transition-all duration-300 ${activeTab === tab
-                                        ? "border-b-2 border-[#60a5fa] text-[#60a5fa]"
-                                        : "text-white/40 hover:text-white/60"
+                                        ? "border-b-2 border-terracotta text-terracotta"
+                                        : "text-foreground/40 hover:text-foreground/60"
                                         }`}
                                 >
                                     {tab === "detail" && "상세정보"}
@@ -347,12 +347,12 @@ export default function AnalysisPage() {
                             {activeTab === "reviews" && (
                                 <div className="animate-in fade-in duration-300">
                                     {reviews.length === 0 ? (
-                                        <div className="py-12 text-center text-white/50 bg-white/5 rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.2)]">
-                                            <p className="mb-2 text-lg font-medium text-white/80">등록된 구매평이 없습니다.</p>
+                                        <div className="py-12 text-center text-foreground/50 bg-white rounded-2xl border border-woody-brown/10 shadow-sm">
+                                            <p className="mb-2 text-lg font-medium text-foreground/80">등록된 구매평이 없습니다.</p>
                                             <p className="mb-6 text-sm">첫 번째 구매평을 남겨주세요!</p>
                                             <button
                                                 onClick={() => setShowReviewModal(true)}
-                                                className="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-white/20"
+                                                className="rounded-full border border-woody-brown/20 bg-white px-6 py-3 text-sm font-medium text-foreground transition-all hover:bg-sub-background"
                                             >
                                                 구매평 작성
                                             </button>
@@ -362,19 +362,19 @@ export default function AnalysisPage() {
                                             <div className="mb-4 flex justify-end">
                                                 <button
                                                     onClick={() => setShowReviewModal(true)}
-                                                    className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-blue-700 hover:shadow-[0_4px_16px_rgba(59,130,246,0.3)] shadow-sm"
+                                                    className="rounded-full bg-terracotta px-6 py-2 text-sm font-medium text-white transition-all hover:bg-terracotta/90"
                                                 >
                                                     구매평 작성
                                                 </button>
                                             </div>
                                             <div className="space-y-4">
                                                 {reviews.map((review: any) => (
-                                                    <div key={review.id} className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 shadow-[0_8px_32px_rgba(59,130,246,0.1)] transition-all hover:bg-white/10">
+                                                    <div key={review.id} className="rounded-2xl border border-woody-brown/10 bg-white p-6 shadow-sm transition-all hover:bg-sub-background">
                                                         <div className="flex gap-4 mb-3">
                                                             <div className="flex-1">
                                                                 <div className="flex items-start justify-between mb-2">
-                                                                    <p className="font-medium text-white/90">{review.orders?.customer_name?.charAt(0)}**</p>
-                                                                    <span className="text-xs text-white/40">
+                                                                    <p className="font-medium text-foreground/90">{review.orders?.customer_name?.charAt(0)}**</p>
+                                                                    <span className="text-xs text-foreground/40">
                                                                         {new Date(review.created_at).toLocaleDateString("ko-KR")}
                                                                     </span>
                                                                 </div>
@@ -382,7 +382,7 @@ export default function AnalysisPage() {
                                                                     {[1, 2, 3, 4, 5].map((star) => (
                                                                         <svg
                                                                             key={star}
-                                                                            className={`w-4 h-4 ${star <= review.rating ? "text-yellow-400" : "text-white/20"}`}
+                                                                            className={`w-4 h-4 ${star <= review.rating ? "text-terracotta" : "text-woody-brown/10"}`}
                                                                             fill="currentColor"
                                                                             viewBox="0 0 20 20"
                                                                         >
@@ -390,22 +390,22 @@ export default function AnalysisPage() {
                                                                         </svg>
                                                                     ))}
                                                                 </div>
-                                                                <p className="text-white/70 whitespace-pre-wrap text-sm leading-relaxed">{review.content}</p>
+                                                                <p className="text-foreground/70 whitespace-pre-wrap text-sm leading-relaxed">{review.content}</p>
                                                             </div>
                                                             {review.image_url && (
                                                                 <div className="flex-shrink-0">
                                                                     <img
                                                                         src={review.image_url}
                                                                         alt="Review"
-                                                                        className="w-24 h-24 object-cover rounded-xl border border-white/10"
+                                                                        className="w-24 h-24 object-cover rounded-xl border border-woody-brown/10"
                                                                     />
                                                                 </div>
                                                             )}
                                                         </div>
                                                         {review.admin_reply && (
-                                                            <div className="mt-3 rounded-xl bg-blue-500/10 border border-[#3b82f6]/30 p-4">
-                                                                <p className="text-sm font-medium text-[#60a5fa] mb-1">관리자 답변</p>
-                                                                <p className="text-sm text-white/70 whitespace-pre-wrap leading-relaxed">{review.admin_reply}</p>
+                                                            <div className="mt-3 rounded-xl bg-terracotta/5 border border-terracotta/20 p-4">
+                                                                <p className="text-sm font-medium text-terracotta mb-1">관리자 답변</p>
+                                                                <p className="text-sm text-foreground/70 whitespace-pre-wrap leading-relaxed">{review.admin_reply}</p>
                                                             </div>
                                                         )}
                                                     </div>
@@ -419,12 +419,12 @@ export default function AnalysisPage() {
                             {activeTab === "qna" && (
                                 <div className="animate-in fade-in duration-300">
                                     {qnaList.length === 0 ? (
-                                        <div className="py-12 text-center text-white/50 bg-white/5 rounded-2xl border border-white/10 shadow-[0_8px_32px_rgba(59,130,246,0.2)]">
-                                            <p className="mb-2 text-lg font-medium text-white/80">등록된 Q&A가 없습니다.</p>
+                                        <div className="py-12 text-center text-foreground/50 bg-white rounded-2xl border border-woody-brown/10 shadow-sm">
+                                            <p className="mb-2 text-lg font-medium text-foreground/80">등록된 Q&A가 없습니다.</p>
                                             <p className="mb-6 text-sm">궁금한 점이 있다면 문의해주세요.</p>
                                             <button
                                                 onClick={() => setShowQnAModal(true)}
-                                                className="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-white/20"
+                                                className="rounded-full border border-woody-brown/20 bg-white px-6 py-3 text-sm font-medium text-foreground transition-all hover:bg-sub-background"
                                             >
                                                 상품문의
                                             </button>
@@ -434,7 +434,7 @@ export default function AnalysisPage() {
                                             <div className="mb-4 flex justify-end">
                                                 <button
                                                     onClick={() => setShowQnAModal(true)}
-                                                    className="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-blue-700 hover:shadow-[0_4px_16px_rgba(59,130,246,0.3)] shadow-sm"
+                                                    className="rounded-full bg-terracotta px-6 py-2 text-sm font-medium text-white transition-all hover:bg-terracotta/90"
                                                 >
                                                     상품문의
                                                 </button>
@@ -445,41 +445,41 @@ export default function AnalysisPage() {
                                                     return (
                                                         <div
                                                             key={qna.id}
-                                                            className={`rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 shadow-[0_8px_32px_rgba(59,130,246,0.1)] transition-all ${isLocked ? "cursor-pointer hover:border-[#3b82f6]/50 hover:bg-white/10" : ""}`}
+                                                            className={`rounded-2xl border border-woody-brown/10 bg-white p-6 shadow-sm transition-all ${isLocked ? "cursor-pointer hover:border-terracotta/50 hover:bg-sub-background" : ""}`}
                                                             onClick={() => isLocked && handleQnAClick(qna)}
                                                         >
                                                             <div className="flex items-start justify-between mb-3">
                                                                 <div className="flex items-center gap-2">
-                                                                    <p className="font-medium text-white/90">{qna.author_name?.charAt(0)}**</p>
+                                                                    <p className="font-medium text-foreground/90">{qna.author_name?.charAt(0)}**</p>
                                                                     {!qna.is_public && (
-                                                                        <svg className="w-4 h-4 text-white/30" fill="currentColor" viewBox="0 0 20 20">
+                                                                        <svg className="w-4 h-4 text-foreground/30" fill="currentColor" viewBox="0 0 20 20">
                                                                             <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                                                                         </svg>
                                                                     )}
-                                                                    <span className="text-xs text-white/40">
+                                                                    <span className="text-xs text-foreground/40">
                                                                         {new Date(qna.created_at).toLocaleDateString("ko-KR")}
                                                                     </span>
                                                                 </div>
                                                                 {qna.is_answered ? (
-                                                                    <span className="rounded-full bg-green-500/20 border border-green-500/30 px-3 py-1 text-xs font-medium text-green-400">
+                                                                    <span className="rounded-full bg-sage/10 border border-sage/20 px-3 py-1 text-xs font-medium text-sage">
                                                                         답변완료
                                                                     </span>
                                                                 ) : (
-                                                                    <span className="rounded-full bg-white/10 border border-white/10 px-3 py-1 text-xs font-medium text-white/40">
+                                                                    <span className="rounded-full bg-woody-brown/10 border border-woody-brown/10 px-3 py-1 text-xs font-medium text-woody-brown/40">
                                                                         답변대기
                                                                     </span>
                                                                 )}
                                                             </div>
 
                                                             <div className="mb-3">
-                                                                <p className="text-xs font-medium text-white/30 mb-1">질문</p>
-                                                                <p className="text-white/70 whitespace-pre-wrap text-sm leading-relaxed">{qna.question}</p>
+                                                                <p className="text-xs font-medium text-foreground/30 mb-1">질문</p>
+                                                                <p className="text-foreground/70 whitespace-pre-wrap text-sm leading-relaxed">{qna.question}</p>
                                                             </div>
 
                                                             {!isLocked && qna.answer && (
-                                                                <div className="rounded-xl bg-green-500/10 border border-green-500/30 p-4">
-                                                                    <p className="text-sm font-medium text-green-400 mb-1">답변</p>
-                                                                    <p className="text-sm text-white/70 whitespace-pre-wrap leading-relaxed">{qna.answer}</p>
+                                                                <div className="rounded-xl bg-sage/5 border border-sage/20 p-4">
+                                                                    <p className="text-sm font-medium text-sage mb-1">답변</p>
+                                                                    <p className="text-foreground/70 whitespace-pre-wrap text-sm leading-relaxed">{qna.answer}</p>
                                                                 </div>
                                                             )}
                                                         </div>
@@ -517,15 +517,15 @@ export default function AnalysisPage() {
 
             {/* Password Modal for Private Q&A */}
             {passwordModal.show && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-                    <div className="relative w-full max-w-md rounded-3xl bg-[#0f172a] border border-white/10 p-8 shadow-[0_8px_32px_rgba(59,130,246,0.3)]">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="relative w-full max-w-md rounded-3xl bg-white border border-woody-brown/10 p-8 shadow-xl">
                         <button
                             onClick={() => {
                                 setPasswordModal({ show: false, qna: null });
                                 setPasswordInput("");
                                 setPasswordError("");
                             }}
-                            className="absolute top-6 right-6 text-white/20 hover:text-white/40 transition-colors"
+                            className="absolute top-6 right-6 text-foreground/20 hover:text-foreground/40 transition-colors"
                         >
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -533,13 +533,13 @@ export default function AnalysisPage() {
                         </button>
 
                         <div className="text-center mb-8">
-                            <div className="w-16 h-16 bg-[#3b82f6]/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#3b82f6]/30">
-                                <svg className="w-8 h-8 text-[#60a5fa]" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="w-16 h-16 bg-terracotta/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-terracotta/20">
+                                <svg className="w-8 h-8 text-terracotta" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                                 </svg>
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2">비공개 문의</h3>
-                            <p className="text-sm text-white/50 leading-relaxed">
+                            <h3 className="text-xl font-bold text-foreground mb-2">비공개 문의</h3>
+                            <p className="text-sm text-foreground/50 leading-relaxed">
                                 이 문의는 비밀번호로 보호되어 있습니다.<br />
                                 설정하신 비밀번호를 입력해주세요.
                             </p>
@@ -547,7 +547,7 @@ export default function AnalysisPage() {
 
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm font-medium text-white/70 mb-2">
+                                <label className="block text-sm font-medium text-foreground/70 mb-2">
                                     비밀번호
                                 </label>
                                 <input
@@ -563,7 +563,7 @@ export default function AnalysisPage() {
                                         }
                                     }}
                                     placeholder="비밀번호를 입력하세요"
-                                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/20 focus:border-[#3b82f6]/50 focus:outline-none focus:ring-1 focus:ring-[#3b82f6]/50 transition-all"
+                                    className="w-full rounded-xl border border-woody-brown/10 bg-sub-background px-4 py-3 text-foreground placeholder:text-foreground/20 focus:border-terracotta/50 focus:outline-none focus:ring-1 focus:ring-terracotta/50 transition-all font-mono"
                                     autoFocus
                                 />
                                 {passwordError && (
@@ -579,14 +579,14 @@ export default function AnalysisPage() {
                                         setPasswordInput("");
                                         setPasswordError("");
                                     }}
-                                    className="flex-1 rounded-full border border-white/20 bg-white/5 px-4 py-3 text-sm font-medium text-white transition-all hover:bg-white/10"
+                                    className="flex-1 rounded-full border border-woody-brown/20 bg-white px-4 py-3 text-sm font-medium text-foreground transition-all hover:bg-sub-background"
                                 >
                                     취소
                                 </button>
                                 <button
                                     type="button"
                                     onClick={handlePasswordSubmit}
-                                    className="flex-1 rounded-full bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-all hover:bg-blue-700 hover:shadow-[0_8px_32px_rgba(59,130,246,0.3)] shadow-sm"
+                                    className="flex-1 rounded-full bg-terracotta px-4 py-3 text-sm font-medium text-white transition-all hover:bg-terracotta/90"
                                 >
                                     확인
                                 </button>

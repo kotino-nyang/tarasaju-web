@@ -33,9 +33,9 @@ export default function AuthPage() {
 
     return (
         <section
-            className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#050d1a] font-light text-white antialiased"
+            className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background font-light text-foreground antialiased"
             style={{
-                background: "linear-gradient(135deg, #050d1a 0%, #0f172a 100%)",
+                background: "linear-gradient(135deg, #F2EEE9 0%, #E5DED5 100%)",
             }}
         >
             {/* Background gradients */}
@@ -43,43 +43,16 @@ export default function AuthPage() {
                 className="absolute right-0 top-0 h-1/2 w-1/2"
                 style={{
                     background:
-                        "radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.2) 0%, rgba(5, 13, 26, 0) 60%)",
+                        "radial-gradient(circle at 70% 30%, rgba(198, 123, 92, 0.1) 0%, rgba(242, 238, 233, 0) 60%)",
                 }}
             />
             <div
                 className="absolute left-0 top-0 h-1/2 w-1/2 -scale-x-100"
                 style={{
                     background:
-                        "radial-gradient(circle at 70% 30%, rgba(59, 130, 246, 0.2) 0%, rgba(5, 13, 26, 0) 60%)",
+                        "radial-gradient(circle at 70% 30%, rgba(198, 123, 92, 0.1) 0%, rgba(242, 238, 233, 0) 60%)",
                 }}
             />
-
-            {/* Floating stars decoration */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {[...Array(20)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className="absolute"
-                        style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                        }}
-                        animate={{
-                            opacity: [0.2, 0.8, 0.2],
-                            scale: [1, 1.2, 1],
-                        }}
-                        transition={{
-                            duration: 3 + Math.random() * 2,
-                            repeat: Infinity,
-                            delay: Math.random() * 2,
-                        }}
-                    >
-                        <svg width="4" height="4" viewBox="0 0 4 4">
-                            <circle cx="2" cy="2" r="1" fill="#3b82f6" />
-                        </svg>
-                    </motion.div>
-                ))}
-            </div>
 
             {/* Main content */}
             <div className="relative z-10 w-full max-w-md px-4">
@@ -87,7 +60,7 @@ export default function AuthPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-[0_8px_32px_rgba(59,130,246,0.2)] md:p-10"
+                    className="rounded-3xl border border-woody-brown/10 bg-white/70 backdrop-blur-xl p-8 shadow-[0_8px_32px_rgba(44,22,1,0.05)] md:p-10"
                 >
                     {/* Logo */}
                     <Link
@@ -95,25 +68,24 @@ export default function AuthPage() {
                         className="mb-8 flex justify-center transition-opacity duration-200 hover:opacity-80"
                     >
                         <img
-                            src="https://i.imgur.com/x2I0GIX.png"
+                            src="/logo_brown.png"
                             alt="타라사주 로고"
                             className="h-16 w-auto"
                             onError={(e) => {
-                                e.currentTarget.src = "https://i.imgur.com/x2I0GIX.jpg";
+                                e.currentTarget.src = "/logo_brown.png";
                             }}
                         />
                     </Link>
 
                     {/* Welcome text */}
                     <div className="mb-8 text-center">
-                        <h1 className="mb-2 text-2xl font-light md:text-3xl">
+                        <h1 className="mb-2 text-2xl font-light md:text-3xl text-foreground">
                             환영합니다
                         </h1>
-                        <p className="text-sm text-white/60 md:text-base">
+                        <p className="text-sm text-foreground/60 md:text-base">
                             간편하게 로그인하고 <br />
                             나만의 사주 분석을 시작하세요
                         </p>
-
                     </div>
 
                     {/* Login buttons */}
@@ -122,7 +94,7 @@ export default function AuthPage() {
                         <motion.button
                             onClick={handleGoogleLogin}
                             disabled={isLoading}
-                            className="flex items-center justify-center gap-3 rounded-full border border-white/20 bg-white/10 px-6 py-4 font-medium text-white backdrop-blur-md transition-all duration-200 hover:border-white/30 hover:bg-white/20 hover:shadow-[0_4px_16px_rgba(255,255,255,0.1)] disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center justify-center gap-3 rounded-full border border-terracotta/20 bg-white px-6 py-4 font-medium text-foreground shadow-sm transition-all duration-200 hover:border-terracotta/40 hover:bg-sub-background hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                             whileHover={{ scale: isLoading ? 1 : 1.02 }}
                             whileTap={{ scale: isLoading ? 1 : 0.98 }}
                         >
@@ -152,22 +124,21 @@ export default function AuthPage() {
                             </svg>
                             <span>Google로 시작하기</span>
                         </motion.button>
-
                     </div>
 
                     {/* Terms */}
-                    <p className="mt-8 text-center text-xs text-white/40">
+                    <p className="mt-8 text-center text-xs text-foreground/40">
                         로그인 시{" "}
                         <button
                             onClick={() => setShowTermsModal(true)}
-                            className="text-white/60 hover:text-white/80 underline cursor-pointer"
+                            className="text-foreground/60 hover:text-foreground underline cursor-pointer"
                         >
                             이용약관
                         </button>{" "}
                         및{" "}
                         <button
                             onClick={() => setShowPrivacyModal(true)}
-                            className="text-white/60 hover:text-white/80 underline cursor-pointer"
+                            className="text-foreground/60 hover:text-foreground underline cursor-pointer"
                         >
                             개인정보처리방침
                         </button>
@@ -185,7 +156,7 @@ export default function AuthPage() {
                 >
                     <Link
                         href="/"
-                        className="inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white"
+                        className="inline-flex items-center gap-2 text-sm text-foreground/60 transition-colors hover:text-foreground"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
